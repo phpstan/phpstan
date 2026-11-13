@@ -49,6 +49,12 @@ parameters:
 			path: repo/src/Symfony/Bridge/Doctrine/ContainerAwareEventManager.php
 
 		-
+			message: '#^Offset decimal\-int\-string does not exist on non\-empty\-list\<array\{array\<string\>, object\|string\}\>\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/src/Symfony/Bridge/Doctrine/ContainerAwareEventManager.php
+
+		-
 			message: '#^Offset string does not exist on list\<array\{array\<string\>, object\|string\}\>\.$#'
 			identifier: offsetAccess.notFound
 			count: 3
@@ -69,18 +75,6 @@ parameters:
 			identifier: staticMethod.deprecated
 			count: 1
 			path: repo/src/Symfony/Bridge/Doctrine/DataCollector/DoctrineDataCollector.php
-
-		-
-			message: '#^Class Symfony\\Component\\Clock\\DayPoint not found\.$#'
-			identifier: class.notFound
-			count: 1
-			path: repo/src/Symfony/Bridge/Doctrine/DependencyInjection/CompilerPass/RegisterDatePointTypePass.php
-
-		-
-			message: '#^Class Symfony\\Component\\Clock\\TimePoint not found\.$#'
-			identifier: class.notFound
-			count: 1
-			path: repo/src/Symfony/Bridge/Doctrine/DependencyInjection/CompilerPass/RegisterDatePointTypePass.php
 
 		-
 			message: '#^Call to an undefined method Symfony\\Component\\Config\\Definition\\Builder\\NodeDefinition\:\:children\(\)\.$#'
@@ -292,6 +286,18 @@ parameters:
 			identifier: function.alreadyNarrowedType
 			count: 1
 			path: repo/src/Symfony/Bridge/Doctrine/SchemaListener/LockStoreSchemaListener.php
+
+		-
+			message: '#^Call to function method_exists\(\) with Doctrine\\DBAL\\Schema\\Schema and ''edit'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/src/Symfony/Bridge/Doctrine/SchemaListener/MessengerInboxDoctrineSchemaListener.php
+
+		-
+			message: '#^Call to function method_exists\(\) with Doctrine\\ORM\\Tools\\Event\\GenerateSchemaEventArgs and ''setSchema'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/src/Symfony/Bridge/Doctrine/SchemaListener/MessengerInboxDoctrineSchemaListener.php
 
 		-
 			message: '#^Call to function method_exists\(\) with Doctrine\\DBAL\\Schema\\Schema and ''edit'' will always evaluate to true\.$#'
@@ -597,6 +603,18 @@ parameters:
 			path: repo/src/Symfony/Bridge/PhpUnit/ExpectUserDeprecationMessageTrait.php
 
 		-
+			message: '#^Call to an undefined method PHPUnit\\Event\\Emitter\:\:testRunnerTriggeredWarning\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: repo/src/Symfony/Bridge/PhpUnit/Extension/RecorderSubscriber.php
+
+		-
+			message: '#^Call to function method_exists\(\) with PHPUnit\\Event\\Emitter and ''testRunnerTriggered…'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/src/Symfony/Bridge/PhpUnit/Extension/RecorderSubscriber.php
+
+		-
 			message: '#^Call to an undefined method Symfony\\Bridge\\PhpUnit\\SymfonyTestsListener\:\:globalListenerDisabled\(\)\.$#'
 			identifier: method.notFound
 			count: 1
@@ -822,6 +840,12 @@ parameters:
 			path: repo/src/Symfony/Bridge/PhpUnit/bin/simple-phpunit.php
 
 		-
+			message: '#^Call to function method_exists\(\) with Symfony\\Component\\Console\\Completion\\CompletionSuggestions and ''suggestPaths'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/src/Symfony/Bridge/Twig/Command/LintCommand.php
+
+		-
 			message: '#^Call to function class_exists\(\) with ''Symfony\\\\Contracts\\\\Translation\\\\TranslatorInterface'' will always evaluate to false\.$#'
 			identifier: function.impossibleType
 			count: 1
@@ -850,12 +874,6 @@ parameters:
 			identifier: booleanAnd.leftAlwaysTrue
 			count: 1
 			path: repo/src/Symfony/Bridge/Twig/Node/DumpNode.php
-
-		-
-			message: '#^Call to an undefined method Twig\\Node\\Node\:\:getKeyValuePairs\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: repo/src/Symfony/Bridge/Twig/Node/SearchAndRenderBlockNode.php
 
 		-
 			message: '#^Parameter \$var of method Symfony\\Bridge\\Twig\\Node\\StopwatchNode\:\:__construct\(\) has invalid type Twig\\Node\\Expression\\AssignNameExpression\.$#'
@@ -956,6 +974,12 @@ parameters:
 		-
 			message: '#^Call to an undefined method Symfony\\Component\\Console\\Application\:\:getKernel\(\)\.$#'
 			identifier: method.notFound
+			count: 1
+			path: repo/src/Symfony/Bundle/FrameworkBundle/Command/AssetsInstallCommand.php
+
+		-
+			message: '#^Call to function method_exists\(\) with Symfony\\Component\\Console\\Completion\\CompletionSuggestions and ''suggestDirectories'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
 			count: 1
 			path: repo/src/Symfony/Bundle/FrameworkBundle/Command/AssetsInstallCommand.php
 
@@ -1121,6 +1145,12 @@ parameters:
 		-
 			message: '#^Call to an undefined method Symfony\\Component\\Console\\Application\:\:getKernel\(\)\.$#'
 			identifier: method.notFound
+			count: 1
+			path: repo/src/Symfony/Bundle/FrameworkBundle/Command/DebugAutoconfigurationCommand.php
+
+		-
+			message: '#^Call to an undefined method Symfony\\Component\\Console\\Application\:\:getKernel\(\)\.$#'
+			identifier: method.notFound
 			count: 3
 			path: repo/src/Symfony/Bundle/FrameworkBundle/Command/DebugAutowiringCommand.php
 
@@ -1159,6 +1189,12 @@ parameters:
 			identifier: if.alwaysFalse
 			count: 1
 			path: repo/src/Symfony/Bundle/FrameworkBundle/Command/RouterMatchCommand.php
+
+		-
+			message: '#^Call to function method_exists\(\) with Symfony\\Component\\Console\\Completion\\CompletionSuggestions and ''suggestPaths'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/src/Symfony/Bundle/FrameworkBundle/Command/SecretsSetCommand.php
 
 		-
 			message: '#^Variable \$value might not be defined\.$#'
@@ -1299,12 +1335,6 @@ parameters:
 			message: '#^If condition is always false\.$#'
 			identifier: if.alwaysFalse
 			count: 1
-			path: repo/src/Symfony/Bundle/FrameworkBundle/DependencyInjection/Compiler/AddValidatorSecurityExpressionLanguageProviderPass.php
-
-		-
-			message: '#^If condition is always false\.$#'
-			identifier: if.alwaysFalse
-			count: 1
 			path: repo/src/Symfony/Bundle/FrameworkBundle/DependencyInjection/Compiler/AssetsContextPass.php
 
 		-
@@ -1315,12 +1345,6 @@ parameters:
 			identifier: classConstant.deprecatedClass
 			count: 1
 			path: repo/src/Symfony/Bundle/FrameworkBundle/DependencyInjection/Compiler/JsonPathPass.php
-
-		-
-			message: '#^Parameter \#1 \$array of function sort contains unresolvable type\.$#'
-			identifier: argument.unresolvableType
-			count: 1
-			path: repo/src/Symfony/Bundle/FrameworkBundle/DependencyInjection/Compiler/PhpConfigReferenceDumpPass.php
 
 		-
 			message: '#^If condition is always false\.$#'
@@ -1340,12 +1364,6 @@ parameters:
 				since Symfony 8\.2, use the \#\[AsRouteLoader\] attribute instead$#
 			'''
 			identifier: classConstant.deprecatedInterface
-			count: 1
-			path: repo/src/Symfony/Bundle/FrameworkBundle/DependencyInjection/FrameworkExtension.php
-
-		-
-			message: '#^Parameter \#2 \$configurator of method Symfony\\Component\\DependencyInjection\\ContainerBuilder\:\:registerAttributeForAutoconfiguration\(\) expects callable\(Symfony\\Component\\DependencyInjection\\ChildDefinition, Symfony\\Component\\Routing\\Attribute\\Route, Reflector\)\: void, Closure\(Symfony\\Component\\DependencyInjection\\ChildDefinition, Symfony\\Component\\Routing\\Attribute\\Route, ReflectionClass\|ReflectionMethod\)\: void given\.$#'
-			identifier: argument.type
 			count: 1
 			path: repo/src/Symfony/Bundle/FrameworkBundle/DependencyInjection/FrameworkExtension.php
 
@@ -1376,13 +1394,13 @@ parameters:
 		-
 			message: '#^Call to an undefined method Symfony\\Component\\HttpKernel\\HttpKernelInterface\:\:boot\(\)\.$#'
 			identifier: method.notFound
-			count: 3
+			count: 4
 			path: repo/src/Symfony/Bundle/FrameworkBundle/KernelBrowser.php
 
 		-
 			message: '#^Call to an undefined method Symfony\\Component\\HttpKernel\\HttpKernelInterface\:\:getContainer\(\)\.$#'
 			identifier: method.notFound
-			count: 1
+			count: 3
 			path: repo/src/Symfony/Bundle/FrameworkBundle/KernelBrowser.php
 
 		-
@@ -1431,11 +1449,8 @@ parameters:
 			path: repo/src/Symfony/Bundle/FrameworkBundle/Routing/Attribute/AsRoutingConditionService.php
 
 		-
-			message: '''
-				#^Access to constant on deprecated class Symfony\\Bundle\\FrameworkBundle\\Routing\\AttributeRouteControllerLoader\:
-				since Symfony 8\.2, use Symfony\\Component\\Routing\\Loader\\AttributeRouteControllerLoader instead$#
-			'''
-			identifier: classConstant.deprecatedClass
+			message: '#^If condition is always false\.$#'
+			identifier: if.alwaysFalse
 			count: 1
 			path: repo/src/Symfony/Bundle/FrameworkBundle/Routing/AttributeRouteControllerLoader.php
 
@@ -1662,6 +1677,15 @@ parameters:
 			path: repo/src/Symfony/Bundle/SecurityBundle/LoginLink/FirewallAwareLoginLinkHandler.php
 
 		-
+			message: '''
+				#^Access to constant on deprecated class Symfony\\Bundle\\SecurityBundle\\Command\\SecurityRoleHierarchyDumpCommand\:
+				since Symfony 8\.2, use the "debug\:roles \-\-format\=mermaid" command instead$#
+			'''
+			identifier: classConstant.deprecatedClass
+			count: 1
+			path: repo/src/Symfony/Bundle/SecurityBundle/Resources/config/security_role_hierarchy_dump_command.php
+
+		-
 			message: '#^Method Symfony\\Bundle\\SecurityBundle\\Security\\FirewallMap\:\:getListeners\(\) should return array\{iterable\<Symfony\\Component\\Security\\Http\\Firewall\\FirewallListenerInterface\>, Symfony\\Component\\Security\\Http\\Firewall\\ExceptionListener, Symfony\\Component\\Security\\Http\\Firewall\\LogoutListener\} but returns array\{array\{\}, null, null\}\.$#'
 			identifier: return.type
 			count: 1
@@ -1702,24 +1726,6 @@ parameters:
 			identifier: method.deprecated
 			count: 1
 			path: repo/src/Symfony/Bundle/TwigBundle/DependencyInjection/Compiler/TwigEnvironmentPass.php
-
-		-
-			message: '#^Parameter \#2 \$configurator of method Symfony\\Component\\DependencyInjection\\ContainerBuilder\:\:registerAttributeForAutoconfiguration\(\) expects callable\(Symfony\\Component\\DependencyInjection\\ChildDefinition, Twig\\Attribute\\AsTwigFilter, Reflector\)\: void, Closure\(Symfony\\Component\\DependencyInjection\\ChildDefinition, Twig\\Attribute\\AsTwigFilter\|Twig\\Attribute\\AsTwigFunction\|Twig\\Attribute\\AsTwigTest, ReflectionMethod\)\: void given\.$#'
-			identifier: argument.type
-			count: 1
-			path: repo/src/Symfony/Bundle/TwigBundle/DependencyInjection/TwigExtension.php
-
-		-
-			message: '#^Parameter \#2 \$configurator of method Symfony\\Component\\DependencyInjection\\ContainerBuilder\:\:registerAttributeForAutoconfiguration\(\) expects callable\(Symfony\\Component\\DependencyInjection\\ChildDefinition, Twig\\Attribute\\AsTwigFunction, Reflector\)\: void, Closure\(Symfony\\Component\\DependencyInjection\\ChildDefinition, Twig\\Attribute\\AsTwigFilter\|Twig\\Attribute\\AsTwigFunction\|Twig\\Attribute\\AsTwigTest, ReflectionMethod\)\: void given\.$#'
-			identifier: argument.type
-			count: 1
-			path: repo/src/Symfony/Bundle/TwigBundle/DependencyInjection/TwigExtension.php
-
-		-
-			message: '#^Parameter \#2 \$configurator of method Symfony\\Component\\DependencyInjection\\ContainerBuilder\:\:registerAttributeForAutoconfiguration\(\) expects callable\(Symfony\\Component\\DependencyInjection\\ChildDefinition, Twig\\Attribute\\AsTwigTest, Reflector\)\: void, Closure\(Symfony\\Component\\DependencyInjection\\ChildDefinition, Twig\\Attribute\\AsTwigFilter\|Twig\\Attribute\\AsTwigFunction\|Twig\\Attribute\\AsTwigTest, ReflectionMethod\)\: void given\.$#'
-			identifier: argument.type
-			count: 1
-			path: repo/src/Symfony/Bundle/TwigBundle/DependencyInjection/TwigExtension.php
 
 		-
 			message: '#^Variable \$path might not be defined\.$#'
@@ -1764,6 +1770,12 @@ parameters:
 			path: repo/src/Symfony/Bundle/WebProfilerBundle/Profiler/CodeExtension.php
 
 		-
+			message: '#^Call to function method_exists\(\) with Symfony\\Component\\Console\\Completion\\CompletionSuggestions and ''suggestPaths'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/src/Symfony/Component/AssetMapper/Command/CompressAssetsCommand.php
+
+		-
 			message: '#^Parameter \#2 \$offset of function substr expects int, float given\.$#'
 			identifier: argument.type
 			count: 1
@@ -1798,6 +1810,12 @@ parameters:
 			identifier: return.unusedType
 			count: 1
 			path: repo/src/Symfony/Component/AssetMapper/Factory/MappedAssetFactory.php
+
+		-
+			message: '#^Match expression does not handle remaining value\: string$#'
+			identifier: match.unhandled
+			count: 1
+			path: repo/src/Symfony/Component/AssetMapper/ImportMap/ImportMapAuditor.php
 
 		-
 			message: '#^Closure invoked with 1 parameter, 0 required\.$#'
@@ -1872,7 +1890,7 @@ parameters:
 			path: repo/src/Symfony/Component/BrowserKit/Cookie.php
 
 		-
-			message: '#^Method Symfony\\Component\\Cache\\Adapter\\AbstractAdapter\:\:contractsGet\(\) never assigns null to &\$metadata so it can be removed from the by\-ref type\.$#'
+			message: '#^Method Symfony\\Component\\Cache\\Adapter\\AbstractAdapter\:\:doGet\(\) never assigns null to &\$metadata so it can be removed from the by\-ref type\.$#'
 			identifier: parameterByRef.unusedType
 			count: 1
 			path: repo/src/Symfony/Component/Cache/Adapter/AbstractAdapter.php
@@ -1890,19 +1908,13 @@ parameters:
 			path: repo/src/Symfony/Component/Cache/Adapter/AbstractAdapter.php
 
 		-
-			message: '#^Variable \$now might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: repo/src/Symfony/Component/Cache/Adapter/AbstractAdapter.php
-
-		-
 			message: '#^Variable \$v might not be defined\.$#'
 			identifier: variable.undefined
 			count: 1
 			path: repo/src/Symfony/Component/Cache/Adapter/AbstractAdapter.php
 
 		-
-			message: '#^Method Symfony\\Component\\Cache\\Adapter\\AbstractTagAwareAdapter\:\:contractsGet\(\) never assigns null to &\$metadata so it can be removed from the by\-ref type\.$#'
+			message: '#^Method Symfony\\Component\\Cache\\Adapter\\AbstractTagAwareAdapter\:\:doGet\(\) never assigns null to &\$metadata so it can be removed from the by\-ref type\.$#'
 			identifier: parameterByRef.unusedType
 			count: 1
 			path: repo/src/Symfony/Component/Cache/Adapter/AbstractTagAwareAdapter.php
@@ -1932,20 +1944,14 @@ parameters:
 			path: repo/src/Symfony/Component/Cache/Adapter/AbstractTagAwareAdapter.php
 
 		-
-			message: '#^Variable \$now might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: repo/src/Symfony/Component/Cache/Adapter/AbstractTagAwareAdapter.php
-
-		-
 			message: '#^Variable \$v might not be defined\.$#'
 			identifier: variable.undefined
 			count: 1
 			path: repo/src/Symfony/Component/Cache/Adapter/AbstractTagAwareAdapter.php
 
 		-
-			message: '#^If condition is always true\.$#'
-			identifier: if.alwaysTrue
+			message: '#^Left side of && is always true\.$#'
+			identifier: booleanAnd.leftAlwaysTrue
 			count: 1
 			path: repo/src/Symfony/Component/Cache/Adapter/ArrayAdapter.php
 
@@ -1956,7 +1962,7 @@ parameters:
 			path: repo/src/Symfony/Component/Cache/Adapter/ArrayAdapter.php
 
 		-
-			message: '#^Method Symfony\\Component\\Cache\\Adapter\\ChainAdapter\:\:contractsGet\(\) never assigns null to &\$metadata so it can be removed from the by\-ref type\.$#'
+			message: '#^Method Symfony\\Component\\Cache\\Adapter\\ChainAdapter\:\:doGet\(\) never assigns null to &\$metadata so it can be removed from the by\-ref type\.$#'
 			identifier: parameterByRef.unusedType
 			count: 1
 			path: repo/src/Symfony/Component/Cache/Adapter/ChainAdapter.php
@@ -1969,12 +1975,6 @@ parameters:
 
 		-
 			message: '#^Variable \$item might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: repo/src/Symfony/Component/Cache/Adapter/ChainAdapter.php
-
-		-
-			message: '#^Variable \$now might not be defined\.$#'
 			identifier: variable.undefined
 			count: 1
 			path: repo/src/Symfony/Component/Cache/Adapter/ChainAdapter.php
@@ -2055,19 +2055,13 @@ parameters:
 			path: repo/src/Symfony/Component/Cache/Adapter/ParameterNormalizer.php
 
 		-
-			message: '#^Parameter \#2 \$datetime of static method DateTimeImmutable\:\:createFromFormat\(\) expects string, int given\.$#'
-			identifier: argument.type
-			count: 1
-			path: repo/src/Symfony/Component/Cache/Adapter/ParameterNormalizer.php
-
-		-
 			message: '#^Method Symfony\\Component\\Cache\\Adapter\\PdoTagAwareAdapter\:\:createTables\(\) is unused\.$#'
 			identifier: method.unused
 			count: 1
 			path: repo/src/Symfony/Component/Cache/Adapter/PdoTagAwareAdapter.php
 
 		-
-			message: '#^Method Symfony\\Component\\Cache\\Adapter\\PhpArrayAdapter\:\:contractsGet\(\) never assigns null to &\$metadata so it can be removed from the by\-ref type\.$#'
+			message: '#^Method Symfony\\Component\\Cache\\Adapter\\PhpArrayAdapter\:\:doGet\(\) never assigns null to &\$metadata so it can be removed from the by\-ref type\.$#'
 			identifier: parameterByRef.unusedType
 			count: 1
 			path: repo/src/Symfony/Component/Cache/Adapter/PhpArrayAdapter.php
@@ -2075,12 +2069,6 @@ parameters:
 		-
 			message: '#^Unsafe usage of new static\(\)\.$#'
 			identifier: new.static
-			count: 1
-			path: repo/src/Symfony/Component/Cache/Adapter/PhpArrayAdapter.php
-
-		-
-			message: '#^Variable \$now might not be defined\.$#'
-			identifier: variable.undefined
 			count: 1
 			path: repo/src/Symfony/Component/Cache/Adapter/PhpArrayAdapter.php
 
@@ -2097,7 +2085,7 @@ parameters:
 			path: repo/src/Symfony/Component/Cache/Adapter/PhpFilesAdapter.php
 
 		-
-			message: '#^Method Symfony\\Component\\Cache\\Adapter\\ProxyAdapter\:\:contractsGet\(\) never assigns null to &\$metadata so it can be removed from the by\-ref type\.$#'
+			message: '#^Method Symfony\\Component\\Cache\\Adapter\\ProxyAdapter\:\:doGet\(\) never assigns null to &\$metadata so it can be removed from the by\-ref type\.$#'
 			identifier: parameterByRef.unusedType
 			count: 1
 			path: repo/src/Symfony/Component/Cache/Adapter/ProxyAdapter.php
@@ -2105,12 +2093,6 @@ parameters:
 		-
 			message: '#^Property Symfony\\Component\\Cache\\Adapter\\ProxyAdapter\:\:\$poolHash \(string\) does not accept int\.$#'
 			identifier: assign.propertyType
-			count: 1
-			path: repo/src/Symfony/Component/Cache/Adapter/ProxyAdapter.php
-
-		-
-			message: '#^Variable \$now might not be defined\.$#'
-			identifier: variable.undefined
 			count: 1
 			path: repo/src/Symfony/Component/Cache/Adapter/ProxyAdapter.php
 
@@ -2213,12 +2195,6 @@ parameters:
 		-
 			message: '#^Access to an undefined property Predis\\Configuration\\OptionsInterface\:\:\$options\.$#'
 			identifier: property.notFound
-			count: 1
-			path: repo/src/Symfony/Component/Cache/Adapter/RedisTagAwareAdapter.php
-
-		-
-			message: '#^Access to private property \$rootNamespace of parent class Symfony\\Component\\Cache\\Adapter\\AbstractTagAwareAdapter\.$#'
-			identifier: property.private
 			count: 1
 			path: repo/src/Symfony/Component/Cache/Adapter/RedisTagAwareAdapter.php
 
@@ -2319,14 +2295,8 @@ parameters:
 			path: repo/src/Symfony/Component/Cache/Adapter/RedisTagAwareAdapter.php
 
 		-
-			message: '#^Method Symfony\\Component\\Cache\\Adapter\\TagAwareAdapter\:\:contractsGet\(\) never assigns null to &\$metadata so it can be removed from the by\-ref type\.$#'
+			message: '#^Method Symfony\\Component\\Cache\\Adapter\\TagAwareAdapter\:\:doGet\(\) never assigns null to &\$metadata so it can be removed from the by\-ref type\.$#'
 			identifier: parameterByRef.unusedType
-			count: 1
-			path: repo/src/Symfony/Component/Cache/Adapter/TagAwareAdapter.php
-
-		-
-			message: '#^Variable \$now might not be defined\.$#'
-			identifier: variable.undefined
 			count: 1
 			path: repo/src/Symfony/Component/Cache/Adapter/TagAwareAdapter.php
 
@@ -2385,12 +2355,6 @@ parameters:
 			path: repo/src/Symfony/Component/Cache/CacheItem.php
 
 		-
-			message: '#^Parameter \#2 \$datetime of static method DateTimeImmutable\:\:createFromFormat\(\) expects string, int given\.$#'
-			identifier: argument.type
-			count: 1
-			path: repo/src/Symfony/Component/Cache/CacheItem.php
-
-		-
 			message: '#^Call to an undefined method Symfony\\Contracts\\Cache\\CacheInterface\:\:save\(\)\.$#'
 			identifier: method.notFound
 			count: 1
@@ -2407,6 +2371,18 @@ parameters:
 			identifier: deadCode.unreachable
 			count: 1
 			path: repo/src/Symfony/Component/Cache/LockRegistry.php
+
+		-
+			message: '#^If condition is always true\.$#'
+			identifier: if.alwaysTrue
+			count: 1
+			path: repo/src/Symfony/Component/Cache/Messenger/EarlyExpirationHandler.php
+
+		-
+			message: '#^Left side of && is always true\.$#'
+			identifier: booleanAnd.leftAlwaysTrue
+			count: 1
+			path: repo/src/Symfony/Component/Cache/Traits/ContractsTrait.php
 
 		-
 			message: '#^Call to function is_object\(\) with bool will always evaluate to false\.$#'
@@ -2593,6 +2569,12 @@ parameters:
 			identifier: return.type
 			count: 1
 			path: repo/src/Symfony/Component/Config/Resource/ReflectionClassResource.php
+
+		-
+			message: '#^Method Symfony\\Component\\Config\\ResourceCheckerConfigCache\:\:hasResourceCheckers\(\) should return bool but returns int\<0, max\>\.$#'
+			identifier: return.type
+			count: 1
+			path: repo/src/Symfony/Component/Config/ResourceCheckerConfigCache.php
 
 		-
 			message: '#^Strict comparison using \!\=\= between Throwable and null will always evaluate to true\.$#'
@@ -2787,12 +2769,6 @@ parameters:
 			path: repo/src/Symfony/Component/Console/Completion/CompletionInput.php
 
 		-
-			message: '#^Parameter \#2 \$configurator of method Symfony\\Component\\DependencyInjection\\ContainerBuilder\:\:registerAttributeForAutoconfiguration\(\) expects callable\(Symfony\\Component\\DependencyInjection\\ChildDefinition, Symfony\\Component\\Console\\Attribute\\AsCommand, Reflector\)\: void, Closure\(Symfony\\Component\\DependencyInjection\\ChildDefinition, Symfony\\Component\\Console\\Attribute\\AsCommand, ReflectionClass\|ReflectionMethod\)\: void given\.$#'
-			identifier: argument.type
-			count: 1
-			path: repo/src/Symfony/Component/Console/ConsoleBundle.php
-
-		-
 			message: '#^Strict comparison using \!\=\= between ''Symfony\\\\Component\\\\Console\\\\Command\\\\Command'' and ReflectionClass will always evaluate to true\.$#'
 			identifier: notIdentical.alwaysTrue
 			count: 1
@@ -2889,12 +2865,6 @@ parameters:
 			path: repo/src/Symfony/Component/Console/Helper/ProgressBar.php
 
 		-
-			message: '#^Strict comparison using \=\=\= between null and int will always evaluate to false\.$#'
-			identifier: identical.alwaysFalse
-			count: 1
-			path: repo/src/Symfony/Component/Console/Helper/ProgressBar.php
-
-		-
 			message: '#^Call to an undefined method Symfony\\Component\\Console\\Helper\\HelperInterface\:\:formatBlock\(\)\.$#'
 			identifier: method.notFound
 			count: 1
@@ -2925,6 +2895,12 @@ parameters:
 			path: repo/src/Symfony/Component/Console/Helper/QuestionHelper.php
 
 		-
+			message: '#^Variable \$style might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: repo/src/Symfony/Component/Console/Helper/Table.php
+
+		-
 			message: '#^Instanceof between string and Symfony\\Component\\Console\\Helper\\TreeNode will always evaluate to false\.$#'
 			identifier: instanceof.alwaysFalse
 			count: 1
@@ -2941,18 +2917,6 @@ parameters:
 			identifier: instanceof.alwaysFalse
 			count: 1
 			path: repo/src/Symfony/Component/Console/Helper/TreeNode.php
-
-		-
-			message: '#^Closure invoked with 1 parameter, 2 required\.$#'
-			identifier: arguments.count
-			count: 1
-			path: repo/src/Symfony/Component/Console/Input/InputArgument.php
-
-		-
-			message: '#^Closure invoked with 1 parameter, 2 required\.$#'
-			identifier: arguments.count
-			count: 1
-			path: repo/src/Symfony/Component/Console/Input/InputOption.php
 
 		-
 			message: '#^Parameter \#2 \$callback of function array_filter expects \(callable\(string\)\: bool\)\|null, ''strlen'' given\.$#'
@@ -3135,6 +3099,12 @@ parameters:
 			path: repo/src/Symfony/Component/DependencyInjection/Compiler/PassConfig.php
 
 		-
+			message: '#^Parameter \#1 \$array of function sort contains unresolvable type\.$#'
+			identifier: argument.unresolvableType
+			count: 1
+			path: repo/src/Symfony/Component/DependencyInjection/Compiler/PhpConfigReferenceDumpPass.php
+
+		-
 			message: '#^Access to an undefined property ReflectionFunctionAbstract\:\:\$class\.$#'
 			identifier: property.notFound
 			count: 1
@@ -3205,6 +3175,18 @@ parameters:
 			identifier: method.notFound
 			count: 1
 			path: repo/src/Symfony/Component/DependencyInjection/Config/ContainerParametersResourceChecker.php
+
+		-
+			message: '#^Call to method isProxyInitialized\(\) on an unknown class ProxyManager\\Proxy\\LazyLoadingInterface\.$#'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Symfony/Component/DependencyInjection/Container.php
+
+		-
+			message: '#^Class ProxyManager\\Proxy\\LazyLoadingInterface not found\.$#'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Symfony/Component/DependencyInjection/Container.php
 
 		-
 			message: '#^Call to function is_string\(\) with string will always evaluate to true\.$#'
@@ -3411,12 +3393,6 @@ parameters:
 			path: repo/src/Symfony/Component/DependencyInjection/Kernel/KernelTrait.php
 
 		-
-			message: '#^Parameter \#2 \$configurator of method Symfony\\Component\\DependencyInjection\\ContainerBuilder\:\:registerAttributeForAutoconfiguration\(\) expects callable\(Symfony\\Component\\DependencyInjection\\ChildDefinition, Symfony\\Component\\EventDispatcher\\Attribute\\AsEventListener, Reflector\)\: void, Closure\(Symfony\\Component\\DependencyInjection\\ChildDefinition, Symfony\\Component\\EventDispatcher\\Attribute\\AsEventListener, ReflectionClass\|ReflectionMethod\)\: void given\.$#'
-			identifier: argument.type
-			count: 1
-			path: repo/src/Symfony/Component/DependencyInjection/Kernel/ServicesBundle.php
-
-		-
 			message: '#^Method Symfony\\Component\\DependencyInjection\\LazyProxy\\PhpDumper\\LazyServiceDumper\:\:getProxyClass\(\) never assigns null to &\$class so it can be removed from the by\-ref type\.$#'
 			identifier: parameterByRef.unusedType
 			count: 1
@@ -3485,6 +3461,18 @@ parameters:
 		-
 			message: '#^Class ProxyManager\\Proxy\\LazyLoadingInterface not found\.$#'
 			identifier: class.notFound
+			count: 1
+			path: repo/src/Symfony/Component/DependencyInjection/ServicesResetter.php
+
+		-
+			message: '#^Offset 0 does not exist on null\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/src/Symfony/Component/DependencyInjection/ServicesResetter.php
+
+		-
+			message: '#^Parameter \#1 \$string of function ltrim expects string, null given\.$#'
+			identifier: argument.type
 			count: 1
 			path: repo/src/Symfony/Component/DependencyInjection/ServicesResetter.php
 
@@ -3609,6 +3597,12 @@ parameters:
 			path: repo/src/Symfony/Component/Emoji/Util/GzipStreamWrapper.php
 
 		-
+			message: '#^Call to function method_exists\(\) with Symfony\\Component\\Console\\Completion\\CompletionSuggestions and ''suggestDirectories'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/src/Symfony/Component/ErrorHandler/Command/ErrorDumpCommand.php
+
+		-
 			message: '#^Class Doctrine\\Common\\Persistence\\Proxy not found\.$#'
 			identifier: class.notFound
 			count: 1
@@ -3661,12 +3655,6 @@ parameters:
 			identifier: identical.alwaysFalse
 			count: 1
 			path: repo/src/Symfony/Component/ErrorHandler/ErrorEnhancer/UndefinedMethodErrorEnhancer.php
-
-		-
-			message: '#^Parameter \#1 \$callback of function set_exception_handler expects \(callable\(Throwable\)\: void\)\|null, ''is_int'' given\.$#'
-			identifier: argument.type
-			count: 1
-			path: repo/src/Symfony/Component/ErrorHandler/ErrorHandler.php
 
 		-
 			message: '#^Parameter \#5 \$throw of method Symfony\\Component\\ErrorHandler\\ErrorHandler\:\:cleanTrace\(\) expects bool, int given\.$#'
@@ -4113,13 +4101,13 @@ parameters:
 			path: repo/src/Symfony/Component/Form/Extension/Validator/Constraints/FormValidator.php
 
 		-
-			message: '#^SplObjectStorage\<Symfony\\Component\\Form\\FormInterface, array\<int, array\<string\>\|string\|Symfony\\Component\\Validator\\Constraints\\GroupSequence\>\> does not accept array\.$#'
+			message: '#^SplObjectStorage\<Symfony\\Component\\Form\\FormInterface, array\<int, array\<string\>\|string\|Symfony\\Component\\Validator\\Constraints\\GroupSequence\>\|false\> does not accept array\.$#'
 			identifier: offsetAssign.valueType
 			count: 1
 			path: repo/src/Symfony/Component/Form/Extension/Validator/Constraints/FormValidator.php
 
 		-
-			message: '#^SplObjectStorage\<Symfony\\Component\\Form\\FormInterface, array\<int, array\<string\>\|string\|Symfony\\Component\\Validator\\Constraints\\GroupSequence\>\> does not accept array\<string\|Symfony\\Component\\Validator\\Constraints\\GroupSequence\>\|string\.$#'
+			message: '#^SplObjectStorage\<Symfony\\Component\\Form\\FormInterface, array\<int, array\<string\>\|string\|Symfony\\Component\\Validator\\Constraints\\GroupSequence\>\|false\> does not accept array\<string\|Symfony\\Component\\Validator\\Constraints\\GroupSequence\>\|string\|false\.$#'
 			identifier: offsetAssign.valueType
 			count: 1
 			path: repo/src/Symfony/Component/Form/Extension/Validator/Constraints/FormValidator.php
@@ -4233,30 +4221,6 @@ parameters:
 			path: repo/src/Symfony/Component/Form/FormErrorIterator.php
 
 		-
-			message: '#^Method Symfony\\Component\\Form\\FormTypeGuesserChain\:\:guessMaxLength\(\) should return Symfony\\Component\\Form\\Guess\\ValueGuess\|null but returns Symfony\\Component\\Form\\Guess\\Guess\|null\.$#'
-			identifier: return.type
-			count: 1
-			path: repo/src/Symfony/Component/Form/FormTypeGuesserChain.php
-
-		-
-			message: '#^Method Symfony\\Component\\Form\\FormTypeGuesserChain\:\:guessPattern\(\) should return Symfony\\Component\\Form\\Guess\\ValueGuess\|null but returns Symfony\\Component\\Form\\Guess\\Guess\|null\.$#'
-			identifier: return.type
-			count: 1
-			path: repo/src/Symfony/Component/Form/FormTypeGuesserChain.php
-
-		-
-			message: '#^Method Symfony\\Component\\Form\\FormTypeGuesserChain\:\:guessRequired\(\) should return Symfony\\Component\\Form\\Guess\\ValueGuess\|null but returns Symfony\\Component\\Form\\Guess\\Guess\|null\.$#'
-			identifier: return.type
-			count: 1
-			path: repo/src/Symfony/Component/Form/FormTypeGuesserChain.php
-
-		-
-			message: '#^Method Symfony\\Component\\Form\\FormTypeGuesserChain\:\:guessType\(\) should return Symfony\\Component\\Form\\Guess\\TypeGuess\|null but returns Symfony\\Component\\Form\\Guess\\Guess\|null\.$#'
-			identifier: return.type
-			count: 1
-			path: repo/src/Symfony/Component/Form/FormTypeGuesserChain.php
-
-		-
 			message: '#^Trait Symfony\\Component\\Form\\Test\\Traits\\ValidatorExtensionTrait is used zero times and is not analysed\.$#'
 			identifier: trait.unused
 			count: 1
@@ -4285,6 +4249,18 @@ parameters:
 			identifier: function.alreadyNarrowedType
 			count: 1
 			path: repo/src/Symfony/Component/HtmlSanitizer/TextSanitizer/UrlSanitizer.php
+
+		-
+			message: '#^Method Symfony\\Component\\HtmlSanitizer\\Visitor\\AttributeSanitizer\\LinkTargetAttributeSanitizer\:\:getSupportedAttributes\(\) never returns null so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: repo/src/Symfony/Component/HtmlSanitizer/Visitor/AttributeSanitizer/LinkTargetAttributeSanitizer.php
+
+		-
+			message: '#^Method Symfony\\Component\\HtmlSanitizer\\Visitor\\AttributeSanitizer\\LinkTargetAttributeSanitizer\:\:getSupportedElements\(\) never returns null so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: repo/src/Symfony/Component/HtmlSanitizer/Visitor/AttributeSanitizer/LinkTargetAttributeSanitizer.php
 
 		-
 			message: '#^Method Symfony\\Component\\HtmlSanitizer\\Visitor\\AttributeSanitizer\\MetaRefreshAttributeSanitizer\:\:getSupportedAttributes\(\) never returns null so it can be removed from the return type\.$#'
@@ -4359,12 +4335,6 @@ parameters:
 			path: repo/src/Symfony/Component/HttpClient/CachingHttpClient.php
 
 		-
-			message: '#^Parameter \#2 \$datetime of static method DateTimeImmutable\:\:createFromFormat\(\) expects string, int\<2, max\> given\.$#'
-			identifier: argument.type
-			count: 1
-			path: repo/src/Symfony/Component/HttpClient/CachingHttpClient.php
-
-		-
 			message: '#^Parameter \#2 \$replace of function substr_replace expects array\|string, int\<0, max\> given\.$#'
 			identifier: argument.type
 			count: 1
@@ -4381,6 +4351,18 @@ parameters:
 			identifier: binaryOp.invalid
 			count: 1
 			path: repo/src/Symfony/Component/HttpClient/Chunk/ServerSentEvent.php
+
+		-
+			message: '#^Constant CURL_SEEKFUNC_CANTSEEK not found\.$#'
+			identifier: constant.notFound
+			count: 1
+			path: repo/src/Symfony/Component/HttpClient/CurlHttpClient.php
+
+		-
+			message: '#^Constant CURL_SEEKFUNC_OK not found\.$#'
+			identifier: constant.notFound
+			count: 1
+			path: repo/src/Symfony/Component/HttpClient/CurlHttpClient.php
 
 		-
 			message: '#^Match expression does not handle remaining value\: mixed$#'
@@ -4557,12 +4539,6 @@ parameters:
 			path: repo/src/Symfony/Component/HttpClient/Internal/AmpListener.php
 
 		-
-			message: '#^Parameter \#1 \$value of class Amp\\Dns\\DnsRecord constructor expects string, null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: repo/src/Symfony/Component/HttpClient/Internal/AmpResolver.php
-
-		-
 			message: '#^Property Symfony\\Component\\HttpClient\\Internal\\Canary\:\:\$canceller in isset\(\) is not nullable nor uninitialized\.$#'
 			identifier: isset.initializedProperty
 			count: 1
@@ -4698,6 +4674,18 @@ parameters:
 			path: repo/src/Symfony/Component/HttpClient/Psr18Client.php
 
 		-
+			message: '#^Access to an undefined static property Symfony\\Component\\HttpClient\\RecorderHttpClient\:\:\$emptyDefaults\.$#'
+			identifier: staticProperty.notFound
+			count: 1
+			path: repo/src/Symfony/Component/HttpClient/RecorderHttpClient.php
+
+		-
+			message: '#^Parameter \#2 \$replace of function substr_replace expects array\|string, int\<0, max\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Symfony/Component/HttpClient/RecorderHttpClient.php
+
+		-
 			message: '#^Class GuzzleHttp\\UriTemplate\\UriTemplate not found\.$#'
 			identifier: class.notFound
 			count: 1
@@ -4710,13 +4698,13 @@ parameters:
 			path: repo/src/Symfony/Component/HttpClient/Resources/config/http_client.php
 
 		-
-			message: '#^Access to an undefined property class@anonymous/Symfony/Component/HttpClient/Response/AmpResponse\.php\:297\:\:\$defaultOptions\.$#'
+			message: '#^Access to an undefined property class@anonymous/Symfony/Component/HttpClient/Response/AmpResponse\.php\:328\:\:\$defaultOptions\.$#'
 			identifier: property.notFound
 			count: 2
 			path: repo/src/Symfony/Component/HttpClient/Response/AmpResponse.php
 
 		-
-			message: '#^Access to an undefined static property class@anonymous/Symfony/Component/HttpClient/Response/AmpResponse\.php\:297\:\:\$emptyDefaults\.$#'
+			message: '#^Access to an undefined static property class@anonymous/Symfony/Component/HttpClient/Response/AmpResponse\.php\:328\:\:\$emptyDefaults\.$#'
 			identifier: staticProperty.notFound
 			count: 1
 			path: repo/src/Symfony/Component/HttpClient/Response/AmpResponse.php
@@ -4754,6 +4742,12 @@ parameters:
 		-
 			message: '#^Parameter &\$options by\-ref type of method Symfony\\Component\\HttpClient\\Response\\AmpResponse\:\:generateResponse\(\) expects array, null given\.$#'
 			identifier: parameterByRef.type
+			count: 1
+			path: repo/src/Symfony/Component/HttpClient/Response/AmpResponse.php
+
+		-
+			message: '#^Property Symfony\\Component\\HttpClient\\Response\\AmpResponse\:\:\$countCanary is never read, only written\.$#'
+			identifier: property.onlyWritten
 			count: 1
 			path: repo/src/Symfony/Component/HttpClient/Response/AmpResponse.php
 
@@ -4842,6 +4836,12 @@ parameters:
 			path: repo/src/Symfony/Component/HttpClient/Response/CurlResponse.php
 
 		-
+			message: '#^Parameter \#3 \$value of function curl_setopt expects resource, null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Symfony/Component/HttpClient/Response/CurlResponse.php
+
+		-
 			message: '#^Unsafe usage of new static\(\)\.$#'
 			identifier: new.static
 			count: 1
@@ -4878,6 +4878,12 @@ parameters:
 			path: repo/src/Symfony/Component/HttpClient/Response/NativeResponse.php
 
 		-
+			message: '#^Property Symfony\\Component\\HttpClient\\Response\\NativeResponse\:\:\$countCanary is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: repo/src/Symfony/Component/HttpClient/Response/NativeResponse.php
+
+		-
 			message: '#^Variable \$url on left side of \?\? always exists and is not nullable\.$#'
 			identifier: nullCoalesce.variable
 			count: 2
@@ -4908,6 +4914,12 @@ parameters:
 			path: repo/src/Symfony/Component/HttpClient/Response/StreamWrapper.php
 
 		-
+			message: '#^Property Symfony\\Component\\HttpClient\\Response\\TraceableResponse\:\:\$canary is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: repo/src/Symfony/Component/HttpClient/Response/TraceableResponse.php
+
+		-
 			message: '#^Access to an undefined static property Symfony\\Component\\HttpClient\\ScopingHttpClient\:\:\$emptyDefaults\.$#'
 			identifier: staticProperty.notFound
 			count: 1
@@ -4918,12 +4930,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: repo/src/Symfony/Component/HttpClient/ScopingHttpClient.php
-
-		-
-			message: '#^Parameter \#2 \$datetime of static method DateTimeImmutable\:\:createFromFormat\(\) expects string, \(int\|false\) given\.$#'
-			identifier: argument.type
-			count: 1
-			path: repo/src/Symfony/Component/HttpFoundation/BinaryFileResponse.php
 
 		-
 			message: '#^Parameter \#2 \$values of method Symfony\\Component\\HttpFoundation\\ResponseHeaderBag\:\:set\(\) expects array\<string\>\|string\|null, int given\.$#'
@@ -4999,12 +5005,6 @@ parameters:
 			identifier: new.static
 			count: 1
 			path: repo/src/Symfony/Component/HttpFoundation/Request.php
-
-		-
-			message: '#^Parameter \#2 \$datetime of static method DateTimeImmutable\:\:createFromFormat\(\) expects string, int\<\-172799, max\> given\.$#'
-			identifier: argument.type
-			count: 1
-			path: repo/src/Symfony/Component/HttpFoundation/Response.php
 
 		-
 			message: '#^Parameter \#2 \$value of method Symfony\\Component\\HttpFoundation\\HeaderBag\:\:addCacheControlDirective\(\) expects bool\|string, int given\.$#'
@@ -5124,12 +5124,6 @@ parameters:
 			path: repo/src/Symfony/Component/HttpFoundation/UriSigner.php
 
 		-
-			message: '#^Parameter \#2 \$datetime of static method DateTimeImmutable\:\:createFromFormat\(\) expects string, int\<1, max\> given\.$#'
-			identifier: argument.type
-			count: 1
-			path: repo/src/Symfony/Component/HttpFoundation/UriSigner.php
-
-		-
 			message: '#^Class Symfony\\Component\\HttpKernel\\Attribute\\Cache has an uninitialized readonly property \$variables\. Assign it in the constructor\.$#'
 			identifier: property.uninitializedReadonly
 			count: 1
@@ -5177,6 +5171,12 @@ parameters:
 				since Symfony 8\.1, use Symfony\\Component\\DependencyInjection\\Kernel\\FileLocator instead$#
 			'''
 			identifier: classConstant.deprecatedClass
+			count: 1
+			path: repo/src/Symfony/Component/HttpKernel/Config/FileLocator.php
+
+		-
+			message: '#^If condition is always false\.$#'
+			identifier: if.alwaysFalse
 			count: 1
 			path: repo/src/Symfony/Component/HttpKernel/Config/FileLocator.php
 
@@ -5292,6 +5292,12 @@ parameters:
 			path: repo/src/Symfony/Component/HttpKernel/DataCollector/DumpDataCollector.php
 
 		-
+			message: '#^Method Symfony\\Component\\HttpKernel\\DataCollector\\EventDataCollector\:\:getData\(\) never returns array so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: repo/src/Symfony/Component/HttpKernel/DataCollector/EventDataCollector.php
+
+		-
 			message: '#^Method Symfony\\Component\\HttpKernel\\DataCollector\\MemoryDataCollector\:\:convertToBytes\(\) never returns float so it can be removed from the return type\.$#'
 			identifier: return.unusedType
 			count: 1
@@ -5364,11 +5370,23 @@ parameters:
 			path: repo/src/Symfony/Component/HttpKernel/DependencyInjection/ServicesResetter.php
 
 		-
+			message: '#^If condition is always false\.$#'
+			identifier: if.alwaysFalse
+			count: 1
+			path: repo/src/Symfony/Component/HttpKernel/DependencyInjection/ServicesResetter.php
+
+		-
 			message: '''
 				#^Access to constant on deprecated interface Symfony\\Component\\HttpKernel\\DependencyInjection\\ServicesResetterInterface\:
 				since Symfony 8\.1, use ServicesResetterInterface from the DependencyInjection component instead$#
 			'''
 			identifier: classConstant.deprecatedInterface
+			count: 1
+			path: repo/src/Symfony/Component/HttpKernel/DependencyInjection/ServicesResetterInterface.php
+
+		-
+			message: '#^If condition is always false\.$#'
+			identifier: if.alwaysFalse
 			count: 1
 			path: repo/src/Symfony/Component/HttpKernel/DependencyInjection/ServicesResetterInterface.php
 
@@ -5448,14 +5466,14 @@ parameters:
 			path: repo/src/Symfony/Component/HttpKernel/Exception/HttpException.php
 
 		-
-			message: '#^Call to function assert\(\) with true will always evaluate to true\.$#'
-			identifier: function.alreadyNarrowedType
+			message: '#^Using nullsafe property access "\?\-\>controller" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
 			count: 1
-			path: repo/src/Symfony/Component/HttpKernel/HttpCache/HttpCache.php
+			path: repo/src/Symfony/Component/HttpKernel/Fragment/InlineFragmentRenderer.php
 
 		-
-			message: '#^Parameter \#2 \$datetime of static method DateTimeImmutable\:\:createFromFormat\(\) expects string, int\<1, max\> given\.$#'
-			identifier: argument.type
+			message: '#^Call to function assert\(\) with true will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
 			count: 1
 			path: repo/src/Symfony/Component/HttpKernel/HttpCache/HttpCache.php
 
@@ -5646,12 +5664,6 @@ parameters:
 			path: repo/src/Symfony/Component/HttpKernel/Resources/welcome.html.php
 
 		-
-			message: '#^Parameter \#1 \$indices of static method Symfony\\Component\\Intl\\ResourceBundle\:\:readEntry\(\) expects array\<string\>, array\<int, int\|string\> given\.$#'
-			identifier: argument.type
-			count: 11
-			path: repo/src/Symfony/Component/Intl/Currencies.php
-
-		-
 			message: '#^PHPDoc tag @var for variable \$regionsData contains unresolvable type\.$#'
 			identifier: varTag.unresolvableType
 			count: 1
@@ -5706,12 +5718,6 @@ parameters:
 			path: repo/src/Symfony/Component/JsonPath/JsonCrawler.php
 
 		-
-			message: '#^Parameter \#2 \$configurator of method Symfony\\Component\\DependencyInjection\\ContainerBuilder\:\:registerAttributeForAutoconfiguration\(\) expects callable\(Symfony\\Component\\DependencyInjection\\ChildDefinition, Symfony\\Component\\JsonPath\\Attribute\\AsJsonPathFunction, Reflector\)\: void, Closure\(Symfony\\Component\\DependencyInjection\\ChildDefinition, Symfony\\Component\\JsonPath\\Attribute\\AsJsonPathFunction, ReflectionClass\)\: void given\.$#'
-			identifier: argument.type
-			count: 1
-			path: repo/src/Symfony/Component/JsonPath/JsonPathBundle.php
-
-		-
 			message: '#^Trait Symfony\\Component\\JsonPath\\Test\\JsonPathAssertionsTrait is used zero times and is not analysed\.$#'
 			identifier: trait.unused
 			count: 1
@@ -5728,12 +5734,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: repo/src/Symfony/Component/JsonStreamer/DataModel/Write/CompositeNode.php
-
-		-
-			message: '#^Parameter \#1 \$mainType of static method Symfony\\Component\\TypeInfo\\Type\<mixed\>\:\:generic\(\) expects Symfony\\Component\\TypeInfo\\Type\\BuiltinType\|Symfony\\Component\\TypeInfo\\Type\\ObjectType, Symfony\\Component\\TypeInfo\\Type given\.$#'
-			identifier: argument.type
-			count: 1
-			path: repo/src/Symfony/Component/JsonStreamer/Mapping/GenericTypePropertyMetadataLoader.php
 
 		-
 			message: '#^Dead catch \- ReflectionException is never thrown in the try block\.$#'
@@ -5764,54 +5764,6 @@ parameters:
 			identifier: catch.neverThrown
 			count: 1
 			path: repo/src/Symfony/Component/JsonStreamer/Read/LazyInstantiator.php
-
-		-
-			message: '#^Parameter &\$context by\-ref type of method Symfony\\Component\\JsonStreamer\\Read\\Lexer\:\:validateToken\(\) expects array\{expected_token\: int\<0, 511\>, pointer\: int, structures\: list\<''dict''\|''list''\>, keys\: list\<array\<string, true\>\>\}, array\{expected_token\: 141, pointer\: int\<min, 510\>, structures\: non\-empty\-array\<int, ''dict''\|''list''\>, keys\: list\<array\<string, true\>\>\} given\.$#'
-			identifier: parameterByRef.type
-			count: 1
-			path: repo/src/Symfony/Component/JsonStreamer/Read/Lexer.php
-
-		-
-			message: '#^Parameter &\$context by\-ref type of method Symfony\\Component\\JsonStreamer\\Read\\Lexer\:\:validateToken\(\) expects array\{expected_token\: int\<0, 511\>, pointer\: int, structures\: list\<''dict''\|''list''\>, keys\: list\<array\<string, true\>\>\}, array\{expected_token\: 18, pointer\: int\<min, 510\>, structures\: non\-empty\-array\<int, ''dict''\|''list''\>, keys\: non\-empty\-list\<array\<string, true\>\>\} given\.$#'
-			identifier: parameterByRef.type
-			count: 1
-			path: repo/src/Symfony/Component/JsonStreamer/Read/Lexer.php
-
-		-
-			message: '#^Parameter &\$context by\-ref type of method Symfony\\Component\\JsonStreamer\\Read\\Lexer\:\:validateToken\(\) expects array\{expected_token\: int\<0, 511\>, pointer\: int, structures\: list\<''dict''\|''list''\>, keys\: list\<array\<string, true\>\>\}, array\{expected_token\: 256, pointer\: \-1, structures\: list\<''dict''\|''list''\>, keys\: array\<int\<0, max\>, array\<string, true\>\>\} given\.$#'
-			identifier: parameterByRef.type
-			count: 1
-			path: repo/src/Symfony/Component/JsonStreamer/Read/Lexer.php
-
-		-
-			message: '#^Parameter &\$context by\-ref type of method Symfony\\Component\\JsonStreamer\\Read\\Lexer\:\:validateToken\(\) expects array\{expected_token\: int\<0, 511\>, pointer\: int, structures\: list\<''dict''\|''list''\>, keys\: list\<array\<string, true\>\>\}, array\{expected_token\: 66\|72, pointer\: int\<min, \-3\>\|int\<0, max\>, structures\: list\<''dict''\|''list''\>, keys\: array\<int\<0, max\>, array\<string, true\>\>\} given\.$#'
-			identifier: parameterByRef.type
-			count: 1
-			path: repo/src/Symfony/Component/JsonStreamer/Read/Lexer.php
-
-		-
-			message: '#^Parameter &\$context by\-ref type of method Symfony\\Component\\JsonStreamer\\Read\\Lexer\:\:validateToken\(\) expects array\{expected_token\: int\<0, 511\>, pointer\: int, structures\: list\<''dict''\|''list''\>, keys\: list\<array\<string, true\>\>\}, array\{expected_token\: int\<0, 511\>, pointer\: int\<min, \-2\>\|int\<0, max\>, structures\: list\<''dict''\|''list''\>, keys\: array\<int\<0, max\>, array\<string, true\>\>\} given\.$#'
-			identifier: parameterByRef.type
-			count: 1
-			path: repo/src/Symfony/Component/JsonStreamer/Read/Lexer.php
-
-		-
-			message: '#^Parameter &\$context by\-ref type of method Symfony\\Component\\JsonStreamer\\Read\\Lexer\:\:validateToken\(\) expects array\{expected_token\: int\<0, 511\>, pointer\: int, structures\: list\<''dict''\|''list''\>, keys\: list\<array\<string, true\>\>\}, array\{expected_token\: int\<0, 511\>, pointer\: int\<min, \-3\>\|int\<\-1, max\>, structures\: list\<''dict''\|''list''\>, keys\: array\<int\<0, max\>, array\<string, true\>\>\} given\.$#'
-			identifier: parameterByRef.type
-			count: 1
-			path: repo/src/Symfony/Component/JsonStreamer/Read/Lexer.php
-
-		-
-			message: '#^Parameter &\$context by\-ref type of method Symfony\\Component\\JsonStreamer\\Read\\Lexer\:\:validateToken\(\) expects array\{expected_token\: int\<0, 511\>, pointer\: int, structures\: list\<''dict''\|''list''\>, keys\: list\<array\<string, true\>\>\}, array\{expected_token\: int\<0, 511\>, pointer\: int\<min, 510\>, structures\: non\-empty\-array\<int, ''dict''\|''list''\>, keys\: list\<array\<string, true\>\>\} given\.$#'
-			identifier: parameterByRef.type
-			count: 1
-			path: repo/src/Symfony/Component/JsonStreamer/Read/Lexer.php
-
-		-
-			message: '#^Parameter &\$context by\-ref type of method Symfony\\Component\\JsonStreamer\\Read\\Lexer\:\:validateToken\(\) expects array\{expected_token\: int\<0, 511\>, pointer\: int, structures\: list\<''dict''\|''list''\>, keys\: list\<array\<string, true\>\>\}, array\{expected_token\: int\<0, 511\>, pointer\: int\<min, 510\>, structures\: non\-empty\-array\<int, ''dict''\|''list''\>, keys\: non\-empty\-list\<array\<string, true\>\>\} given\.$#'
-			identifier: parameterByRef.type
-			count: 1
-			path: repo/src/Symfony/Component/JsonStreamer/Read/Lexer.php
 
 		-
 			message: '#^PHPDoc tag @var with type Symfony\\Component\\TypeInfo\\Type\\ObjectType is not subtype of native type Symfony\\Component\\TypeInfo\\Type\\BackedEnumType\.$#'
@@ -5876,7 +5828,7 @@ parameters:
 				since doctrine/dbal 4\.5\. Use \{@see edit\(\)\} and \{@see TableEditor\:\:addColumn\(\)\} instead\.$#
 			'''
 			identifier: method.deprecated
-			count: 5
+			count: 6
 			path: repo/src/Symfony/Component/KeyManagement/Bridge/DoctrineDbal/DataKeyStore.php
 
 		-
@@ -6032,12 +5984,6 @@ parameters:
 			identifier: function.alreadyNarrowedType
 			count: 1
 			path: repo/src/Symfony/Component/Lock/Store/DoctrineDbalStore.php
-
-		-
-			message: '#^Parameter \#1 \$callback of function set_error_handler expects \(callable\(int, string, string, int\)\: bool\)\|null, Closure\(mixed, mixed\)\: void given\.$#'
-			identifier: argument.type
-			count: 1
-			path: repo/src/Symfony/Component/Lock/Store/FlockStore.php
 
 		-
 			message: '#^Parameter \#1 \$string of function substr expects string, null given\.$#'
@@ -6513,6 +6459,48 @@ parameters:
 				since doctrine/dbal 4\.5\. Use \{@see edit\(\)\} and \{@see TableEditor\:\:addColumn\(\)\} instead\.$#
 			'''
 			identifier: method.deprecated
+			count: 3
+			path: repo/src/Symfony/Component/Messenger/Bridge/Doctrine/Inbox/DoctrineInbox.php
+
+		-
+			message: '''
+				#^Call to deprecated method addIndex\(\) of class Doctrine\\DBAL\\Schema\\Table\:
+				since doctrine/dbal 4\.5\. Use \{@see edit\(\)\} and \{@see TableEditor\:\:addIndex\(\)\} instead\.$#
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: repo/src/Symfony/Component/Messenger/Bridge/Doctrine/Inbox/DoctrineInbox.php
+
+		-
+			message: '''
+				#^Call to deprecated method addPrimaryKeyConstraint\(\) of class Doctrine\\DBAL\\Schema\\Table\:
+				since doctrine/dbal 4\.5\. Use \{@see edit\(\)\} and \{@see TableEditor\:\:addPrimaryKeyConstraint\(\)\} instead\.$#
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: repo/src/Symfony/Component/Messenger/Bridge/Doctrine/Inbox/DoctrineInbox.php
+
+		-
+			message: '''
+				#^Call to deprecated method createTable\(\) of class Doctrine\\DBAL\\Schema\\Schema\:
+				since doctrine/dbal 4\.5\. Use \{@see edit\(\)\} and \{@see SchemaEditor\:\:addTable\(\)\} instead\.$#
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: repo/src/Symfony/Component/Messenger/Bridge/Doctrine/Inbox/DoctrineInbox.php
+
+		-
+			message: '#^Call to function method_exists\(\) with Doctrine\\DBAL\\Schema\\Schema and ''edit'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/src/Symfony/Component/Messenger/Bridge/Doctrine/Inbox/DoctrineInbox.php
+
+		-
+			message: '''
+				#^Call to deprecated method addColumn\(\) of class Doctrine\\DBAL\\Schema\\Table\:
+				since doctrine/dbal 4\.5\. Use \{@see edit\(\)\} and \{@see TableEditor\:\:addColumn\(\)\} instead\.$#
+			'''
+			identifier: method.deprecated
 			count: 7
 			path: repo/src/Symfony/Component/Messenger/Bridge/Doctrine/Transport/Connection.php
 
@@ -6669,6 +6657,12 @@ parameters:
 			path: repo/src/Symfony/Component/Messenger/DependencyInjection/MessengerPass.php
 
 		-
+			message: '#^Property Symfony\\Component\\Messenger\\Envelope\:\:\$message in isset\(\) is not nullable nor uninitialized\.$#'
+			identifier: isset.initializedProperty
+			count: 1
+			path: repo/src/Symfony/Component/Messenger/Envelope.php
+
+		-
 			message: '''
 				#^Access to constant on deprecated class Symfony\\Component\\Messenger\\EventListener\\StopWorkerOnTimeLimitListener\:
 				since Symfony 8\.1, use the "time_limit" worker option instead$#
@@ -6676,6 +6670,78 @@ parameters:
 			identifier: classConstant.deprecatedClass
 			count: 1
 			path: repo/src/Symfony/Component/Messenger/EventListener/StopWorkerOnTimeLimitListener.php
+
+		-
+			message: '#^Anonymous function has an unused use \$channel\.$#'
+			identifier: closure.unusedUse
+			count: 1
+			path: repo/src/Symfony/Component/Messenger/Execution/DispatchTask.php
+
+		-
+			message: '#^Anonymous function has an unused use \$combine\.$#'
+			identifier: closure.unusedUse
+			count: 1
+			path: repo/src/Symfony/Component/Messenger/Execution/DispatchTask.php
+
+		-
+			message: '#^Anonymous function has an unused use \$heldAcks\.$#'
+			identifier: closure.unusedUse
+			count: 1
+			path: repo/src/Symfony/Component/Messenger/Execution/DispatchTask.php
+
+		-
+			message: '#^Anonymous function has an unused use \$requestId\.$#'
+			identifier: closure.unusedUse
+			count: 1
+			path: repo/src/Symfony/Component/Messenger/Execution/DispatchTask.php
+
+		-
+			message: '#^If condition is always true\.$#'
+			identifier: if.alwaysTrue
+			count: 1
+			path: repo/src/Symfony/Component/Messenger/Execution/DispatchTask.php
+
+		-
+			message: '#^Method Symfony\\Component\\Messenger\\Execution\\DispatchTask\:\:releaseHeldAcks\(\) never assigns array to &\$heldAcks so it can be removed from the by\-ref type\.$#'
+			identifier: parameterByRef.unusedType
+			count: 1
+			path: repo/src/Symfony/Component/Messenger/Execution/DispatchTask.php
+
+		-
+			message: '#^Unreachable statement \- code above always terminates\.$#'
+			identifier: deadCode.unreachable
+			count: 1
+			path: repo/src/Symfony/Component/Messenger/Execution/DispatchTask.php
+
+		-
+			message: '#^Anonymous function has an unused use \$combine\.$#'
+			identifier: closure.unusedUse
+			count: 1
+			path: repo/src/Symfony/Component/Messenger/Execution/SyncMessageExecutionStrategy.php
+
+		-
+			message: '#^Anonymous function has an unused use \$onAcknowledge\.$#'
+			identifier: closure.unusedUse
+			count: 1
+			path: repo/src/Symfony/Component/Messenger/Execution/SyncMessageExecutionStrategy.php
+
+		-
+			message: '#^Anonymous function has an unused use \$transportName\.$#'
+			identifier: closure.unusedUse
+			count: 1
+			path: repo/src/Symfony/Component/Messenger/Execution/SyncMessageExecutionStrategy.php
+
+		-
+			message: '#^If condition is always true\.$#'
+			identifier: if.alwaysTrue
+			count: 1
+			path: repo/src/Symfony/Component/Messenger/Execution/SyncMessageExecutionStrategy.php
+
+		-
+			message: '#^Unreachable statement \- code above always terminates\.$#'
+			identifier: deadCode.unreachable
+			count: 1
+			path: repo/src/Symfony/Component/Messenger/Execution/SyncMessageExecutionStrategy.php
 
 		-
 			message: '#^Trait Symfony\\Component\\Messenger\\HandleTrait is used zero times and is not analysed\.$#'
@@ -6708,12 +6774,6 @@ parameters:
 			path: repo/src/Symfony/Component/Messenger/MessageBus.php
 
 		-
-			message: '#^Parameter \#2 \$configurator of method Symfony\\Component\\DependencyInjection\\ContainerBuilder\:\:registerAttributeForAutoconfiguration\(\) expects callable\(Symfony\\Component\\DependencyInjection\\ChildDefinition, Symfony\\Component\\Messenger\\Attribute\\AsMessageHandler, Reflector\)\: void, Closure\(Symfony\\Component\\DependencyInjection\\ChildDefinition, Symfony\\Component\\Messenger\\Attribute\\AsMessageHandler, ReflectionClass\|ReflectionMethod\)\: void given\.$#'
-			identifier: argument.type
-			count: 1
-			path: repo/src/Symfony/Component/Messenger/MessengerBundle.php
-
-		-
 			message: '#^Property Symfony\\Component\\Messenger\\Attribute\\AsMessage\:\:\$serializedTypeNameAliases \(array\<string\>\) on left side of \?\? is not nullable\.$#'
 			identifier: nullCoalesce.property
 			count: 1
@@ -6726,10 +6786,13 @@ parameters:
 			path: repo/src/Symfony/Component/Messenger/Middleware/HandleMessageMiddleware.php
 
 		-
-			message: '#^PHPDoc tag @param has invalid value \(\\Closure\(Envelope, \\Throwable\|null\) \$ack\)\: Unexpected token "\(", expected variable at offset 26 on line 2$#'
-			identifier: phpDoc.parseError
+			message: '''
+				#^Access to constant on deprecated class Symfony\\Component\\Messenger\\Handler\\RedispatchMessageHandler\:
+				since Symfony 8\.2, dispatch the message wrapped in the RedispatchMessage with a TransportNamesStamp instead$#
+			'''
+			identifier: classConstant.deprecatedClass
 			count: 1
-			path: repo/src/Symfony/Component/Messenger/Stamp/AckStamp.php
+			path: repo/src/Symfony/Component/Messenger/Resources/config/messenger.php
 
 		-
 			message: '#^Variable \$delayStamp in PHPDoc tag @var does not exist\.$#'
@@ -6738,10 +6801,61 @@ parameters:
 			path: repo/src/Symfony/Component/Messenger/Transport/InMemory/InMemoryTransport.php
 
 		-
+			message: '''
+				#^Class Symfony\\Component\\Messenger\\Transport\\Serialization\\ClaimCheckSerializer implements deprecated interface Symfony\\Component\\Messenger\\Transport\\Serialization\\MessageTypeAwareSerializerInterface\:
+				since Symfony 8\.2, as SigningSerializer reads no message type when it signs every message$#
+			'''
+			identifier: class.implementsDeprecatedInterface
+			count: 1
+			path: repo/src/Symfony/Component/Messenger/Transport/Serialization/ClaimCheckSerializer.php
+
+		-
+			message: '''
+				#^Class Symfony\\Component\\Messenger\\Transport\\Serialization\\InteropSerializer implements deprecated interface Symfony\\Component\\Messenger\\Transport\\Serialization\\MessageTypeAwareSerializerInterface\:
+				since Symfony 8\.2, as SigningSerializer reads no message type when it signs every message$#
+			'''
+			identifier: class.implementsDeprecatedInterface
+			count: 1
+			path: repo/src/Symfony/Component/Messenger/Transport/Serialization/InteropSerializer.php
+
+		-
+			message: '''
+				#^Class Symfony\\Component\\Messenger\\Transport\\Serialization\\PhpSerializer implements deprecated interface Symfony\\Component\\Messenger\\Transport\\Serialization\\MessageTypeAwareSerializerInterface\:
+				since Symfony 8\.2, as SigningSerializer reads no message type when it signs every message$#
+			'''
+			identifier: class.implementsDeprecatedInterface
+			count: 1
+			path: repo/src/Symfony/Component/Messenger/Transport/Serialization/PhpSerializer.php
+
+		-
 			message: '#^Negated boolean expression is always false\.$#'
 			identifier: booleanNot.alwaysFalse
 			count: 1
 			path: repo/src/Symfony/Component/Messenger/Transport/Serialization/PhpSerializer.php
+
+		-
+			message: '''
+				#^Class Symfony\\Component\\Messenger\\Transport\\Serialization\\Serializer implements deprecated interface Symfony\\Component\\Messenger\\Transport\\Serialization\\MessageTypeAwareSerializerInterface\:
+				since Symfony 8\.2, as SigningSerializer reads no message type when it signs every message$#
+			'''
+			identifier: class.implementsDeprecatedInterface
+			count: 1
+			path: repo/src/Symfony/Component/Messenger/Transport/Serialization/Serializer.php
+
+		-
+			message: '''
+				#^Call to method getMessageType\(\) of deprecated interface Symfony\\Component\\Messenger\\Transport\\Serialization\\MessageTypeAwareSerializerInterface\:
+				since Symfony 8\.2, as SigningSerializer reads no message type when it signs every message$#
+			'''
+			identifier: method.deprecatedInterface
+			count: 1
+			path: repo/src/Symfony/Component/Messenger/Transport/Serialization/SigningSerializer.php
+
+		-
+			message: '#^Variable \$receivedStamp might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: repo/src/Symfony/Component/Messenger/Transport/Sync/SyncTransport.php
 
 		-
 			message: '#^Method Symfony\\Component\\Messenger\\Transport\\Receiver\\QueueReceiverInterface\:\:getFromQueues\(\) invoked with 2 parameters, 1 required\.$#'
@@ -6868,6 +6982,24 @@ parameters:
 			identifier: method.notFound
 			count: 2
 			path: repo/src/Symfony/Component/Mime/Message.php
+
+		-
+			message: '#^Instanceof between \$this\(Symfony\\Component\\Mime\\Part\\AbstractPart\) and \(int\|string\) results in an error\.$#'
+			identifier: instanceof.invalidExprType
+			count: 1
+			path: repo/src/Symfony/Component/Mime/Part/AbstractPart.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>class" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: repo/src/Symfony/Component/Mime/Part/AbstractPart.php
+
+		-
+			message: '#^PHPDoc tag @param references unknown parameter\: \$encoding$#'
+			identifier: parameter.notFound
+			count: 1
+			path: repo/src/Symfony/Component/Mime/Part/DataPart.php
 
 		-
 			message: '#^Match expression does not handle remaining value\: string$#'
@@ -7050,12 +7182,6 @@ parameters:
 			path: repo/src/Symfony/Component/Notifier/Bridge/Pushy/PushyOptions.php
 
 		-
-			message: '#^Parameter \#2 \$datetime of static method DateTime\:\:createFromFormat\(\) expects string, int given\.$#'
-			identifier: argument.type
-			count: 2
-			path: repo/src/Symfony/Component/Notifier/Bridge/Pushy/PushyOptions.php
-
-		-
 			message: '#^Strict comparison using \!\=\= between null and string will always evaluate to true\.$#'
 			identifier: notIdentical.alwaysTrue
 			count: 1
@@ -7108,12 +7234,6 @@ parameters:
 			identifier: method.notFound
 			count: 1
 			path: repo/src/Symfony/Component/Notifier/Bridge/SpotHit/SpotHitTransport.php
-
-		-
-			message: '#^Parameter \#1 \$smsLongNBr of method Symfony\\Component\\Notifier\\Bridge\\SpotHit\\SpotHitTransport\:\:setLongNBr\(\) expects int\|null, bool\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: repo/src/Symfony/Component/Notifier/Bridge/SpotHit/SpotHitTransportFactory.php
 
 		-
 			message: '#^Method Symfony\\Component\\Notifier\\Bridge\\Sweego\\Webhook\\SweegoRequestParser\:\:doParse\(\) never returns null so it can be removed from the return type\.$#'
@@ -7215,42 +7335,6 @@ parameters:
 			path: repo/src/Symfony/Component/Notifier/Transport.php
 
 		-
-			message: '#^Parameter \#1 \$mailer of class Symfony\\Component\\Notifier\\Bridge\\FakeChat\\FakeChatTransportFactory constructor expects Symfony\\Component\\Mailer\\MailerInterface\|null, Symfony\\Contracts\\EventDispatcher\\EventDispatcherInterface\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: repo/src/Symfony/Component/Notifier/Transport.php
-
-		-
-			message: '#^Parameter \#1 \$mailer of class Symfony\\Component\\Notifier\\Bridge\\FakeSms\\FakeSmsTransportFactory constructor expects Symfony\\Component\\Mailer\\MailerInterface\|null, Symfony\\Contracts\\EventDispatcher\\EventDispatcherInterface\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: repo/src/Symfony/Component/Notifier/Transport.php
-
-		-
-			message: '#^Parameter \#1 \$registry of class Symfony\\Component\\Notifier\\Bridge\\Mercure\\MercureTransportFactory constructor expects Symfony\\Component\\Mercure\\HubRegistry, Symfony\\Contracts\\EventDispatcher\\EventDispatcherInterface\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: repo/src/Symfony/Component/Notifier/Transport.php
-
-		-
-			message: '#^Parameter \#2 \$dispatcher of class Symfony\\Component\\Notifier\\Bridge\\Mercure\\MercureTransportFactory constructor expects Symfony\\Contracts\\EventDispatcher\\EventDispatcherInterface\|null, Symfony\\Contracts\\HttpClient\\HttpClientInterface\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: repo/src/Symfony/Component/Notifier/Transport.php
-
-		-
-			message: '#^Parameter \#2 \$logger of class Symfony\\Component\\Notifier\\Bridge\\FakeChat\\FakeChatTransportFactory constructor expects Psr\\Log\\LoggerInterface\|null, Symfony\\Contracts\\HttpClient\\HttpClientInterface\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: repo/src/Symfony/Component/Notifier/Transport.php
-
-		-
-			message: '#^Parameter \#2 \$logger of class Symfony\\Component\\Notifier\\Bridge\\FakeSms\\FakeSmsTransportFactory constructor expects Psr\\Log\\LoggerInterface\|null, Symfony\\Contracts\\HttpClient\\HttpClientInterface\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: repo/src/Symfony/Component/Notifier/Transport.php
-
-		-
 			message: '#^PHPDoc tag @param for parameter \$sources with type array\<class\-string\>\|null is not subtype of native type array\.$#'
 			identifier: parameter.phpDocType
 			count: 1
@@ -7297,12 +7381,6 @@ parameters:
 			identifier: booleanAnd.rightAlwaysTrue
 			count: 1
 			path: repo/src/Symfony/Component/ObjectMapper/ObjectMapper.php
-
-		-
-			message: '#^Parameter \#2 \$configurator of method Symfony\\Component\\DependencyInjection\\ContainerBuilder\:\:registerAttributeForAutoconfiguration\(\) expects callable\(Symfony\\Component\\DependencyInjection\\ChildDefinition, Symfony\\Component\\ObjectMapper\\Attribute\\Map, Reflector\)\: void, Closure\(Symfony\\Component\\DependencyInjection\\ChildDefinition, Symfony\\Component\\ObjectMapper\\Attribute\\Map, ReflectionClass\)\: void given\.$#'
-			identifier: argument.type
-			count: 1
-			path: repo/src/Symfony/Component/ObjectMapper/ObjectMapperBundle.php
 
 		-
 			message: '#^If condition is always false\.$#'
@@ -7581,9 +7659,9 @@ parameters:
 			path: repo/src/Symfony/Component/PropertyInfo/Extractor/PhpStanExtractor.php
 
 		-
-			message: '#^Class PHPStan\\PhpDocParser\\Parser\\ConstExprParser constructor invoked with 0 parameters, 1 required\.$#'
+			message: '#^Class PHPStan\\PhpDocParser\\Parser\\ConstExprParser constructor invoked with 2 parameters, 1 required\.$#'
 			identifier: arguments.count
-			count: 2
+			count: 1
 			path: repo/src/Symfony/Component/PropertyInfo/Extractor/PhpStanExtractor.php
 
 		-
@@ -7593,14 +7671,14 @@ parameters:
 			path: repo/src/Symfony/Component/PropertyInfo/Extractor/PhpStanExtractor.php
 
 		-
-			message: '#^Class PHPStan\\PhpDocParser\\Parser\\TypeParser constructor invoked with 1 parameter, 2 required\.$#'
-			identifier: arguments.count
+			message: '#^Method Symfony\\Component\\PropertyInfo\\Extractor\\PhpStanExtractor\:\:filterDocBlockParams\(\) should return PHPStan\\PhpDocParser\\Ast\\PhpDoc\\ParamTagValueNode\|null but returns PHPStan\\PhpDocParser\\Ast\\PhpDoc\\PhpDocTagValueNode\.$#'
+			identifier: return.type
 			count: 1
 			path: repo/src/Symfony/Component/PropertyInfo/Extractor/PhpStanExtractor.php
 
 		-
-			message: '#^Method Symfony\\Component\\PropertyInfo\\Extractor\\PhpStanExtractor\:\:filterDocBlockParams\(\) should return PHPStan\\PhpDocParser\\Ast\\PhpDoc\\ParamTagValueNode\|null but returns PHPStan\\PhpDocParser\\Ast\\PhpDoc\\PhpDocTagValueNode\.$#'
-			identifier: return.type
+			message: '#^Parameter \#1 \$config of class PHPStan\\PhpDocParser\\Parser\\ConstExprParser constructor expects PHPStan\\PhpDocParser\\ParserConfig, true given\.$#'
+			identifier: argument.type
 			count: 1
 			path: repo/src/Symfony/Component/PropertyInfo/Extractor/PhpStanExtractor.php
 
@@ -7617,14 +7695,26 @@ parameters:
 			path: repo/src/Symfony/Component/PropertyInfo/Extractor/PhpStanExtractor.php
 
 		-
+			message: '#^Parameter \#2 \$constExprParser of class PHPStan\\PhpDocParser\\Parser\\TypeParser constructor expects PHPStan\\PhpDocParser\\Parser\\ConstExprParser, true given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Symfony/Component/PropertyInfo/Extractor/PhpStanExtractor.php
+
+		-
 			message: '#^Parameter \#2 \$typeParser of class PHPStan\\PhpDocParser\\Parser\\PhpDocParser constructor expects PHPStan\\PhpDocParser\\Parser\\TypeParser, PHPStan\\PhpDocParser\\Parser\\ConstExprParser given\.$#'
 			identifier: argument.type
 			count: 1
 			path: repo/src/Symfony/Component/PropertyInfo/Extractor/PhpStanExtractor.php
 
 		-
-			message: '#^Property Symfony\\Component\\PropertyInfo\\Extractor\\PhpStanExtractor\:\:\$contexts is never read, only written\.$#'
-			identifier: property.onlyWritten
+			message: '#^Property Symfony\\Component\\TypeInfo\\TypeContext\\TypeContext\:\:\$inheritedTemplateTypes \(array\<string, Symfony\\Component\\TypeInfo\\Type\>\) on left side of \?\? is not nullable\.$#'
+			identifier: nullCoalesce.property
+			count: 1
+			path: repo/src/Symfony/Component/PropertyInfo/Extractor/PhpStanExtractor.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>name" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
 			count: 1
 			path: repo/src/Symfony/Component/PropertyInfo/Extractor/PhpStanExtractor.php
 
@@ -7731,12 +7821,6 @@ parameters:
 			path: repo/src/Symfony/Component/RateLimiter/Policy/Rate.php
 
 		-
-			message: '#^Parameter \#2 \$datetime of static method DateTimeImmutable\:\:createFromFormat\(\) expects string, float given\.$#'
-			identifier: argument.type
-			count: 1
-			path: repo/src/Symfony/Component/RateLimiter/Policy/SlidingWindowLimiter.php
-
-		-
 			message: '#^Strict comparison using \!\=\= between 0 and int\<min, \-1\>\|int\<1, max\> will always evaluate to true\.$#'
 			identifier: notIdentical.alwaysTrue
 			count: 1
@@ -7753,12 +7837,6 @@ parameters:
 			identifier: booleanNot.alwaysFalse
 			count: 1
 			path: repo/src/Symfony/Component/RateLimiter/RateLimiterFactory.php
-
-		-
-			message: '#^Parameter \#2 \$datetime of static method DateTimeImmutable\:\:createFromFormat\(\) expects string, int\<1, max\> given\.$#'
-			identifier: argument.type
-			count: 1
-			path: repo/src/Symfony/Component/RateLimiter/Util/TimeUtil.php
 
 		-
 			message: '''
@@ -7965,12 +8043,6 @@ parameters:
 			path: repo/src/Symfony/Component/Scheduler/Scheduler.php
 
 		-
-			message: '#^Parameter \#2 \$configurator of method Symfony\\Component\\DependencyInjection\\ContainerBuilder\:\:registerAttributeForAutoconfiguration\(\) expects callable\(Symfony\\Component\\DependencyInjection\\ChildDefinition, Symfony\\Component\\Scheduler\\Attribute\\AsCronTask\|Symfony\\Component\\Scheduler\\Attribute\\AsPeriodicTask, Reflector\)\: void, Closure\(Symfony\\Component\\DependencyInjection\\ChildDefinition, Symfony\\Component\\Scheduler\\Attribute\\AsCronTask\|Symfony\\Component\\Scheduler\\Attribute\\AsPeriodicTask, ReflectionClass\|ReflectionMethod\)\: void given\.$#'
-			identifier: argument.type
-			count: 1
-			path: repo/src/Symfony/Component/Scheduler/SchedulerBundle.php
-
-		-
 			message: '#^Method Symfony\\Component\\Scheduler\\Trigger\\CronExpressionTrigger\:\:getNextRunDate\(\) never returns null so it can be removed from the return type\.$#'
 			identifier: return.unusedType
 			count: 1
@@ -8079,6 +8151,21 @@ parameters:
 			path: repo/src/Symfony/Component/Security/Csrf/CsrfTokenManager.php
 
 		-
+			message: '''
+				#^Call to deprecated method verifyWithKeySet\(\) of class Jose\\Component\\Signature\\JWSVerifier\:
+				since 4\.3\.0, use "verify\(\)" instead\. Will be removed in 5\.0\.0\.$#
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: repo/src/Symfony/Component/Security/Http/AccessToken/Dpop/DpopSenderConstraint.php
+
+		-
+			message: '#^Call to function method_exists\(\) with Jose\\Component\\Signature\\JWSVerifier and ''verify'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/src/Symfony/Component/Security/Http/AccessToken/Dpop/DpopSenderConstraint.php
+
+		-
 			message: '#^Class Symfony\\Component\\String\\u not found\.$#'
 			identifier: class.notFound
 			count: 1
@@ -8163,12 +8250,6 @@ parameters:
 			path: repo/src/Symfony/Component/Security/Http/EventListener/CheckCredentialsListener.php
 
 		-
-			message: '#^Parameter \#1 \$threshold of class Symfony\\Component\\Security\\Core\\Exception\\TooManyLoginAttemptsAuthenticationException constructor expects int\|null, float given\.$#'
-			identifier: argument.type
-			count: 2
-			path: repo/src/Symfony/Component/Security/Http/EventListener/LoginThrottlingListener.php
-
-		-
 			message: '#^Method Symfony\\Component\\PasswordHasher\\PasswordHasherInterface\:\:hash\(\) invoked with 2 parameters, 1 required\.$#'
 			identifier: arguments.count
 			count: 1
@@ -8223,6 +8304,12 @@ parameters:
 			path: repo/src/Symfony/Component/Security/Http/Firewall/ContextListener.php
 
 		-
+			message: '#^Using nullsafe property access "\?\-\>votes" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: repo/src/Symfony/Component/Security/Http/Firewall/ExceptionListener.php
+
+		-
 			message: '#^Method Symfony\\Component\\Security\\Http\\Firewall\\LogoutListener\:\:supports\(\) never returns null so it can be removed from the return type\.$#'
 			identifier: return.unusedType
 			count: 1
@@ -8239,18 +8326,6 @@ parameters:
 			identifier: return.type
 			count: 1
 			path: repo/src/Symfony/Component/Security/Http/FirewallMap.php
-
-		-
-			message: '#^Parameter \#2 \$expires of method Symfony\\Component\\Security\\Core\\Signature\\SignatureHasher\:\:acceptSignatureHash\(\) expects int, string given\.$#'
-			identifier: argument.type
-			count: 1
-			path: repo/src/Symfony/Component/Security/Http/LoginLink/LoginLinkHandler.php
-
-		-
-			message: '#^Parameter \#2 \$expires of method Symfony\\Component\\Security\\Core\\Signature\\SignatureHasher\:\:verifySignatureHash\(\) expects int, string given\.$#'
-			identifier: argument.type
-			count: 1
-			path: repo/src/Symfony/Component/Security/Http/LoginLink/LoginLinkHandler.php
 
 		-
 			message: '#^PHPDoc tag @param references unknown parameter\: \$parameters$#'
@@ -8439,12 +8514,6 @@ parameters:
 			path: repo/src/Symfony/Component/Serializer/Normalizer/AbstractObjectNormalizer.php
 
 		-
-			message: '#^Using nullsafe method call on non\-nullable type Symfony\\Component\\Serializer\\Mapping\\ClassDiscriminatorResolverInterface\. Use \-\> instead\.$#'
-			identifier: nullsafe.neverNull
-			count: 1
-			path: repo/src/Symfony/Component/Serializer/Normalizer/AbstractObjectNormalizer.php
-
-		-
 			message: '#^Using nullsafe method call on non\-nullable type mixed\. Use \-\> instead\.$#'
 			identifier: nullsafe.neverNull
 			count: 1
@@ -8529,57 +8598,15 @@ parameters:
 			path: repo/src/Symfony/Component/Serializer/Serializer.php
 
 		-
-			message: '#^Parameter \#2 \$configurator of method Symfony\\Component\\DependencyInjection\\ContainerBuilder\:\:registerAttributeForAutoconfiguration\(\) expects callable\(Symfony\\Component\\DependencyInjection\\ChildDefinition, Symfony\\Component\\Serializer\\Attribute\\Context, Reflector\)\: void, Closure\(Symfony\\Component\\DependencyInjection\\ChildDefinition, object, ReflectionClass\|ReflectionMethod\|ReflectionProperty\)\: void given\.$#'
-			identifier: argument.type
-			count: 1
-			path: repo/src/Symfony/Component/Serializer/SerializerBundle.php
-
-		-
-			message: '#^Parameter \#2 \$configurator of method Symfony\\Component\\DependencyInjection\\ContainerBuilder\:\:registerAttributeForAutoconfiguration\(\) expects callable\(Symfony\\Component\\DependencyInjection\\ChildDefinition, Symfony\\Component\\Serializer\\Attribute\\Groups, Reflector\)\: void, Closure\(Symfony\\Component\\DependencyInjection\\ChildDefinition, object, ReflectionClass\|ReflectionMethod\|ReflectionProperty\)\: void given\.$#'
-			identifier: argument.type
-			count: 1
-			path: repo/src/Symfony/Component/Serializer/SerializerBundle.php
-
-		-
-			message: '#^Parameter \#2 \$configurator of method Symfony\\Component\\DependencyInjection\\ContainerBuilder\:\:registerAttributeForAutoconfiguration\(\) expects callable\(Symfony\\Component\\DependencyInjection\\ChildDefinition, Symfony\\Component\\Serializer\\Attribute\\Ignore, Reflector\)\: void, Closure\(Symfony\\Component\\DependencyInjection\\ChildDefinition, object, ReflectionMethod\|ReflectionProperty\)\: void given\.$#'
-			identifier: argument.type
-			count: 1
-			path: repo/src/Symfony/Component/Serializer/SerializerBundle.php
-
-		-
-			message: '#^Parameter \#2 \$configurator of method Symfony\\Component\\DependencyInjection\\ContainerBuilder\:\:registerAttributeForAutoconfiguration\(\) expects callable\(Symfony\\Component\\DependencyInjection\\ChildDefinition, Symfony\\Component\\Serializer\\Attribute\\MaxDepth, Reflector\)\: void, Closure\(Symfony\\Component\\DependencyInjection\\ChildDefinition, object, ReflectionMethod\|ReflectionProperty\)\: void given\.$#'
-			identifier: argument.type
-			count: 1
-			path: repo/src/Symfony/Component/Serializer/SerializerBundle.php
-
-		-
-			message: '#^Parameter \#2 \$configurator of method Symfony\\Component\\DependencyInjection\\ContainerBuilder\:\:registerAttributeForAutoconfiguration\(\) expects callable\(Symfony\\Component\\DependencyInjection\\ChildDefinition, Symfony\\Component\\Serializer\\Attribute\\SerializedName, Reflector\)\: void, Closure\(Symfony\\Component\\DependencyInjection\\ChildDefinition, object, ReflectionMethod\|ReflectionProperty\)\: void given\.$#'
-			identifier: argument.type
-			count: 1
-			path: repo/src/Symfony/Component/Serializer/SerializerBundle.php
-
-		-
-			message: '#^Parameter \#2 \$configurator of method Symfony\\Component\\DependencyInjection\\ContainerBuilder\:\:registerAttributeForAutoconfiguration\(\) expects callable\(Symfony\\Component\\DependencyInjection\\ChildDefinition, Symfony\\Component\\Serializer\\Attribute\\SerializedPath, Reflector\)\: void, Closure\(Symfony\\Component\\DependencyInjection\\ChildDefinition, object, ReflectionMethod\|ReflectionProperty\)\: void given\.$#'
-			identifier: argument.type
-			count: 1
-			path: repo/src/Symfony/Component/Serializer/SerializerBundle.php
-
-		-
 			message: '#^Comparison operation "\<" between 10 and 10 is always false\.$#'
 			identifier: smaller.alwaysFalse
 			count: 1
 			path: repo/src/Symfony/Component/String/AbstractUnicodeString.php
 
 		-
-			message: '#^Comparison operation "\<" between 47 and 40 is always false\.$#'
+			message: '#^Comparison operation "\<" between \d+ and 40 is always false\.$#'
 			identifier: smaller.alwaysFalse
 			count: 1
-			path: repo/src/Symfony/Component/String/AbstractUnicodeString.php
-
-		-
-			message: '#^Invalid array key type float\.$#'
-			identifier: offsetAccess.invalidOffset
-			count: 4
 			path: repo/src/Symfony/Component/String/AbstractUnicodeString.php
 
 		-
@@ -8739,6 +8766,18 @@ parameters:
 			path: repo/src/Symfony/Component/Translation/Command/TranslationPullCommand.php
 
 		-
+			message: '#^Call to function method_exists\(\) with Symfony\\Component\\Console\\Completion\\CompletionSuggestions and ''suggestPaths'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/src/Symfony/Component/Translation/Command/XliffLintCommand.php
+
+		-
+			message: '#^Call to function method_exists\(\) with Symfony\\Component\\Console\\Completion\\CompletionSuggestions and ''suggestDirectories'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/src/Symfony/Component/Translation/Command/XliffUpdateSourcesCommand.php
+
+		-
 			message: '#^Call to function is_string\(\) with PhpParser\\Node will always evaluate to false\.$#'
 			identifier: function.impossibleType
 			count: 1
@@ -8881,12 +8920,6 @@ parameters:
 			identifier: nullsafe.neverNull
 			count: 8
 			path: repo/src/Symfony/Component/Tui/Render/ChromeApplier.php
-
-		-
-			message: '#^Using nullsafe method call on non\-nullable type Symfony\\Component\\Tui\\Input\\StdinBuffer\. Use \-\> instead\.$#'
-			identifier: nullsafe.neverNull
-			count: 1
-			path: repo/src/Symfony/Component/Tui/Terminal/Terminal.php
 
 		-
 			message: '#^Using nullsafe method call on non\-nullable type Symfony\\Component\\Tui\\Input\\StdinBuffer\. Use \-\> instead\.$#'
@@ -9129,9 +9162,9 @@ parameters:
 			path: repo/src/Symfony/Component/TypeInfo/TypeContext/TypeContextFactory.php
 
 		-
-			message: '#^Class PHPStan\\PhpDocParser\\Parser\\ConstExprParser constructor invoked with 0 parameters, 1 required\.$#'
+			message: '#^Class PHPStan\\PhpDocParser\\Parser\\ConstExprParser constructor invoked with 2 parameters, 1 required\.$#'
 			identifier: arguments.count
-			count: 2
+			count: 1
 			path: repo/src/Symfony/Component/TypeInfo/TypeContext/TypeContextFactory.php
 
 		-
@@ -9141,8 +9174,8 @@ parameters:
 			path: repo/src/Symfony/Component/TypeInfo/TypeContext/TypeContextFactory.php
 
 		-
-			message: '#^Class PHPStan\\PhpDocParser\\Parser\\TypeParser constructor invoked with 1 parameter, 2 required\.$#'
-			identifier: arguments.count
+			message: '#^Parameter \#1 \$config of class PHPStan\\PhpDocParser\\Parser\\ConstExprParser constructor expects PHPStan\\PhpDocParser\\ParserConfig, true given\.$#'
+			identifier: argument.type
 			count: 1
 			path: repo/src/Symfony/Component/TypeInfo/TypeContext/TypeContextFactory.php
 
@@ -9154,6 +9187,12 @@ parameters:
 
 		-
 			message: '#^Parameter \#1 \$config of class PHPStan\\PhpDocParser\\Parser\\TypeParser constructor expects PHPStan\\PhpDocParser\\ParserConfig, PHPStan\\PhpDocParser\\Parser\\ConstExprParser given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Symfony/Component/TypeInfo/TypeContext/TypeContextFactory.php
+
+		-
+			message: '#^Parameter \#2 \$constExprParser of class PHPStan\\PhpDocParser\\Parser\\TypeParser constructor expects PHPStan\\PhpDocParser\\Parser\\ConstExprParser, true given\.$#'
 			identifier: argument.type
 			count: 1
 			path: repo/src/Symfony/Component/TypeInfo/TypeContext/TypeContextFactory.php
@@ -9177,7 +9216,7 @@ parameters:
 			path: repo/src/Symfony/Component/TypeInfo/TypeResolver/PhpDocAwareReflectionTypeResolver.php
 
 		-
-			message: '#^Class PHPStan\\PhpDocParser\\Parser\\ConstExprParser constructor invoked with 0 parameters, 1 required\.$#'
+			message: '#^Class PHPStan\\PhpDocParser\\Parser\\ConstExprParser constructor invoked with 2 parameters, 1 required\.$#'
 			identifier: arguments.count
 			count: 1
 			path: repo/src/Symfony/Component/TypeInfo/TypeResolver/PhpDocAwareReflectionTypeResolver.php
@@ -9189,8 +9228,8 @@ parameters:
 			path: repo/src/Symfony/Component/TypeInfo/TypeResolver/PhpDocAwareReflectionTypeResolver.php
 
 		-
-			message: '#^Class PHPStan\\PhpDocParser\\Parser\\TypeParser constructor invoked with 1 parameter, 2 required\.$#'
-			identifier: arguments.count
+			message: '#^Parameter \#1 \$config of class PHPStan\\PhpDocParser\\Parser\\ConstExprParser constructor expects PHPStan\\PhpDocParser\\ParserConfig, true given\.$#'
+			identifier: argument.type
 			count: 1
 			path: repo/src/Symfony/Component/TypeInfo/TypeResolver/PhpDocAwareReflectionTypeResolver.php
 
@@ -9202,6 +9241,12 @@ parameters:
 
 		-
 			message: '#^Parameter \#1 \$config of class PHPStan\\PhpDocParser\\Parser\\TypeParser constructor expects PHPStan\\PhpDocParser\\ParserConfig, PHPStan\\PhpDocParser\\Parser\\ConstExprParser given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Symfony/Component/TypeInfo/TypeResolver/PhpDocAwareReflectionTypeResolver.php
+
+		-
+			message: '#^Parameter \#2 \$constExprParser of class PHPStan\\PhpDocParser\\Parser\\TypeParser constructor expects PHPStan\\PhpDocParser\\Parser\\ConstExprParser, true given\.$#'
 			identifier: argument.type
 			count: 1
 			path: repo/src/Symfony/Component/TypeInfo/TypeResolver/PhpDocAwareReflectionTypeResolver.php
@@ -9225,14 +9270,14 @@ parameters:
 			path: repo/src/Symfony/Component/TypeInfo/TypeResolver/StringTypeResolver.php
 
 		-
-			message: '#^Class PHPStan\\PhpDocParser\\Parser\\ConstExprParser constructor invoked with 0 parameters, 1 required\.$#'
+			message: '#^Class PHPStan\\PhpDocParser\\Parser\\ConstExprParser constructor invoked with 2 parameters, 1 required\.$#'
 			identifier: arguments.count
 			count: 1
 			path: repo/src/Symfony/Component/TypeInfo/TypeResolver/StringTypeResolver.php
 
 		-
-			message: '#^Class PHPStan\\PhpDocParser\\Parser\\TypeParser constructor invoked with 1 parameter, 2 required\.$#'
-			identifier: arguments.count
+			message: '#^Parameter \#1 \$config of class PHPStan\\PhpDocParser\\Parser\\ConstExprParser constructor expects PHPStan\\PhpDocParser\\ParserConfig, true given\.$#'
+			identifier: argument.type
 			count: 1
 			path: repo/src/Symfony/Component/TypeInfo/TypeResolver/StringTypeResolver.php
 
@@ -9253,6 +9298,42 @@ parameters:
 			identifier: argument.type
 			count: 4
 			path: repo/src/Symfony/Component/TypeInfo/TypeResolver/StringTypeResolver.php
+
+		-
+			message: '#^Parameter \#1 \$types of method Symfony\\Component\\TypeInfo\\TypeResolver\\StringTypeResolver\:\:mergeArrayShapes\(\) expects list\<Symfony\\Component\\TypeInfo\\Type\\ArrayShapeType\>, list\<Symfony\\Component\\TypeInfo\\Type\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Symfony/Component/TypeInfo/TypeResolver/StringTypeResolver.php
+
+		-
+			message: '#^Parameter \#2 \$constExprParser of class PHPStan\\PhpDocParser\\Parser\\TypeParser constructor expects PHPStan\\PhpDocParser\\Parser\\ConstExprParser, true given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Symfony/Component/TypeInfo/TypeResolver/StringTypeResolver.php
+
+		-
+			message: '#^Binary operation "\+" between string and 1 results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 1
+			path: repo/src/Symfony/Component/Uid/BinaryUtil.php
+
+		-
+			message: '#^Binary operation "\-" between 1000000 and string results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 1
+			path: repo/src/Symfony/Component/Uid/BinaryUtil.php
+
+		-
+			message: '#^Binary operation "\-" between string and 1 results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 1
+			path: repo/src/Symfony/Component/Uid/BinaryUtil.php
+
+		-
+			message: '#^Parameter \#1 \$string of function str_pad expects string, float\|int given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Symfony/Component/Uid/BinaryUtil.php
 
 		-
 			message: '#^Call to an undefined static method Symfony\\Component\\Uid\\TimeBasedUidInterface&Symfony\\Component\\Uid\\Uuid\:\:generate\(\)\.$#'
@@ -9657,12 +9738,6 @@ parameters:
 			path: repo/src/Symfony/Component/Validator/Validation.php
 
 		-
-			message: '#^Parameter \#2 \$configurator of method Symfony\\Component\\DependencyInjection\\ContainerBuilder\:\:registerAttributeForAutoconfiguration\(\) expects callable\(Symfony\\Component\\DependencyInjection\\ChildDefinition, Symfony\\Component\\Validator\\Constraint, Reflector\)\: void, Closure\(Symfony\\Component\\DependencyInjection\\ChildDefinition, Symfony\\Component\\Validator\\Constraint, ReflectionClass\|ReflectionMethod\|ReflectionProperty\)\: void given\.$#'
-			identifier: argument.type
-			count: 1
-			path: repo/src/Symfony/Component/Validator/ValidationBundle.php
-
-		-
 			message: '''
 				#^Call to deprecated method initialize\(\) of interface Symfony\\Component\\Validator\\ConstraintValidatorInterface\:
 				since Symfony 8\.1, use "validateInContext\(\)" instead$#
@@ -9747,26 +9822,8 @@ parameters:
 			path: repo/src/Symfony/Component/VarDumper/Caster/DoctrineCaster.php
 
 		-
-			message: '#^Call to method capacity\(\) on an unknown class Ds\\Collection\.$#'
-			identifier: class.notFound
-			count: 1
-			path: repo/src/Symfony/Component/VarDumper/Caster/DsCaster.php
-
-		-
-			message: '#^Call to method count\(\) on an unknown class Ds\\Collection\.$#'
-			identifier: class.notFound
-			count: 1
-			path: repo/src/Symfony/Component/VarDumper/Caster/DsCaster.php
-
-		-
-			message: '#^Call to method toArray\(\) on an unknown class Ds\\Collection\.$#'
-			identifier: class.notFound
-			count: 1
-			path: repo/src/Symfony/Component/VarDumper/Caster/DsCaster.php
-
-		-
-			message: '#^Parameter \$c of method Symfony\\Component\\VarDumper\\Caster\\DsCaster\:\:castCollection\(\) has invalid type Ds\\Collection\.$#'
-			identifier: class.notFound
+			message: '#^Call to an undefined method Ds\\Collection\:\:capacity\(\)\.$#'
+			identifier: method.notFound
 			count: 1
 			path: repo/src/Symfony/Component/VarDumper/Caster/DsCaster.php
 
@@ -10113,6 +10170,18 @@ parameters:
 			path: repo/src/Symfony/Component/Workflow/Transition.php
 
 		-
+			message: '#^Trait Symfony\\Component\\Workflow\\WorkflowTrait is used zero times and is not analysed\.$#'
+			identifier: trait.unused
+			count: 1
+			path: repo/src/Symfony/Component/Workflow/WorkflowTrait.php
+
+		-
+			message: '#^Call to function method_exists\(\) with Symfony\\Component\\Console\\Completion\\CompletionSuggestions and ''suggestPaths'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/src/Symfony/Component/Yaml/Command/LintCommand.php
+
+		-
 			message: '#^Parameter \#2 \$flags of method Symfony\\Component\\Yaml\\Parser\:\:parse\(\) expects 0\|2\|4\|6\|8\|10\|12\|14\|32\|34\|36\|38\|40\|42\|44\|46\|256\|258\|260\|262\|264\|266\|268\|270\|288\|290\|292\|294\|296\|298\|300\|302\|512\|514\|516\|518\|520\|522\|524\|526\|544\|546\|548\|550\|552\|554\|556\|558\|768\|770\|772\|774\|776\|778\|780\|782\|800\|802\|804\|806\|808\|810\|812\|814\|65536\|65538\|65540\|65542\|65544\|65546\|65548\|65550\|65568\|65570\|65572\|65574\|65576\|65578\|65580\|65582\|65792\|65794\|65796\|65798\|65800\|65802\|65804\|65806\|65824\|65826\|65828\|65830\|65832\|65834\|65836\|65838\|66048\|66050\|66052\|66054\|66056\|66058\|66060\|66062\|66080\|66082\|66084\|66086\|66088\|66090\|66092\|66094\|66304\|66306\|66308\|66310\|66312\|66314\|66316\|66318\|66336\|66338\|66340\|66342\|66344\|66346\|66348\|66350, int given\.$#'
 			identifier: argument.type
 			count: 1
@@ -10161,8 +10230,20 @@ parameters:
 			path: repo/src/Symfony/Component/Yaml/Parser.php
 
 		-
+			message: '#^Do\-while loop condition is always false\.$#'
+			identifier: doWhile.alwaysFalse
+			count: 1
+			path: repo/src/Symfony/Component/Yaml/Parser.php
+
+		-
 			message: '#^Expression on left side of \?\? is not nullable\.$#'
 			identifier: nullCoalesce.expr
+			count: 1
+			path: repo/src/Symfony/Component/Yaml/Parser.php
+
+		-
+			message: '#^Method Symfony\\Component\\Yaml\\Parser\:\:cleanup\(\) never assigns null to &\$hasContentOnStartMarkerLine so it can be removed from the by\-ref type\.$#'
+			identifier: parameterByRef.unusedType
 			count: 1
 			path: repo/src/Symfony/Component/Yaml/Parser.php
 
@@ -10175,24 +10256,12 @@ parameters:
 		-
 			message: '#^Negated boolean expression is always false\.$#'
 			identifier: booleanNot.alwaysFalse
-			count: 3
+			count: 2
 			path: repo/src/Symfony/Component/Yaml/Parser.php
 
 		-
 			message: '#^Negated boolean expression is always true\.$#'
 			identifier: booleanNot.alwaysTrue
-			count: 3
-			path: repo/src/Symfony/Component/Yaml/Parser.php
-
-		-
-			message: '#^Offset 0 does not exist on ''''\.$#'
-			identifier: offsetAccess.notFound
-			count: 1
-			path: repo/src/Symfony/Component/Yaml/Parser.php
-
-		-
-			message: '#^Offset 1 on '''' in isset\(\) does not exist\.$#'
-			identifier: isset.offset
 			count: 1
 			path: repo/src/Symfony/Component/Yaml/Parser.php
 
@@ -10203,20 +10272,8 @@ parameters:
 			path: repo/src/Symfony/Component/Yaml/Parser.php
 
 		-
-			message: '#^Result of && is always false\.$#'
-			identifier: booleanAnd.alwaysFalse
-			count: 3
-			path: repo/src/Symfony/Component/Yaml/Parser.php
-
-		-
-			message: '#^Strict comparison using \=\=\= between ''\-\-\-'' and '''' will always evaluate to false\.$#'
-			identifier: identical.alwaysFalse
-			count: 1
-			path: repo/src/Symfony/Component/Yaml/Parser.php
-
-		-
-			message: '#^Strict comparison using \=\=\= between 0 and \-1 will always evaluate to false\.$#'
-			identifier: identical.alwaysFalse
+			message: '#^Variable \$block might not be defined\.$#'
+			identifier: variable.undefined
 			count: 1
 			path: repo/src/Symfony/Component/Yaml/Parser.php
 
@@ -10229,7 +10286,7 @@ parameters:
 		-
 			message: '#^Variable \$refMatches might not be defined\.$#'
 			identifier: variable.undefined
-			count: 1
+			count: 2
 			path: repo/src/Symfony/Component/Yaml/Parser.php
 
 		-
@@ -10241,12 +10298,6 @@ parameters:
 		-
 			message: '#^Call to function class_exists\(\) with ''Psr\\\\Cache\\\\InvalidArgumentException'' will always evaluate to false\.$#'
 			identifier: function.impossibleType
-			count: 1
-			path: repo/src/Symfony/Contracts/Cache/CacheTrait.php
-
-		-
-			message: '#^If condition is always true\.$#'
-			identifier: if.alwaysTrue
 			count: 1
 			path: repo/src/Symfony/Contracts/Cache/CacheTrait.php
 

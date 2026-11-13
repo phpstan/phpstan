@@ -2,3 +2,6 @@ includes:
 	- repo/phpstan.neon.dist
 	- shipmonk-rnd-baseline.neon
 	- editor-link-repo.php
+
+parameters:
+	reportUnmatchedIgnoredErrors: false

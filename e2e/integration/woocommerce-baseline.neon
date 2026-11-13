@@ -25,12 +25,6 @@ parameters:
 			path: repo/plugins/woocommerce/includes/admin/class-wc-admin-setup-wizard.php
 
 		-
-			message: '#^PHPDoc tag @param has invalid value \(array @user_info An array containing one item with the name and email of the user currently selected as the customer for the order\.\)\: Unexpected token "@user_info", expected variable at offset 317 on line 7$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: repo/plugins/woocommerce/includes/admin/meta-boxes/class-wc-meta-box-order-data.php
-
-		-
 			message: '#^Parameter \#1 \$text of function esc_attr expects string, int given\.$#'
 			identifier: argument.type
 			count: 1
@@ -85,7 +79,31 @@ parameters:
 			path: repo/plugins/woocommerce/includes/data-stores/class-wc-product-data-store-cpt.php
 
 		-
+			message: '#^Offset ''_crosssell_ids'' might not exist on array\{sku\?\: mixed, global_unique_id\?\: mixed, manage_stock\?\: mixed, backorders\?\: mixed, stock_quantity\: float\|int, weight\?\: mixed, length\?\: mixed, width\?\: mixed, \.\.\.\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/plugins/woocommerce/includes/data-stores/class-wc-product-variation-data-store-cpt.php
+
+		-
+			message: '#^Offset ''sold_individually'' might not exist on array\{sku\?\: mixed, global_unique_id\?\: mixed, manage_stock\?\: mixed, backorders\?\: mixed, stock_quantity\: float\|int, weight\?\: mixed, length\?\: mixed, width\?\: mixed, \.\.\.\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/plugins/woocommerce/includes/data-stores/class-wc-product-variation-data-store-cpt.php
+
+		-
+			message: '#^Offset ''stock_quantity'' might not exist on array\{sku\?\: mixed, global_unique_id\?\: mixed, manage_stock\?\: mixed, backorders\?\: mixed, stock_quantity\?\: mixed, weight\?\: mixed, length\?\: mixed, width\?\: mixed, \.\.\.\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/plugins/woocommerce/includes/data-stores/class-wc-product-variation-data-store-cpt.php
+
+		-
 			message: '#^Offset ''tax_class'' might not exist on array\{description\?\: mixed, regular_price\?\: mixed, sale_price\?\: mixed, date_on_sale_from\?\: mixed, date_on_sale_to\?\: mixed, manage_stock\?\: mixed, stock_status\?\: mixed, virtual\?\: mixed, \.\.\.\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/plugins/woocommerce/includes/data-stores/class-wc-product-variation-data-store-cpt.php
+
+		-
+			message: '#^Offset ''tax_status'' might not exist on array\{sku\?\: mixed, global_unique_id\?\: mixed, manage_stock\?\: mixed, backorders\?\: mixed, stock_quantity\: float\|int, weight\?\: mixed, length\?\: mixed, width\?\: mixed, \.\.\.\}\.$#'
 			identifier: offsetAccess.notFound
 			count: 1
 			path: repo/plugins/woocommerce/includes/data-stores/class-wc-product-variation-data-store-cpt.php
@@ -301,174 +319,6 @@ parameters:
 			path: repo/plugins/woocommerce/src/Internal/Abilities/Domain/Traits/ProductAbilityTrait.php
 
 		-
-			message: '#^Call to function method_exists\(\) with ''Automattic\\\\WooCommerce\\\\Internal\\\\Admin\\\\Notes\\\\CustomizeStoreWithBlocks'' and ''get_note'' will always evaluate to true\.$#'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: repo/plugins/woocommerce/src/Internal/Admin/Notes/CustomizeStoreWithBlocks.php
-
-		-
-			message: '#^Call to function method_exists\(\) with ''Automattic\\\\WooCommerce\\\\Internal\\\\Admin\\\\Notes\\\\CustomizingProductCatalog'' and ''get_note'' will always evaluate to true\.$#'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: repo/plugins/woocommerce/src/Internal/Admin/Notes/CustomizingProductCatalog.php
-
-		-
-			message: '#^Call to function method_exists\(\) with ''Automattic\\\\WooCommerce\\\\Internal\\\\Admin\\\\Notes\\\\EUVATNumber'' and ''get_note'' will always evaluate to true\.$#'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: repo/plugins/woocommerce/src/Internal/Admin/Notes/EUVATNumber.php
-
-		-
-			message: '#^Call to function method_exists\(\) with ''Automattic\\\\WooCommerce\\\\Internal\\\\Admin\\\\Notes\\\\EditProductsOnTheMove'' and ''get_note'' will always evaluate to true\.$#'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: repo/plugins/woocommerce/src/Internal/Admin/Notes/EditProductsOnTheMove.php
-
-		-
-			message: '#^Call to function method_exists\(\) with ''Automattic\\\\WooCommerce\\\\Internal\\\\Admin\\\\Notes\\\\EmailImprovements'' and ''get_note'' will always evaluate to true\.$#'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: repo/plugins/woocommerce/src/Internal/Admin/Notes/EmailImprovements.php
-
-		-
-			message: '#^Call to function method_exists\(\) with ''Automattic\\\\WooCommerce\\\\Internal\\\\Admin\\\\Notes\\\\FirstProduct'' and ''get_note'' will always evaluate to true\.$#'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: repo/plugins/woocommerce/src/Internal/Admin/Notes/FirstProduct.php
-
-		-
-			message: '#^Call to function method_exists\(\) with ''Automattic\\\\WooCommerce\\\\Internal\\\\Admin\\\\Notes\\\\FullRefundFixDataToolNotice'' and ''get_note'' will always evaluate to true\.$#'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: repo/plugins/woocommerce/src/Internal/Admin/Notes/FullRefundFixDataToolNotice.php
-
-		-
-			message: '#^Call to function method_exists\(\) with ''Automattic\\\\WooCommerce\\\\Internal\\\\Admin\\\\Notes\\\\GivingFeedbackNotes'' and ''get_note'' will always evaluate to true\.$#'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: repo/plugins/woocommerce/src/Internal/Admin/Notes/GivingFeedbackNotes.php
-
-		-
-			message: '#^Call to function method_exists\(\) with ''Automattic\\\\WooCommerce\\\\Internal\\\\Admin\\\\Notes\\\\InstallJPAndWCSPlugins'' and ''get_note'' will always evaluate to true\.$#'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: repo/plugins/woocommerce/src/Internal/Admin/Notes/InstallJPAndWCSPlugins.php
-
-		-
-			message: '#^Call to function method_exists\(\) with ''Automattic\\\\WooCommerce\\\\Internal\\\\Admin\\\\Notes\\\\LaunchChecklist'' and ''get_note'' will always evaluate to true\.$#'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: repo/plugins/woocommerce/src/Internal/Admin/Notes/LaunchChecklist.php
-
-		-
-			message: '#^Call to function method_exists\(\) with ''Automattic\\\\WooCommerce\\\\Internal\\\\Admin\\\\Notes\\\\MagentoMigration'' and ''get_note'' will always evaluate to true\.$#'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: repo/plugins/woocommerce/src/Internal/Admin/Notes/MagentoMigration.php
-
-		-
-			message: '#^Call to function method_exists\(\) with ''Automattic\\\\WooCommerce\\\\Internal\\\\Admin\\\\Notes\\\\ManageOrdersOnTheGo'' and ''get_note'' will always evaluate to true\.$#'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: repo/plugins/woocommerce/src/Internal/Admin/Notes/ManageOrdersOnTheGo.php
-
-		-
-			message: '#^Call to function method_exists\(\) with ''Automattic\\\\WooCommerce\\\\Internal\\\\Admin\\\\Notes\\\\MarketingJetpack'' and ''get_note'' will always evaluate to true\.$#'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: repo/plugins/woocommerce/src/Internal/Admin/Notes/MarketingJetpack.php
-
-		-
-			message: '#^Call to function method_exists\(\) with ''Automattic\\\\WooCommerce\\\\Internal\\\\Admin\\\\Notes\\\\MigrateFromShopify'' and ''get_note'' will always evaluate to true\.$#'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: repo/plugins/woocommerce/src/Internal/Admin/Notes/MigrateFromShopify.php
-
-		-
-			message: '#^Call to function method_exists\(\) with ''Automattic\\\\WooCommerce\\\\Internal\\\\Admin\\\\Notes\\\\MobileApp'' and ''get_note'' will always evaluate to true\.$#'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: repo/plugins/woocommerce/src/Internal/Admin/Notes/MobileApp.php
-
-		-
-			message: '#^Call to function method_exists\(\) with ''Automattic\\\\WooCommerce\\\\Internal\\\\Admin\\\\Notes\\\\NewSalesRecord'' and ''get_note'' will always evaluate to true\.$#'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: repo/plugins/woocommerce/src/Internal/Admin/Notes/NewSalesRecord.php
-
-		-
-			message: '#^Call to function method_exists\(\) with ''Automattic\\\\WooCommerce\\\\Internal\\\\Admin\\\\Notes\\\\OnboardingPayments'' and ''get_note'' will always evaluate to true\.$#'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: repo/plugins/woocommerce/src/Internal/Admin/Notes/OnboardingPayments.php
-
-		-
-			message: '#^Call to function method_exists\(\) with ''Automattic\\\\WooCommerce\\\\Internal\\\\Admin\\\\Notes\\\\OnlineClothingStore'' and ''get_note'' will always evaluate to true\.$#'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: repo/plugins/woocommerce/src/Internal/Admin/Notes/OnlineClothingStore.php
-
-		-
-			message: '#^Call to function method_exists\(\) with ''Automattic\\\\WooCommerce\\\\Internal\\\\Admin\\\\Notes\\\\PaymentsMoreInfoNeeded'' and ''get_note'' will always evaluate to true\.$#'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: repo/plugins/woocommerce/src/Internal/Admin/Notes/PaymentsMoreInfoNeeded.php
-
-		-
-			message: '#^Call to function method_exists\(\) with ''Automattic\\\\WooCommerce\\\\Internal\\\\Admin\\\\Notes\\\\PaymentsRemindMeLater'' and ''get_note'' will always evaluate to true\.$#'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: repo/plugins/woocommerce/src/Internal/Admin/Notes/PaymentsRemindMeLater.php
-
-		-
-			message: '#^Call to function method_exists\(\) with ''Automattic\\\\WooCommerce\\\\Internal\\\\Admin\\\\Notes\\\\PerformanceOnMobile'' and ''get_note'' will always evaluate to true\.$#'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: repo/plugins/woocommerce/src/Internal/Admin/Notes/PerformanceOnMobile.php
-
-		-
-			message: '#^Call to function method_exists\(\) with ''Automattic\\\\WooCommerce\\\\Internal\\\\Admin\\\\Notes\\\\PersonalizeStore'' and ''get_note'' will always evaluate to true\.$#'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: repo/plugins/woocommerce/src/Internal/Admin/Notes/PersonalizeStore.php
-
-		-
-			message: '#^Call to function method_exists\(\) with ''Automattic\\\\WooCommerce\\\\Internal\\\\Admin\\\\Notes\\\\RealTimeOrderAlerts'' and ''get_note'' will always evaluate to true\.$#'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: repo/plugins/woocommerce/src/Internal/Admin/Notes/RealTimeOrderAlerts.php
-
-		-
-			message: '#^Call to function method_exists\(\) with ''Automattic\\\\WooCommerce\\\\Internal\\\\Admin\\\\Notes\\\\ScheduledUpdatesPromotion'' and ''get_note'' will always evaluate to true\.$#'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: repo/plugins/woocommerce/src/Internal/Admin/Notes/ScheduledUpdatesPromotion.php
-
-		-
-			message: '#^Call to function method_exists\(\) with ''Automattic\\\\WooCommerce\\\\Internal\\\\Admin\\\\Notes\\\\SellingOnlineCourses'' and ''get_note'' will always evaluate to true\.$#'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: repo/plugins/woocommerce/src/Internal/Admin/Notes/SellingOnlineCourses.php
-
-		-
-			message: '#^Call to function method_exists\(\) with ''Automattic\\\\WooCommerce\\\\Internal\\\\Admin\\\\Notes\\\\TrackingOptIn'' and ''get_note'' will always evaluate to true\.$#'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: repo/plugins/woocommerce/src/Internal/Admin/Notes/TrackingOptIn.php
-
-		-
-			message: '#^Call to function method_exists\(\) with ''Automattic\\\\WooCommerce\\\\Internal\\\\Admin\\\\Notes\\\\WooCommercePayments'' and ''get_note'' will always evaluate to true\.$#'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: repo/plugins/woocommerce/src/Internal/Admin/Notes/WooCommercePayments.php
-
-		-
-			message: '#^Call to function method_exists\(\) with ''Automattic\\\\WooCommerce\\\\Internal\\\\Admin\\\\Notes\\\\WooCommerceSubscriptions'' and ''get_note'' will always evaluate to true\.$#'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: repo/plugins/woocommerce/src/Internal/Admin/Notes/WooCommerceSubscriptions.php
-
-		-
 			message: '#^Parameter \#1 \$args of method WP_Ajax_Response\:\:add\(\) expects array\{what\?\: string, action\?\: string\|false, id\?\: int\|WP_Error, old_id\?\: int\|false, position\?\: string, data\?\: string\|WP_Error, supplemental\?\: array\}, array\{what\: ''comment'', id\: string, data\: string\|false, position\: ''\-1''\|int, supplemental\: array\{in_moderation\: int, i18n_comments_text\: string, i18n_moderation_text\: string, parent_approved\: string, parent_post_id\: \*NEVER\*\}\|array\{in_moderation\: int, i18n_comments_text\: string, i18n_moderation_text\: string\}\} given\.$#'
 			identifier: argument.type
 			count: 1
@@ -497,12 +347,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: repo/plugins/woocommerce/src/Internal/Logging/RemoteLogger.php
-
-		-
-			message: '#^Method Automattic\\WooCommerce\\Internal\\PushNotifications\\Controllers\\PushTokenRestController\:\:get_schema\(\) should return array\<array\> but returns array\.$#'
-			identifier: return.type
-			count: 1
-			path: repo/plugins/woocommerce/src/Internal/PushNotifications/Controllers/PushTokenRestController.php
 
 		-
 			message: '#^Instanceof between WC_Order and WC_Order will always evaluate to true\.$#'
@@ -557,15 +401,3 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: repo/plugins/woocommerce/src/StoreApi/Schemas/V1/ProductCategorySchema.php
-
-		-
-			message: '#^Offset ''tax_query'' does not exist on array\{offset\: mixed, order\: mixed, orderby\: mixed, paged\: mixed, post__in\: mixed, post__not_in\: mixed, posts_per_page\: mixed, post_parent__in\: mixed, \.\.\.\}\.$#'
-			identifier: offsetAccess.notFound
-			count: 2
-			path: repo/plugins/woocommerce/src/StoreApi/Utilities/ProductQuery.php
-
-		-
-			message: '#^Offset ''tax_query'' on array\{offset\: mixed, order\: mixed, orderby\: mixed, paged\: mixed, post__in\: mixed, post__not_in\: mixed, posts_per_page\: mixed, post_parent__in\: mixed, \.\.\.\} in empty\(\) does not exist\.$#'
-			identifier: empty.offset
-			count: 2
-			path: repo/plugins/woocommerce/src/StoreApi/Utilities/ProductQuery.php

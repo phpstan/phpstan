@@ -1,40 +1,16 @@
 parameters:
 	ignoreErrors:
 		-
-			message: '#^Parameter \#1 \$array of function sort expects an array of values castable to string, array\<mixed\> given\.$#'
-			identifier: argument.type
-			count: 1
-			path: repo/build/generate-block-serializer-consts.php
-
-		-
 			message: '#^Foreach overwrites \$key with its value variable\.$#'
 			identifier: foreach.valueOverwrite
 			count: 1
 			path: repo/build/remove-dead-translations.php
 
 		-
-			message: '#^Cannot cast mixed to string\.$#'
-			identifier: cast.string
-			count: 1
-			path: repo/src/Server.php
-
-		-
 			message: '#^Call to function is_infinite\(\) with float\<0\.0, 1\.0\> will always evaluate to false\.$#'
 			identifier: function.impossibleType
 			count: 1
 			path: repo/src/block/ItemFrame.php
-
-		-
-			message: '#^Parameter \#1 \$array of function sort expects an array of values castable to string, array\<mixed\> given\.$#'
-			identifier: argument.type
-			count: 1
-			path: repo/src/command/defaults/WhitelistCommand.php
-
-		-
-			message: '#^Parameter \#2 \$array of function implode expects array\<string\>, list\<mixed\> given\.$#'
-			identifier: argument.type
-			count: 1
-			path: repo/src/command/defaults/WhitelistCommand.php
 
 		-
 			message: '#^Casting to list\<string\> something that''s already list\<string\>\.$#'
@@ -61,10 +37,10 @@ parameters:
 			path: repo/src/entity/object/AreaEffectCloud.php
 
 		-
-			message: '#^Cannot cast mixed to int\.$#'
-			identifier: cast.int
-			count: 3
-			path: repo/src/item/Item.php
+			message: '#^Parameter \#1 \$class of static method pocketmine\\event\\HandlerListManager\:\:isValidClass\(\) expects ReflectionClass\<pocketmine\\event\\Event\>, ReflectionClass\<TEvent of pocketmine\\event\\Event\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/src/event/HandlerListManager.php
 
 		-
 			message: '#^Cannot call method getPermissionRecalculationCallbacks\(\) on pocketmine\\player\\Player\|null\.$#'
@@ -77,84 +53,6 @@ parameters:
 			identifier: match.alwaysTrue
 			count: 1
 			path: repo/src/network/mcpe/handler/InGamePacketHandler.php
-
-		-
-			message: '#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\.$#'
-			identifier: foreach.nonIterable
-			count: 1
-			path: repo/src/plugin/PluginDescription.php
-
-		-
-			message: '#^Cannot cast mixed to string\.$#'
-			identifier: cast.string
-			count: 4
-			path: repo/src/plugin/PluginDescription.php
-
-		-
-			message: '#^Parameter \#1 \$callback of function array_map expects \(callable\(mixed\)\: mixed\)\|null, ''strval'' given\.$#'
-			identifier: argument.type
-			count: 1
-			path: repo/src/plugin/PluginDescription.php
-
-		-
-			message: '#^Parameter \#1 \$data of static method pocketmine\\permission\\PermissionParser\:\:loadPermissions\(\) expects array\<string, array\<string, mixed\>\>, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: repo/src/plugin/PluginDescription.php
-
-		-
-			message: '#^Parameter \#1 \$description of class pocketmine\\plugin\\PluginDescriptionCommandEntry constructor expects string\|null, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: repo/src/plugin/PluginDescription.php
-
-		-
-			message: '#^Parameter \#1 \$name of static method pocketmine\\plugin\\PluginEnableOrder\:\:fromString\(\) expects string, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: repo/src/plugin/PluginDescription.php
-
-		-
-			message: '#^Parameter \#2 \$usageMessage of class pocketmine\\plugin\\PluginDescriptionCommandEntry constructor expects string\|null, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: repo/src/plugin/PluginDescription.php
-
-		-
-			message: '#^Parameter \#3 \$aliases of class pocketmine\\plugin\\PluginDescriptionCommandEntry constructor expects list\<string\>, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: repo/src/plugin/PluginDescription.php
-
-		-
-			message: '#^Parameter \#5 \$permissionDeniedMessage of class pocketmine\\plugin\\PluginDescriptionCommandEntry constructor expects string\|null, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: repo/src/plugin/PluginDescription.php
-
-		-
-			message: '#^Property pocketmine\\plugin\\PluginDescription\:\:\$authors \(array\<string\>\) does not accept array\<mixed\>\.$#'
-			identifier: assign.propertyType
-			count: 2
-			path: repo/src/plugin/PluginDescription.php
-
-		-
-			message: '#^Property pocketmine\\plugin\\PluginDescription\:\:\$depend \(list\<string\>\) does not accept list\<mixed\>\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: repo/src/plugin/PluginDescription.php
-
-		-
-			message: '#^Property pocketmine\\plugin\\PluginDescription\:\:\$loadBefore \(list\<string\>\) does not accept list\<mixed\>\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: repo/src/plugin/PluginDescription.php
-
-		-
-			message: '#^Property pocketmine\\plugin\\PluginDescription\:\:\$softDepend \(list\<string\>\) does not accept list\<mixed\>\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: repo/src/plugin/PluginDescription.php
 
 		-
 			message: '#^Parameter \#1 \$list of method pocketmine\\thread\\ThreadSafeClassLoader\:\:appendOrPrependLookupEntry\(\) expects pmmp\\thread\\ThreadSafeArray\<int, string\>, pmmp\\thread\\ThreadSafeArray\<\(int\|string\), mixed\> given\.$#'
@@ -199,16 +97,10 @@ parameters:
 			path: repo/src/world/generator/noise/Noise.php
 
 		-
-			message: '#^Parameter \#1 \$array of function array_unique expects an array of values castable to string, array\<string, mixed\> given\.$#'
-			identifier: argument.type
+			message: '#^For loop initial assignment overwrites variable \$x\.$#'
+			identifier: for.variableOverwrite
 			count: 1
-			path: repo/tests/phpunit/block/BlockTypeIdsTest.php
-
-		-
-			message: '#^Parameter \#1 \$array of function array_unique expects an array of values castable to string, array\<string, mixed\> given\.$#'
-			identifier: argument.type
-			count: 1
-			path: repo/tests/phpunit/item/ItemTypeIdsTest.php
+			path: repo/src/world/generator/normal/Normal.php
 
 		-
 			message: '#^Foreach overwrites \$newValue with its value variable\.$#'
@@ -235,43 +127,7 @@ parameters:
 			path: repo/tools/blockstate-upgrade-schema-utils.php
 
 		-
-			message: '#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\.$#'
-			identifier: foreach.nonIterable
-			count: 3
-			path: repo/tools/generate-item-upgrade-schema.php
-
-		-
-			message: '#^Binary operation "\." between non\-falsy\-string and mixed results in an error\.$#'
-			identifier: binaryOp.invalid
-			count: 2
-			path: repo/tools/generate-item-upgrade-schema.php
-
-		-
 			message: '#^Constant JSON_THROW_ON_ERROR is not allowed for parameter \#3 \$depth of function json_decode\.$#'
 			identifier: argument.invalidConstant
 			count: 1
-			path: repo/tools/generate-item-upgrade-schema.php
-
-		-
-			message: '#^Part \$meta \(mixed\) of encapsed string cannot be cast to string\.$#'
-			identifier: encapsedStringPart.nonString
-			count: 1
-			path: repo/tools/generate-item-upgrade-schema.php
-
-		-
-			message: '#^Part \$newId \(mixed\) of encapsed string cannot be cast to string\.$#'
-			identifier: encapsedStringPart.nonString
-			count: 2
-			path: repo/tools/generate-item-upgrade-schema.php
-
-		-
-			message: '#^Part \$oldId \(mixed\) of encapsed string cannot be cast to string\.$#'
-			identifier: encapsedStringPart.nonString
-			count: 2
-			path: repo/tools/generate-item-upgrade-schema.php
-
-		-
-			message: '#^Possibly invalid array key type mixed\.$#'
-			identifier: offsetAccess.invalidOffset
-			count: 10
 			path: repo/tools/generate-item-upgrade-schema.php
