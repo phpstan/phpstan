@@ -1,0 +1,19 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Offset float\<0\.0, max\> does not exist on list\<float\>\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/src/wp-admin/includes/class-wp-site-health.php
+
+		-
+			message: '#^Property WP_Query\:\:\$posts \(array\<int\|WP_Post\>\|null\) does not accept list\<stdClass\>\|null\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: repo/src/wp-includes/class-wp-query.php
+
+		-
+			message: '#^Property WP_Query\:\:\$posts \(array\<int\|WP_Post\>\|null\) does not accept list\<string\|null\>\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: repo/src/wp-includes/class-wp-query.php

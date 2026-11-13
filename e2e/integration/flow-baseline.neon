@@ -1,16 +1,418 @@
 parameters:
 	ignoreErrors:
 		-
+			message: '#^Parameter \#1 \$annotation of class Neos\\Flow\\Aop\\Pointcut\\PointcutClassAnnotatedWithFilter constructor expects class\-string\<object\>, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/Aop/Pointcut/PointcutExpressionParser.php
+
+		-
+			message: '#^Parameter \#1 \$annotation of class Neos\\Flow\\Aop\\Pointcut\\PointcutMethodAnnotatedWithFilter constructor expects class\-string\<object\>, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/Aop/Pointcut/PointcutExpressionParser.php
+
+		-
+			message: '#^Parameter \#2 \$annotationPattern of method Neos\\Flow\\Aop\\Pointcut\\PointcutExpressionParser\:\:parseDesignatorClassAnnotatedWith\(\) expects class\-string\<object\>, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/Aop/Pointcut/PointcutExpressionParser.php
+
+		-
+			message: '#^Parameter \#2 \$annotationPattern of method Neos\\Flow\\Aop\\Pointcut\\PointcutExpressionParser\:\:parseDesignatorMethodAnnotatedWith\(\) expects class\-string, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/Aop/Pointcut/PointcutExpressionParser.php
+
+		-
+			message: '#^Parameter \#2 \$signaturePattern of method Neos\\Flow\\Aop\\Pointcut\\PointcutExpressionParser\:\:parseDesignatorWithin\(\) expects class\-string, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/Aop/Pointcut/PointcutExpressionParser.php
+
+		-
+			message: '#^Call to function is_array\(\) with array\{frontend\?\: class\-string\<Neos\\Cache\\Frontend\\FrontendInterface\>, backend\?\: class\-string\<Neos\\Cache\\Backend\\BackendInterface\>, backendOptions\?\: array\<mixed\>, persistent\?\: bool\} will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/Cache/CacheManager.php
+
+		-
+			message: '#^Instanceof between Neos\\Flow\\Cli\\CommandControllerInterface and Neos\\Flow\\Cli\\CommandControllerInterface will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/Cli/Dispatcher.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between iterable\<int, Neos\\Media\\Domain\\Model\\AssetInterface\> and null will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 2
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/Command/ResourceCommandController.php
+
+		-
+			message: '#^Parameter \#2 \$replace of function str_replace expects array\<string\>\|string, array\<int, string\|null\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/Command/RoutingCommandController.php
+
+		-
+			message: '#^Instanceof between Neos\\Flow\\ObjectManagement\\ObjectManagerInterface and Neos\\Flow\\ObjectManagement\\ObjectManagerInterface will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/Core/Booting/Scripts.php
+
+		-
+			message: '#^Strict comparison using \=\=\= between false and false will always evaluate to true\.$#'
+			identifier: identical.alwaysTrue
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/Core/Booting/Scripts.php
+
+		-
+			message: '#^Instanceof between Neos\\Flow\\ObjectManagement\\ObjectManagerInterface and Neos\\Flow\\ObjectManagement\\ObjectManagerInterface will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/Error/DebugExceptionHandler.php
+
+		-
+			message: '#^Strict comparison using \=\=\= between ''CLI'' and ''CLI'' will always evaluate to true\.$#'
+			identifier: identical.alwaysTrue
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/Error/Debugger.php
+
+		-
+			message: '#^Offset 2 on array\{non\-falsy\-string, ''max\-age''\|''s\-maxage'', non\-empty\-string\} in isset\(\) always exists and is not nullable\.$#'
+			identifier: isset.offset
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/Http/CacheControlDirectives.php
+
+		-
+			message: '#^Call to function is_int\(\) with int will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 2
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/Http/Cookie.php
+
+		-
+			message: '#^Parameter \#6 \$path of class Neos\\Flow\\Http\\Cookie constructor expects string, string\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/Http/Cookie.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between string and null will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/Http/Cookie.php
+
+		-
+			message: '#^Call to function assert\(\) with true will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/Http/RequestHandler.php
+
+		-
+			message: '#^Instanceof between Psr\\Http\\Message\\ServerRequestInterface and Psr\\Http\\Message\\ServerRequestInterface will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/Http/RequestHandler.php
+
+		-
+			message: '#^Strict comparison using \=\=\= between ''CLI'' and ''CLI'' will always evaluate to true\.$#'
+			identifier: identical.alwaysTrue
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/Http/UploadedFile.php
+
+		-
+			message: '#^Binary operation "\." between non\-falsy\-string and array\<mixed\>\|string results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/Http/UriTemplate.php
+
+		-
+			message: '#^Parameter \#2 \$array of function implode expects array\<string\>, array\<array\<mixed\>\|string\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/Http/UriTemplate.php
+
+		-
+			message: '#^Parameter &\$parsedData by\-ref type of method Neos\\Flow\\I18n\\Xliff\\Service\\XliffFileProvider\:\:readDirectoryRecursively\(\) expects array\{fileIdentifier\: string, sourceLocale\?\: Neos\\Flow\\I18n\\Locale, translationUnits\?\: array\<string, array\<int, array\{source\: string, target\: string\}\>\>\}, array\<mixed\> given\.$#'
+			identifier: parameterByRef.type
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/I18n/Xliff/Service/XliffFileProvider.php
+
+		-
+			message: '#^Instanceof between Neos\\Flow\\ObjectManagement\\ObjectManagerInterface and Neos\\Flow\\ObjectManagement\\ObjectManagerInterface will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/Log/ThrowableStorage/FileStorage.php
+
+		-
+			message: '#^Instanceof between Neos\\Flow\\ObjectManagement\\ObjectManagerInterface and Neos\\Flow\\ObjectManagement\\ObjectManagerInterface will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/Log/Utility/LogEnvironment.php
+
+		-
+			message: '#^Instanceof between Neos\\Flow\\Package\\PackageInterface&Neos\\Flow\\Package\\PackageKeyAwareInterface and Neos\\Flow\\Package\\PackageKeyAwareInterface will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/Log/Utility/LogEnvironment.php
+
+		-
+			message: '#^Call to function is_string\(\) with string will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/Mvc/Controller/AbstractController.php
+
+		-
+			message: '#^Instanceof between Neos\\Flow\\Mvc\\View\\ViewInterface and Neos\\Flow\\Mvc\\View\\ViewInterface will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/Mvc/Controller/ActionController.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between Neos\\Flow\\Validation\\Validator\\ValidatorInterface and null will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/Mvc/Controller/Argument.php
+
+		-
+			message: '#^Parameter \#1 \$formFieldArray of method Neos\\Flow\\Mvc\\Controller\\MvcPropertyMappingConfigurationService\:\:serializeAndHashFormFieldArray\(\) expects array\<mixed\>, array\<int\|string, int\>\|int given\.$#'
+			identifier: argument.type
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/Mvc/Controller/MvcPropertyMappingConfigurationService.php
+
+		-
+			message: '#^Instanceof between Neos\\Flow\\Mvc\\ActionRequest and Neos\\Flow\\Mvc\\ActionRequest will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/Mvc/Controller/StandardController.php
+
+		-
+			message: '#^Property Neos\\Flow\\Annotations\\Route\:\:\$defaults \(array\<string, mixed\>\) on left side of \?\? is not nullable\.$#'
+			identifier: nullCoalesce.property
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/Mvc/Routing/AttributeRoutesProvider.php
+
+		-
+			message: '#^Instanceof between Neos\\Flow\\Mvc\\ActionRequest and Neos\\Flow\\Mvc\\ActionRequest will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/Mvc/Routing/UriBuilder.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between Neos\\Flow\\Mvc\\ActionRequest and null will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/Mvc/Routing/UriBuilder.php
+
+		-
+			message: '#^Call to function is_array\(\) with array\<string\> will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/ObjectManagement/CompileTimeObjectManager.php
+
+		-
+			message: '#^Call to function is_string\(\) with string will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/ObjectManagement/CompileTimeObjectManager.php
+
+		-
+			message: '#^Call to function is_array\(\) with list\<non\-falsy\-string\> will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/ObjectManagement/Configuration/ConfigurationBuilder.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between Neos\\Flow\\Annotations\\Autowiring and null will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 2
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/ObjectManagement/Configuration/ConfigurationBuilder.php
+
+		-
+			message: '#^Call to function is_array\(\) with array\<mixed, mixed\> will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 2
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/ObjectManagement/Configuration/ConfigurationParser.php
+
+		-
+			message: '#^Call to function assert\(\) with true will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/ObjectManagement/DependencyInjection/ProxyClassBuilder.php
+
+		-
+			message: '#^Instanceof between Neos\\Flow\\ObjectManagement\\Configuration\\ConfigurationProperty and Neos\\Flow\\ObjectManagement\\Configuration\\ConfigurationProperty will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/ObjectManagement/DependencyInjection/ProxyClassBuilder.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>forceSerializationCode" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/ObjectManagement/DependencyInjection/ProxyClassBuilder.php
+
+		-
+			message: '#^Property Neos\\Flow\\ObjectManagement\\ObjectManager\<ObjectRecordInstance of object\>\:\:\$objects \(array\<string, array\{i\?\: object, l\?\: string, s\: int, p\?\: string, c\?\: ''''\|class\-string, ca\?\: array\<int, array\{t\: int, v\: mixed, wm\: int\}\|null\>, f\?\: array\{string, string\}, fa\?\: array\<int, array\{t\: int, v\: mixed\}\|null\>, \.\.\.\}\>\) does not accept non\-empty\-array\<string, non\-empty\-array\{i\?\: object, l\?\: string, s\?\: int, p\?\: string, c\?\: ''''\|class\-string, ca\?\: array\<int, array\{t\: int, v\: mixed, wm\: int\}\|null\>, f\?\: array\{string, string\}, fa\?\: array\<int, array\{t\: int, v\: mixed\}\|null\>, \.\.\.\}\>\.$#'
+			identifier: assign.propertyType
+			count: 2
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/ObjectManagement/ObjectManager.php
+
+		-
+			message: '#^Call to function is_string\(\) with string will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/ObjectManagement/Proxy/Compiler.php
+
+		-
+			message: '#^Call to function method_exists\(\) with ReflectionClass\<object\> and ''isEnum'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/ObjectManagement/Proxy/Compiler.php
+
+		-
+			message: '#^Trait Neos\\Flow\\ObjectManagement\\Proxy\\ObjectSerializationTrait is used zero times and is not analysed\.$#'
+			identifier: trait.unused
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/ObjectManagement/Proxy/ObjectSerializationTrait.php
+
+		-
+			message: '#^Call to function assert\(\) with true will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/ObjectManagement/Proxy/ProxyClass.php
+
+		-
+			message: '#^Instanceof between Neos\\Flow\\ObjectManagement\\Proxy\\ProxyMethodGenerator and Neos\\Flow\\ObjectManagement\\Proxy\\ProxyMethodGenerator will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/ObjectManagement/Proxy/ProxyClass.php
+
+		-
+			message: '#^Instanceof between Neos\\Flow\\Package\\PackageInterface and Neos\\Flow\\Package\\PackageInterface will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/Package/PackageFactory.php
+
+		-
+			message: '#^Offset string\|false might not exist on array\<string, Neos\\Flow\\Package\\PackageInterface&Neos\\Flow\\Package\\PackageKeyAwareInterface\>\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/Package/PackageManager.php
+
+		-
+			message: '#^Instanceof between Psr\\Log\\LoggerInterface and Psr\\Log\\LoggerInterface will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/Persistence/Doctrine/EntityManagerFactory.php
+
+		-
+			message: '#^PHPDoc tag @var with type T\|null is not subtype of native type object\|null\.$#'
+			identifier: varTag.nativeType
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/Persistence/Doctrine/Mapping/Driver/FlowAnotationReader.php
+
+		-
+			message: '#^Asserted type Neos\\Error\\Messages\\Result for \$this\-\>getMessages\(\) with type Neos\\Error\\Messages\\Result does not narrow down the type\.$#'
+			identifier: assert.alreadyNarrowedType
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/Property/PropertyMapper.php
+
+		-
+			message: '#^Call to function is_string\(\) with string will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/Property/PropertyMapper.php
+
+		-
+			message: '#^Call to function is_array\(\) with non\-empty\-array\<string, mixed\> will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/Property/TypeConverter/DateTimeConverter.php
+
+		-
+			message: '#^Cannot access offset class\-string on array\<int\|string, array\<mixed\>\>\|int\|string\|true\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/Reflection/ReflectionService.php
+
+		-
+			message: '#^Cannot access offset class\-string\<object\> on array\<int\|string, array\<mixed\>\>\|int\|string\|true\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/Reflection/ReflectionService.php
+
+		-
+			message: '#^Property Neos\\Flow\\Reflection\\ReflectionService\:\:\$classReflectionData \(array\<class\-string, array\{1\?\: array\<class\-string, bool\>, 3\?\: array\<class\-string, bool\>, 5\?\: array\<int, object\>, 6\?\: true, 7\?\: true, 8\?\: array\<string, array\{10\?\: true, 11\?\: true, 12\: int, 13\: array\<string, array\{16\: int, 17\?\: true, 18\?\: string, 19\?\: true, 20\?\: string, 21\?\: true, 22\?\: mixed, 23\?\: true, \.\.\.\}\>, 25\: string\|null\}\>, 9\?\: array\<string, array\{14\?\: array\<int\|string, array\<mixed\>\>, 15\?\: array\<string, array\<int, object\>\>, 24\?\: int, 26\?\: string, 28\?\: true\}\>, 27\?\: true\}\>\) does not accept non\-empty\-array\<class\-string, array\{1\?\: array\<class\-string, bool\>, 3\?\: array\<class\-string, bool\>, 5\?\: array\<int, object\>, 6\?\: true, 7\?\: true, 8\?\: array\<string, array\{10\?\: true, 11\?\: true, 12\: int, 13\?\: array\<string, array\{16\: int, 17\?\: true, 18\?\: string, 19\?\: true, 20\?\: string, 21\?\: true, 22\?\: mixed, 23\?\: true, \.\.\.\}\>, 25\?\: string\|null\}\>, 9\?\: array\<string, array\{14\?\: array\<int\|string, array\<mixed\>\>, 15\?\: array\<string, array\<int, object\>\>, 24\?\: int, 26\?\: string, 28\?\: true\}\>, 27\?\: true\}\>\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/Reflection/ReflectionService.php
+
+		-
+			message: '#^Call to function is_string\(\) with string will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/ResourceManagement/PersistentResource.php
+
+		-
+			message: '#^Call to function is_string\(\) with string will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/ResourceManagement/ResourceManager.php
+
+		-
+			message: '#^Call to function is_array\(\) with non\-empty\-array\<string, mixed\> will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/ResourceManagement/ResourceTypeConverter.php
+
+		-
+			message: '#^Using nullsafe method call on non\-nullable type Neos\\Flow\\ResourceManagement\\PersistentResource\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/ResourceManagement/ResourceTypeConverter.php
+
+		-
+			message: '#^Offset ''uri'' might not exist on array\{timed_out\: bool, blocked\: bool, eof\: bool, unread_bytes\: int, stream_type\: ''STDIO'', wrapper_type\: ''plainfile'', wrapper_data\: mixed, mode\: string, \.\.\.\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/ResourceManagement/Target/FileSystemSymlinkTarget.php
+
+		-
+			message: '#^Offset ''uri'' might not exist on array\{timed_out\: bool, blocked\: bool, eof\: bool, unread_bytes\: int, stream_type\: string, wrapper_type\: string, wrapper_data\: mixed, mode\: string, \.\.\.\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/ResourceManagement/Target/FileSystemSymlinkTarget.php
+
+		-
+			message: '#^Call to function is_string\(\) with string will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 2
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/Security/Cryptography/HashService.php
+
+		-
+			message: '#^Offset string\|false might not exist on array\<string, object\>\.$#'
+			identifier: offsetAccess.notFound
+			count: 2
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/Session/Aspect/LazyLoadingAspect.php
+
+		-
+			message: '#^Call to function is_string\(\) with string will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/Validation/Validator/GenericObjectValidator.php
+
+		-
+			message: '#^Call to an undefined method Neos\\Flow\\Validation\\Validator\\ValidatorInterface\:\:__construct\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/Validation/ValidatorResolver.php
+
+		-
 			message: '#^Instanceof between Neos\\Flow\\Mvc\\ActionRequest and Neos\\Flow\\Mvc\\ActionRequest will always evaluate to true\.$#'
 			identifier: instanceof.alwaysTrue
 			count: 1
 			path: flow-dist/Packages/Framework/Neos.FluidAdaptor/Classes/Core/Rendering/RenderingContext.php
-
-		-
-			message: '#^Non\-standard \(boolean\) cast is deprecated in PHP 8\.5\. Use \(bool\) instead\.$#'
-			identifier: cast.deprecated
-			count: 1
-			path: flow-dist/Packages/Framework/Neos.FluidAdaptor/Classes/Core/ViewHelper/AbstractConditionViewHelper.php
 
 		-
 			message: '#^Instanceof between Neos\\FluidAdaptor\\Core\\Rendering\\FlowAwareRenderingContextInterface&TYPO3Fluid\\Fluid\\Core\\Rendering\\RenderingContextInterface and Neos\\FluidAdaptor\\Core\\Rendering\\FlowAwareRenderingContextInterface will always evaluate to true\.$#'
@@ -35,12 +437,6 @@ parameters:
 			identifier: function.alreadyNarrowedType
 			count: 1
 			path: flow-dist/Packages/Framework/Neos.FluidAdaptor/Classes/ViewHelpers/Form/AbstractFormViewHelper.php
-
-		-
-			message: '#^Non\-standard \(boolean\) cast is deprecated in PHP 8\.5\. Use \(bool\) instead\.$#'
-			identifier: cast.deprecated
-			count: 2
-			path: flow-dist/Packages/Framework/Neos.FluidAdaptor/Classes/ViewHelpers/Form/CheckboxViewHelper.php
 
 		-
 			message: '#^Instanceof between Neos\\Flow\\Mvc\\ActionRequest and Neos\\Flow\\Mvc\\ActionRequest will always evaluate to true\.$#'
@@ -109,18 +505,6 @@ parameters:
 			path: flow-dist/Packages/Framework/Neos.FluidAdaptor/Classes/ViewHelpers/Widget/Controller/AutocompleteController.php
 
 		-
-			message: '#^Non\-standard \(integer\) cast is deprecated in PHP 8\.5\. Use \(int\) instead\.$#'
-			identifier: cast.deprecated
-			count: 1
-			path: flow-dist/Packages/Framework/Neos.FluidAdaptor/Classes/ViewHelpers/Widget/Controller/AutocompleteController.php
-
-		-
-			message: '#^Non\-standard \(integer\) cast is deprecated in PHP 8\.5\. Use \(int\) instead\.$#'
-			identifier: cast.deprecated
-			count: 8
-			path: flow-dist/Packages/Framework/Neos.FluidAdaptor/Classes/ViewHelpers/Widget/Controller/PaginateController.php
-
-		-
 			message: '#^Call to function is_array\(\) with array\<mixed\> will always evaluate to true\.$#'
 			identifier: function.alreadyNarrowedType
 			count: 2
@@ -163,19 +547,13 @@ parameters:
 			path: flow-dist/Packages/Framework/Neos.Utility.ObjectHandling/Classes/ObjectAccess.php
 
 		-
+			message: '#^Call to function is_object\(\) with T of object will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.Utility.ObjectHandling/Classes/ObjectAccess.php
+
+		-
 			message: '#^Call to function is_object\(\) with object will always evaluate to true\.$#'
 			identifier: function.alreadyNarrowedType
-			count: 6
+			count: 5
 			path: flow-dist/Packages/Framework/Neos.Utility.ObjectHandling/Classes/ObjectAccess.php
-
-		-
-			message: '#^Parameter \#1 \$class of class ReflectionProperty constructor expects class\-string\|object, string given\.$#'
-			identifier: argument.type
-			count: 3
-			path: flow-dist/Packages/Framework/Neos.Utility.ObjectHandling/Classes/ObjectAccess.php
-
-		-
-			message: '#^Non\-standard \(integer\) cast is deprecated in PHP 8\.5\. Use \(int\) instead\.$#'
-			identifier: cast.deprecated
-			count: 1
-			path: flow-dist/Packages/Framework/Neos.Utility.Unicode/Classes/Functions.php

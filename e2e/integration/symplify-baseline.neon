@@ -1477,6 +1477,12 @@ parameters:
 			path: repo/tests/ErrorFormatter/SymplifyErrorFormatterTest.php
 
 		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\NodeAnalyzer\\LaravelPresenceResolverTest\:\:getAdditionalConfigFiles$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/NodeAnalyzer/LaravelPresenceResolverTest.php
+
+		-
 			message: '#^Unused Symplify\\PHPStanRules\\Tests\\ReturnTypeExtension\\ContainerGetReturnTypeExtension\\ContainerGetReturnTypeExtensionTest\:\:getAdditionalConfigFiles$#'
 			identifier: shipmonk.deadMethod
 			count: 1

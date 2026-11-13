@@ -1,25 +1,2 @@
 parameters:
-	ignoreErrors:
-		-
-			message: '#^Dead catch \- RuntimeException is never thrown in the try block\.$#'
-			identifier: catch.neverThrown
-			count: 1
-			path: repo/src/Compiler/LivewireTagCompiler.php
-
-		-
-			message: '#^Negated boolean expression is always false\.$#'
-			identifier: booleanNot.alwaysFalse
-			count: 1
-			path: repo/src/PhpParser/NodeVisitor/DeleteInlineHTML.php
-
-		-
-			message: '#^Method Bladestan\\TemplateCompiler\\PHPStan\\FileAnalyserProvider\:\:provide\(\) throws checked exception PHPStan\\DependencyInjection\\MissingServiceException but it''s missing from the PHPDoc @throws tag\.$#'
-			identifier: missingType.checkedException
-			count: 1
-			path: repo/src/TemplateCompiler/PHPStan/FileAnalyserProvider.php
-
-		-
-			message: '#^Possibly invalid array key type mixed\.$#'
-			identifier: offsetAccess.invalidOffset
-			count: 1
-			path: repo/src/TemplateCompiler/Rules/TemplateRulesRegistry.php
+	ignoreErrors: []

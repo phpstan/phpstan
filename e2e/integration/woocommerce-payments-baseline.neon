@@ -5,3 +5,9 @@ parameters:
 			identifier: function.impossibleType
 			count: 1
 			path: repo/includes/class-woopay-tracker.php
+
+		-
+			rawMessage: 'Binary operation "/" between string and NAN|float<5.0E-324, max> results in an error.'
+			identifier: binaryOp.invalid
+			count: 1
+			path: repo/src/Internal/Service/Level3Service.php

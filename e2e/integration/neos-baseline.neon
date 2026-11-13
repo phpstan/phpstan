@@ -1,16 +1,52 @@
 parameters:
 	ignoreErrors:
 		-
+			message: '#^Strict comparison using \!\=\= between Neos\\ContentGraph\\DoctrineDbalAdapter\\Domain\\Projection\\ContentStreamLayer and null will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentGraph.DoctrineDbalAdapter/src/DoctrineDbalContentGraphProjection.php
+
+		-
 			message: '#^Strict comparison using \!\=\= between Neos\\ContentRepository\\Core\\Feature\\NodeModification\\Dto\\SerializedPropertyValues and null will always evaluate to true\.$#'
 			identifier: notIdentical.alwaysTrue
 			count: 1
 			path: neos-dist/Packages/Neos/Neos.ContentGraph.DoctrineDbalAdapter/src/DoctrineDbalContentGraphProjection.php
 
 		-
+			message: '#^Using nullsafe property access "\?\-\>items" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentGraph.DoctrineDbalAdapter/src/DoctrineDbalContentGraphProjection.php
+
+		-
+			message: '#^Offset int\|null might not exist on array\<int, Neos\\ContentGraph\\DoctrineDbalAdapter\\Domain\\Projection\\ContentStreamLayer\>\.$#'
+			identifier: offsetAccess.notFound
+			count: 2
+			path: neos-dist/Packages/Neos/Neos.ContentGraph.DoctrineDbalAdapter/src/Domain/Projection/ContentStreamLayers.php
+
+		-
+			message: '#^Possibly invalid array key type int\|null\.$#'
+			identifier: offsetAccess.invalidOffset
+			count: 2
+			path: neos-dist/Packages/Neos/Neos.ContentGraph.DoctrineDbalAdapter/src/Domain/Projection/ContentStreamLayers.php
+
+		-
 			message: '#^Strict comparison using \=\=\= between non\-empty\-array\<string, Neos\\ContentRepository\\Core\\Projection\\ContentGraph\\Node\> and array\{\} will always evaluate to false\.$#'
 			identifier: identical.alwaysFalse
 			count: 1
 			path: neos-dist/Packages/Neos/Neos.ContentGraph.DoctrineDbalAdapter/src/Domain/Repository/NodeFactory.php
+
+		-
+			message: '#^Parameter \#2 \$value of static method Neos\\ContentRepository\\Dbal\\Query\\Parameter\:\:stringArray\(\) expects list\<string\>, array\<int, string\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentGraph.DoctrineDbalAdapter/src/HierarchyRelationSubquery.php
+
+		-
+			message: '#^Parameter \#2 \$value of static method Neos\\ContentRepository\\Dbal\\Query\\Parameter\:\:stringArray\(\) expects list\<string\>, array\<int, string\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentGraph.DoctrineDbalAdapter/src/NodeAggregateIdCondition.php
 
 		-
 			message: '#^Call to function assert\(\) with true will always evaluate to true\.$#'
@@ -247,25 +283,7 @@ parameters:
 			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/RebaseableCommand.php
 
 		-
-			message: '#^Impure yield in pure method Neos\\ContentRepository\\Core\\Feature\\WorkspaceCommandHandler\:\:discardWorkspace\(\)\.$#'
-			identifier: impure.yield
-			count: 3
-			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/WorkspaceCommandHandler.php
-
-		-
 			message: '#^Possibly impure call to method Neos\\ContentRepository\\Core\\EventStore\\DecoratedEvent\:\:create\(\) in pure method Neos\\ContentRepository\\Core\\Feature\\WorkspaceCommandHandler\:\:forkContentStream\(\)\.$#'
-			identifier: possiblyImpure.methodCall
-			count: 1
-			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/WorkspaceCommandHandler.php
-
-		-
-			message: '#^Possibly impure call to method Neos\\ContentRepository\\Core\\EventStore\\DecoratedEvent\:\:create\(\) in pure method Neos\\ContentRepository\\Core\\Feature\\WorkspaceCommandHandler\:\:reopenContentStreamWithoutConstraintChecks\(\)\.$#'
-			identifier: possiblyImpure.methodCall
-			count: 1
-			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/WorkspaceCommandHandler.php
-
-		-
-			message: '#^Possibly impure call to method Neos\\ContentRepository\\Core\\EventStore\\Events\:\:with\(\) in pure method Neos\\ContentRepository\\Core\\Feature\\WorkspaceCommandHandler\:\:closeContentStream\(\)\.$#'
 			identifier: possiblyImpure.methodCall
 			count: 1
 			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/WorkspaceCommandHandler.php
@@ -283,19 +301,37 @@ parameters:
 			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/WorkspaceCommandHandler.php
 
 		-
-			message: '#^Possibly impure call to method Neos\\ContentRepository\\Core\\EventStore\\Events\:\:with\(\) in pure method Neos\\ContentRepository\\Core\\Feature\\WorkspaceCommandHandler\:\:removeContentStreamWithoutConstraintChecks\(\)\.$#'
+			message: '#^Possibly impure call to method Neos\\ContentRepository\\Core\\EventStore\\Events\:\:with\(\) in pure method Neos\\ContentRepository\\Core\\Feature\\WorkspaceCommandHandler\:\:removeContentStream\(\)\.$#'
 			identifier: possiblyImpure.methodCall
 			count: 1
 			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/WorkspaceCommandHandler.php
 
 		-
-			message: '#^Possibly impure call to method Neos\\ContentRepository\\Core\\EventStore\\Events\:\:with\(\) in pure method Neos\\ContentRepository\\Core\\Feature\\WorkspaceCommandHandler\:\:reopenContentStreamWithoutConstraintChecks\(\)\.$#'
+			message: '#^Possibly impure call to method Neos\\ContentRepository\\Core\\EventStore\\EventsToPublish\:\:createEventsForStreamAndExpectedVersion\(\) in pure method Neos\\ContentRepository\\Core\\Feature\\WorkspaceCommandHandler\:\:forkContentStream\(\)\.$#'
 			identifier: possiblyImpure.methodCall
 			count: 1
 			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/WorkspaceCommandHandler.php
 
 		-
-			message: '#^Possibly impure call to method Neos\\ContentRepository\\Core\\Feature\\ContentStreamEventStreamName\:\:fromContentStreamId\(\) in pure method Neos\\ContentRepository\\Core\\Feature\\WorkspaceCommandHandler\:\:closeContentStream\(\)\.$#'
+			message: '#^Possibly impure call to method Neos\\ContentRepository\\Core\\EventStore\\EventsToPublish\:\:createEventsForStreamAndExpectedVersion\(\) in pure method Neos\\ContentRepository\\Core\\Feature\\WorkspaceCommandHandler\:\:removeContentStream\(\)\.$#'
+			identifier: possiblyImpure.methodCall
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/WorkspaceCommandHandler.php
+
+		-
+			message: '#^Possibly impure call to method Neos\\ContentRepository\\Core\\EventStore\\EventsToPublish\:\:merge\(\) in pure method Neos\\ContentRepository\\Core\\Feature\\WorkspaceCommandHandler\:\:discardWorkspace\(\)\.$#'
+			identifier: possiblyImpure.methodCall
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/WorkspaceCommandHandler.php
+
+		-
+			message: '#^Possibly impure call to method Neos\\ContentRepository\\Core\\EventStore\\EventsToPublish\:\:withEventsForStreamAndExpectedVersion\(\) in pure method Neos\\ContentRepository\\Core\\Feature\\WorkspaceCommandHandler\:\:discardWorkspace\(\)\.$#'
+			identifier: possiblyImpure.methodCall
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/WorkspaceCommandHandler.php
+
+		-
+			message: '#^Possibly impure call to method Neos\\ContentRepository\\Core\\EventStore\\EventsToPublish\:\:withExpectedVersionForStream\(\) in pure method Neos\\ContentRepository\\Core\\Feature\\WorkspaceCommandHandler\:\:forkContentStream\(\)\.$#'
 			identifier: possiblyImpure.methodCall
 			count: 1
 			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/WorkspaceCommandHandler.php
@@ -303,23 +339,11 @@ parameters:
 		-
 			message: '#^Possibly impure call to method Neos\\ContentRepository\\Core\\Feature\\ContentStreamEventStreamName\:\:fromContentStreamId\(\) in pure method Neos\\ContentRepository\\Core\\Feature\\WorkspaceCommandHandler\:\:forkContentStream\(\)\.$#'
 			identifier: possiblyImpure.methodCall
-			count: 1
+			count: 2
 			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/WorkspaceCommandHandler.php
 
 		-
-			message: '#^Possibly impure call to method Neos\\ContentRepository\\Core\\Feature\\ContentStreamEventStreamName\:\:fromContentStreamId\(\) in pure method Neos\\ContentRepository\\Core\\Feature\\WorkspaceCommandHandler\:\:removeContentStreamWithoutConstraintChecks\(\)\.$#'
-			identifier: possiblyImpure.methodCall
-			count: 1
-			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/WorkspaceCommandHandler.php
-
-		-
-			message: '#^Possibly impure call to method Neos\\ContentRepository\\Core\\Feature\\ContentStreamEventStreamName\:\:fromContentStreamId\(\) in pure method Neos\\ContentRepository\\Core\\Feature\\WorkspaceCommandHandler\:\:reopenContentStreamWithoutConstraintChecks\(\)\.$#'
-			identifier: possiblyImpure.methodCall
-			count: 1
-			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/WorkspaceCommandHandler.php
-
-		-
-			message: '#^Possibly impure call to method Neos\\ContentRepository\\Core\\Feature\\ContentStreamEventStreamName\:\:getEventStreamName\(\) in pure method Neos\\ContentRepository\\Core\\Feature\\WorkspaceCommandHandler\:\:closeContentStream\(\)\.$#'
+			message: '#^Possibly impure call to method Neos\\ContentRepository\\Core\\Feature\\ContentStreamEventStreamName\:\:fromContentStreamId\(\) in pure method Neos\\ContentRepository\\Core\\Feature\\WorkspaceCommandHandler\:\:removeContentStream\(\)\.$#'
 			identifier: possiblyImpure.methodCall
 			count: 1
 			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/WorkspaceCommandHandler.php
@@ -327,17 +351,11 @@ parameters:
 		-
 			message: '#^Possibly impure call to method Neos\\ContentRepository\\Core\\Feature\\ContentStreamEventStreamName\:\:getEventStreamName\(\) in pure method Neos\\ContentRepository\\Core\\Feature\\WorkspaceCommandHandler\:\:forkContentStream\(\)\.$#'
 			identifier: possiblyImpure.methodCall
-			count: 1
+			count: 2
 			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/WorkspaceCommandHandler.php
 
 		-
-			message: '#^Possibly impure call to method Neos\\ContentRepository\\Core\\Feature\\ContentStreamEventStreamName\:\:getEventStreamName\(\) in pure method Neos\\ContentRepository\\Core\\Feature\\WorkspaceCommandHandler\:\:removeContentStreamWithoutConstraintChecks\(\)\.$#'
-			identifier: possiblyImpure.methodCall
-			count: 1
-			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/WorkspaceCommandHandler.php
-
-		-
-			message: '#^Possibly impure call to method Neos\\ContentRepository\\Core\\Feature\\ContentStreamEventStreamName\:\:getEventStreamName\(\) in pure method Neos\\ContentRepository\\Core\\Feature\\WorkspaceCommandHandler\:\:reopenContentStreamWithoutConstraintChecks\(\)\.$#'
+			message: '#^Possibly impure call to method Neos\\ContentRepository\\Core\\Feature\\ContentStreamEventStreamName\:\:getEventStreamName\(\) in pure method Neos\\ContentRepository\\Core\\Feature\\WorkspaceCommandHandler\:\:removeContentStream\(\)\.$#'
 			identifier: possiblyImpure.methodCall
 			count: 1
 			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/WorkspaceCommandHandler.php
@@ -355,25 +373,7 @@ parameters:
 			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/WorkspaceCommandHandler.php
 
 		-
-			message: '#^Possibly impure call to method Neos\\EventStore\\Model\\EventStream\\ExpectedVersion\:\:ANY\(\) in pure method Neos\\ContentRepository\\Core\\Feature\\WorkspaceCommandHandler\:\:removeContentStreamWithoutConstraintChecks\(\)\.$#'
-			identifier: possiblyImpure.methodCall
-			count: 1
-			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/WorkspaceCommandHandler.php
-
-		-
-			message: '#^Possibly impure call to method Neos\\EventStore\\Model\\EventStream\\ExpectedVersion\:\:ANY\(\) in pure method Neos\\ContentRepository\\Core\\Feature\\WorkspaceCommandHandler\:\:reopenContentStreamWithoutConstraintChecks\(\)\.$#'
-			identifier: possiblyImpure.methodCall
-			count: 1
-			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/WorkspaceCommandHandler.php
-
-		-
 			message: '#^Possibly impure call to method Neos\\EventStore\\Model\\EventStream\\ExpectedVersion\:\:NO_STREAM\(\) in pure method Neos\\ContentRepository\\Core\\Feature\\WorkspaceCommandHandler\:\:forkContentStream\(\)\.$#'
-			identifier: possiblyImpure.methodCall
-			count: 1
-			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/WorkspaceCommandHandler.php
-
-		-
-			message: '#^Possibly impure call to method Neos\\EventStore\\Model\\EventStream\\ExpectedVersion\:\:fromVersion\(\) in pure method Neos\\ContentRepository\\Core\\Feature\\WorkspaceCommandHandler\:\:closeContentStream\(\)\.$#'
 			identifier: possiblyImpure.methodCall
 			count: 1
 			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/WorkspaceCommandHandler.php
@@ -385,44 +385,14 @@ parameters:
 			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/WorkspaceCommandHandler.php
 
 		-
-			message: '#^Possibly impure instantiation of class Neos\\ContentRepository\\Core\\EventStore\\EventsToPublish in pure method Neos\\ContentRepository\\Core\\Feature\\WorkspaceCommandHandler\:\:closeContentStream\(\)\.$#'
-			identifier: possiblyImpure.new
+			message: '#^Possibly impure call to method Neos\\EventStore\\Model\\EventStream\\ExpectedVersion\:\:fromVersion\(\) in pure method Neos\\ContentRepository\\Core\\Feature\\WorkspaceCommandHandler\:\:forkContentStream\(\)\.$#'
+			identifier: possiblyImpure.methodCall
 			count: 1
 			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/WorkspaceCommandHandler.php
 
 		-
-			message: '#^Possibly impure instantiation of class Neos\\ContentRepository\\Core\\EventStore\\EventsToPublish in pure method Neos\\ContentRepository\\Core\\Feature\\WorkspaceCommandHandler\:\:discardWorkspace\(\)\.$#'
-			identifier: possiblyImpure.new
-			count: 1
-			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/WorkspaceCommandHandler.php
-
-		-
-			message: '#^Possibly impure instantiation of class Neos\\ContentRepository\\Core\\EventStore\\EventsToPublish in pure method Neos\\ContentRepository\\Core\\Feature\\WorkspaceCommandHandler\:\:forkContentStream\(\)\.$#'
-			identifier: possiblyImpure.new
-			count: 1
-			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/WorkspaceCommandHandler.php
-
-		-
-			message: '#^Possibly impure instantiation of class Neos\\ContentRepository\\Core\\EventStore\\EventsToPublish in pure method Neos\\ContentRepository\\Core\\Feature\\WorkspaceCommandHandler\:\:removeContentStreamWithoutConstraintChecks\(\)\.$#'
-			identifier: possiblyImpure.new
-			count: 1
-			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/WorkspaceCommandHandler.php
-
-		-
-			message: '#^Possibly impure instantiation of class Neos\\ContentRepository\\Core\\EventStore\\EventsToPublish in pure method Neos\\ContentRepository\\Core\\Feature\\WorkspaceCommandHandler\:\:reopenContentStreamWithoutConstraintChecks\(\)\.$#'
-			identifier: possiblyImpure.new
-			count: 1
-			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/WorkspaceCommandHandler.php
-
-		-
-			message: '#^Possibly impure instantiation of class Neos\\ContentRepository\\Core\\Feature\\ContentStreamClosing\\Event\\ContentStreamWasClosed in pure method Neos\\ContentRepository\\Core\\Feature\\WorkspaceCommandHandler\:\:closeContentStream\(\)\.$#'
-			identifier: possiblyImpure.new
-			count: 1
-			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/WorkspaceCommandHandler.php
-
-		-
-			message: '#^Possibly impure instantiation of class Neos\\ContentRepository\\Core\\Feature\\ContentStreamClosing\\Event\\ContentStreamWasReopened in pure method Neos\\ContentRepository\\Core\\Feature\\WorkspaceCommandHandler\:\:reopenContentStreamWithoutConstraintChecks\(\)\.$#'
-			identifier: possiblyImpure.new
+			message: '#^Possibly impure call to method Neos\\EventStore\\Model\\EventStream\\ExpectedVersion\:\:fromVersion\(\) in pure method Neos\\ContentRepository\\Core\\Feature\\WorkspaceCommandHandler\:\:removeContentStream\(\)\.$#'
+			identifier: possiblyImpure.methodCall
 			count: 1
 			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/WorkspaceCommandHandler.php
 
@@ -433,7 +403,7 @@ parameters:
 			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/WorkspaceCommandHandler.php
 
 		-
-			message: '#^Possibly impure instantiation of class Neos\\ContentRepository\\Core\\Feature\\ContentStreamRemoval\\Event\\ContentStreamWasRemoved in pure method Neos\\ContentRepository\\Core\\Feature\\WorkspaceCommandHandler\:\:removeContentStreamWithoutConstraintChecks\(\)\.$#'
+			message: '#^Possibly impure instantiation of class Neos\\ContentRepository\\Core\\Feature\\ContentStreamRemoval\\Event\\ContentStreamWasRemoved in pure method Neos\\ContentRepository\\Core\\Feature\\WorkspaceCommandHandler\:\:removeContentStream\(\)\.$#'
 			identifier: possiblyImpure.new
 			count: 1
 			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/WorkspaceCommandHandler.php
@@ -625,6 +595,12 @@ parameters:
 			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Projection/ProjectionStates.php
 
 		-
+			message: '#^Instanceof between Neos\\ContentRepository\\Core\\Subscription\\ProjectionSubscriptionStatus and Neos\\ContentRepository\\Core\\Subscription\\ProjectionSubscriptionStatus will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Service/ContentRepositoryMaintainer.php
+
+		-
 			message: '#^Using nullsafe property access "\?\-\>sequenceNumber" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
 			identifier: nullsafe.neverNull
 			count: 1
@@ -673,6 +649,12 @@ parameters:
 			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Subscription/Subscriptions.php
 
 		-
+			message: '#^Parameter \#1 \$params of method Doctrine\\DBAL\\Query\\QueryBuilder\:\:setParameters\(\) expects array\<int\<0, max\>\|string, mixed\>, array\<int\|string, mixed\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Dbal/Classes/Query/QueryBuilder.php
+
+		-
 			message: '#^Call to function assert\(\) with true will always evaluate to true\.$#'
 			identifier: function.alreadyNarrowedType
 			count: 1
@@ -691,14 +673,26 @@ parameters:
 			path: neos-dist/Packages/Neos/Neos.ContentRepository.Export/src/Event/ValueObject/ExportedEvent.php
 
 		-
-			message: '#^Left side of && is always true\.$#'
-			identifier: booleanAnd.leftAlwaysTrue
+			message: '#^Expression on left side of \?\? is not nullable\.$#'
+			identifier: nullCoalesce.expr
 			count: 1
 			path: neos-dist/Packages/Neos/Neos.ContentRepository.LegacyNodeMigration/Classes/Processors/EventExportProcessor.php
 
 		-
 			message: '#^Method Neos\\ContentRepository\\LegacyNodeMigration\\Processors\\EventExportProcessor\:\:processNodeDataWithoutFallbackToEmptyDimension\(\) never returns array\<Neos\\ContentRepository\\Core\\SharedModel\\Node\\NodeName\> so it can be removed from the return type\.$#'
 			identifier: return.unusedType
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.LegacyNodeMigration/Classes/Processors/EventExportProcessor.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between Neos\\ContentRepository\\Core\\DimensionSpace\\OriginDimensionSpacePoint and null will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.LegacyNodeMigration/Classes/Processors/EventExportProcessor.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between Neos\\ContentRepository\\LegacyNodeMigration\\Helpers\\VisitedNodeVariant and null will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
 			count: 1
 			path: neos-dist/Packages/Neos/Neos.ContentRepository.LegacyNodeMigration/Classes/Processors/EventExportProcessor.php
 
@@ -775,6 +769,18 @@ parameters:
 			path: neos-dist/Packages/Neos/Neos.ContentRepository.StructureAdjustment/src/Adjustment/TetheredNodeAdjustments.php
 
 		-
+			message: '#^Call to function assert\(\) with true will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.StructureAdjustment/src/StructureAdjustmentService.php
+
+		-
+			message: '#^Instanceof between Neos\\ContentRepository\\Core\\EventStore\\Events and Neos\\ContentRepository\\Core\\EventStore\\Events will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.StructureAdjustment/src/StructureAdjustmentService.php
+
+		-
 			message: '#^Using nullsafe property access "\?\-\>value" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
 			identifier: nullsafe.neverNull
 			count: 1
@@ -803,12 +809,6 @@ parameters:
 			identifier: trait.unused
 			count: 1
 			path: neos-dist/Packages/Neos/Neos.ContentRepository.TestSuite/Classes/Behavior/Features/Bootstrap/CurrentSubgraphTrait.php
-
-		-
-			message: '#^Trait Neos\\ContentRepository\\TestSuite\\Behavior\\Features\\Bootstrap\\Features\\ContentStreamClosing is used zero times and is not analysed\.$#'
-			identifier: trait.unused
-			count: 1
-			path: neos-dist/Packages/Neos/Neos.ContentRepository.TestSuite/Classes/Behavior/Features/Bootstrap/Features/ContentStreamClosing.php
 
 		-
 			message: '#^Trait Neos\\ContentRepository\\TestSuite\\Behavior\\Features\\Bootstrap\\Features\\NodeCreation is used zero times and is not analysed\.$#'
@@ -937,22 +937,34 @@ parameters:
 			path: neos-dist/Packages/Neos/Neos.ContentRepositoryRegistry/Classes/Configuration/NodeTypeEnrichmentService.php
 
 		-
-			message: '#^Unable to resolve the template type T in call to method Neos\\Flow\\Persistence\\PersistenceManagerInterface\:\:getObjectByIdentifier\(\)$#'
-			identifier: argument.templateType
+			message: '#^PHPDoc tag @var with type Neos\\ContentRepositoryRegistry\\Upgrade\\EventsConcurrentWorkspaceRebases\\RebaseEmptyWorkspaceSequence\|Neos\\ContentRepositoryRegistry\\Upgrade\\EventsConcurrentWorkspaceRebases\\RebaseSequenceContentStreamPatch is not subtype of native type Neos\\ContentRepositoryRegistry\\Upgrade\\EventsConcurrentWorkspaceRebases\\RebaseEmptyWorkspaceSequence\.$#'
+			identifier: varTag.nativeType
 			count: 1
-			path: neos-dist/Packages/Neos/Neos.ContentRepositoryRegistry/Classes/Infrastructure/Property/Normalizer/DoctrinePersistentObjectNormalizer.php
+			path: neos-dist/Packages/Neos/Neos.ContentRepositoryRegistry/Classes/Upgrade/EventsConcurrentWorkspaceRebases/EventsConcurrentWorkspaceRebasesUpgrade.php
+
+		-
+			message: '#^Parameter \$illegalForks of class Neos\\ContentRepositoryRegistry\\Upgrade\\EventsConcurrentWorkspaceRebases\\IllegalContentStreamForks constructor expects list\<array\{Neos\\EventStore\\Model\\Event\\SequenceNumber, Neos\\EventStore\\Model\\Event\\CorrelationId, Neos\\ContentRepository\\Core\\SharedModel\\Workspace\\ContentStreamId\}\>, array\<int\<0, max\>, array\{Neos\\EventStore\\Model\\Event\\SequenceNumber, Neos\\EventStore\\Model\\Event\\CorrelationId, Neos\\ContentRepository\\Core\\SharedModel\\Workspace\\ContentStreamId\}\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepositoryRegistry/Classes/Upgrade/EventsConcurrentWorkspaceRebases/IllegalContentStreamForks.php
+
+		-
+			message: '#^Method Neos\\ContentRepositoryRegistry\\Upgrade\\EventsRecordedAtToUtc\\TimezoneOffsetSequenceStarts\:\:uniqueOffsets\(\) should return list\<string\> but returns non\-empty\-array\<int\<0, max\>, string\>\.$#'
+			identifier: return.type
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepositoryRegistry/Classes/Upgrade/EventsRecordedAtToUtc/TimezoneOffsetSequenceStarts.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>sequenceNumber" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepositoryRegistry/Classes/Upgrade/ResetupAndReplayContentGraph/ResetupAndReplayContentGraphUpgrade.php
 
 		-
 			message: '#^Cannot unset property Neos\\Fusion\\Core\\Cache\\CacheSegmentParser\:\:\$content because it might have hooks in a subclass\.$#'
 			identifier: unset.possiblyHookedProperty
 			count: 1
 			path: neos-dist/Packages/Neos/Neos.Fusion/Classes/Core/Cache/CacheSegmentParser.php
-
-		-
-			message: '#^Non\-standard \(integer\) cast is deprecated in PHP 8\.5\. Use \(int\) instead\.$#'
-			identifier: cast.deprecated
-			count: 1
-			path: neos-dist/Packages/Neos/Neos.Fusion/Classes/Core/Cache/ContentCache.php
 
 		-
 			message: '#^Parameter &\$content by\-ref type of method Neos\\Fusion\\Core\\Cache\\ContentCache\:\:replaceCachePlaceholders\(\) expects string, string\|null given\.$#'
@@ -1033,12 +1045,6 @@ parameters:
 			path: neos-dist/Packages/Neos/Neos.Fusion/Classes/Core/Runtime.php
 
 		-
-			message: '#^Call to an undefined method object\:\:getNodeName\(\)\.$#'
-			identifier: method.notFound
-			count: 3
-			path: neos-dist/Packages/Neos/Neos.Media.Browser/Classes/Controller/UsageController.php
-
-		-
 			message: '#^Method Neos\\Neos\\AssetUsage\\Dto\\AssetUsages\:\:count\(\) should return int\<0, max\> but returns int\|null\.$#'
 			identifier: return.type
 			count: 1
@@ -1051,82 +1057,16 @@ parameters:
 			path: neos-dist/Packages/Neos/Neos.Neos/Classes/AssetUsage/Dto/AssetUsages.php
 
 		-
-			message: '#^Call to an undefined method object\:\:getHostname\(\)\.$#'
-			identifier: method.notFound
+			message: '#^Cannot call method count\(\) on array\<Neos\\Neos\\Domain\\Model\\Domain\>\|Neos\\Flow\\Persistence\\QueryResultInterface\<Neos\\Neos\\Domain\\Model\\Domain\>\.$#'
+			identifier: method.nonObject
 			count: 1
 			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Command/DomainCommandController.php
-
-		-
-			message: '#^Method Neos\\Neos\\Command\\DomainCommandController\:\:findDomainsByHostnamePattern\(\) should return array\<Neos\\Neos\\Domain\\Model\\Domain\> but returns array\<object\>\.$#'
-			identifier: return.type
-			count: 1
-			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Command/DomainCommandController.php
-
-		-
-			message: '#^Call to an undefined method object\:\:getName\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Command/SiteCommandController.php
-
-		-
-			message: '#^Call to an undefined method object\:\:getNodeName\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Command/SiteCommandController.php
-
-		-
-			message: '#^Call to an undefined method object\:\:getSiteResourcesPackageKey\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Command/SiteCommandController.php
-
-		-
-			message: '#^Call to an undefined method object\:\:getState\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Command/SiteCommandController.php
-
-		-
-			message: '#^Method Neos\\Neos\\Command\\SiteCommandController\:\:findSitesByNodeNamePattern\(\) should return array\<Neos\\Neos\\Domain\\Model\\Site\> but returns array\<object\>\.$#'
-			identifier: return.type
-			count: 1
-			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Command/SiteCommandController.php
-
-		-
-			message: '#^Parameter \#2 \$callback of function array_filter expects \(callable\(object\)\: bool\)\|null, Closure\(Neos\\Neos\\Domain\\Model\\Site\)\: bool given\.$#'
-			identifier: argument.type
-			count: 1
-			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Command/SiteCommandController.php
-
-		-
-			message: '#^Method Neos\\Neos\\Command\\UserCommandController\:\:findUsersByUsernamePattern\(\) should return array\<Neos\\Neos\\Domain\\Model\\User\> but returns array\<object\>\.$#'
-			identifier: return.type
-			count: 1
-			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Command/UserCommandController.php
-
-		-
-			message: '#^Parameter \#1 \$user of method Neos\\Neos\\Command\\UserCommandController\:\:getTableRowForUser\(\) expects Neos\\Neos\\Domain\\Model\\User, object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Command/UserCommandController.php
-
-		-
-			message: '#^Parameter \#1 \$user of method Neos\\Neos\\Domain\\Service\\UserService\:\:getUsername\(\) expects Neos\\Neos\\Domain\\Model\\User, object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Command/UserCommandController.php
 
 		-
 			message: '#^PHPDoc tag @var has invalid value \(\$site Site\)\: Unexpected token "\$site", expected type at offset 9 on line 1$#'
 			identifier: phpDoc.parseError
 			count: 1
 			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Controller/Backend/MenuHelper.php
-
-		-
-			message: '#^Call to an undefined method object\:\:getSiteResourcesPackageKey\(\)\.$#'
-			identifier: method.notFound
-			count: 2
-			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Controller/Module/Administration/SitesController.php
 
 		-
 			message: '#^Invalid array key type null\.$#'
@@ -1141,18 +1081,6 @@ parameters:
 			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Controller/Module/Administration/UsersController.php
 
 		-
-			message: '#^PHPDoc type array\<string, string\> of property Neos\\Neos\\Controller\\Service\\AssetProxiesController\:\:\$viewFormatToObjectNameMap is not covariant with PHPDoc type array\<string, class\-string\> of overridden property Neos\\Flow\\Mvc\\Controller\\ActionController\:\:\$viewFormatToObjectNameMap\.$#'
-			identifier: property.phpDocType
-			count: 1
-			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Controller/Service/AssetProxiesController.php
-
-		-
-			message: '#^PHPDoc type array\<string, string\> of property Neos\\Neos\\Controller\\Service\\ContentDimensionsController\:\:\$viewFormatToObjectNameMap is not covariant with PHPDoc type array\<string, class\-string\> of overridden property Neos\\Flow\\Mvc\\Controller\\ActionController\:\:\$viewFormatToObjectNameMap\.$#'
-			identifier: property.phpDocType
-			count: 1
-			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Controller/Service/ContentDimensionsController.php
-
-		-
 			message: '#^Call to function assert\(\) with true will always evaluate to true\.$#'
 			identifier: function.alreadyNarrowedType
 			count: 1
@@ -1165,52 +1093,16 @@ parameters:
 			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Controller/Service/NodesController.php
 
 		-
-			message: '#^PHPDoc type array\<string, string\> of property Neos\\Neos\\Controller\\Service\\NodesController\:\:\$viewFormatToObjectNameMap is not covariant with PHPDoc type array\<string, class\-string\> of overridden property Neos\\Flow\\Mvc\\Controller\\ActionController\:\:\$viewFormatToObjectNameMap\.$#'
-			identifier: property.phpDocType
+			message: '#^Cannot call method getFirst\(\) on array\<Neos\\Neos\\Domain\\Model\\Domain\>\|Neos\\Flow\\Persistence\\QueryResultInterface\<Neos\\Neos\\Domain\\Model\\Domain\>\.$#'
+			identifier: method.nonObject
 			count: 1
-			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Controller/Service/NodesController.php
+			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Domain/Import/SiteCreationProcessor.php
 
 		-
-			message: '#^Class Neos\\Neos\\Domain\\Repository\\DomainRepository extends generic class Neos\\Flow\\Persistence\\Repository but does not specify its types\: T$#'
-			identifier: missingType.generics
+			message: '#^Cannot call method toArray\(\) on array\<Neos\\Neos\\Domain\\Model\\Domain\>\|Neos\\Flow\\Persistence\\QueryResultInterface\<Neos\\Neos\\Domain\\Model\\Domain\>\.$#'
+			identifier: method.nonObject
 			count: 1
 			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Domain/Repository/DomainRepository.php
-
-		-
-			message: '#^PHPDoc tag @method for method Neos\\Neos\\Domain\\Repository\\DomainRepository\:\:findByActive\(\) return type contains generic interface Neos\\Flow\\Persistence\\QueryResultInterface but does not specify its types\: T$#'
-			identifier: missingType.generics
-			count: 1
-			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Domain/Repository/DomainRepository.php
-
-		-
-			message: '#^PHPDoc tag @method for method Neos\\Neos\\Domain\\Repository\\DomainRepository\:\:findByHostname\(\) return type contains generic interface Neos\\Flow\\Persistence\\QueryResultInterface but does not specify its types\: T$#'
-			identifier: missingType.generics
-			count: 1
-			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Domain/Repository/DomainRepository.php
-
-		-
-			message: '#^PHPDoc tag @method for method Neos\\Neos\\Domain\\Repository\\DomainRepository\:\:findBySite\(\) return type contains generic interface Neos\\Flow\\Persistence\\QueryResultInterface but does not specify its types\: T$#'
-			identifier: missingType.generics
-			count: 1
-			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Domain/Repository/DomainRepository.php
-
-		-
-			message: '#^PHPDoc type array\<string, string\> of property Neos\\Neos\\Domain\\Repository\\DomainRepository\:\:\$defaultOrderings is not covariant with PHPDoc type array\<string, ''ASC''\|''DESC''\> of overridden property Neos\\Flow\\Persistence\\Repository\<object\>\:\:\$defaultOrderings\.$#'
-			identifier: property.phpDocType
-			count: 1
-			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Domain/Repository/DomainRepository.php
-
-		-
-			message: '#^Parameter \#2 \$domains of method Neos\\Neos\\Domain\\Service\\DomainMatchingStrategy\:\:getSortedMatches\(\) expects array\<Neos\\Neos\\Domain\\Model\\Domain\>, array\<object\> given\.$#'
-			identifier: argument.type
-			count: 1
-			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Domain/Repository/DomainRepository.php
-
-		-
-			message: '#^Class Neos\\Neos\\Domain\\Repository\\SiteRepository extends generic class Neos\\Flow\\Persistence\\Repository but does not specify its types\: T$#'
-			identifier: missingType.generics
-			count: 1
-			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Domain/Repository/SiteRepository.php
 
 		-
 			message: '#^PHPDoc tag @method for method Neos\\Neos\\Domain\\Repository\\SiteRepository\:\:findByNodeName\(\) return type contains generic interface Neos\\Flow\\Persistence\\QueryResultInterface but does not specify its types\: T$#'
@@ -1225,48 +1117,6 @@ parameters:
 			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Domain/Repository/SiteRepository.php
 
 		-
-			message: '#^PHPDoc type array\<string, string\> of property Neos\\Neos\\Domain\\Repository\\SiteRepository\:\:\$defaultOrderings is not covariant with PHPDoc type array\<string, ''ASC''\|''DESC''\> of overridden property Neos\\Flow\\Persistence\\Repository\<object\>\:\:\$defaultOrderings\.$#'
-			identifier: property.phpDocType
-			count: 1
-			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Domain/Repository/SiteRepository.php
-
-		-
-			message: '#^Class Neos\\Neos\\Domain\\Repository\\UserRepository extends generic class Neos\\Flow\\Persistence\\Doctrine\\Repository but does not specify its types\: T$#'
-			identifier: missingType.generics
-			count: 1
-			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Domain/Repository/UserRepository.php
-
-		-
-			message: '#^Method Neos\\Neos\\Domain\\Repository\\UserRepository\:\:findAllOrdered\(\) return type with generic interface Neos\\Flow\\Persistence\\QueryResultInterface does not specify its types\: T$#'
-			identifier: missingType.generics
-			count: 1
-			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Domain/Repository/UserRepository.php
-
-		-
-			message: '#^Method Neos\\Neos\\Domain\\Repository\\UserRepository\:\:findAllOrderedByUsername\(\) return type with generic interface Neos\\Flow\\Persistence\\QueryResultInterface does not specify its types\: T$#'
-			identifier: missingType.generics
-			count: 1
-			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Domain/Repository/UserRepository.php
-
-		-
-			message: '#^Method Neos\\Neos\\Domain\\Repository\\UserRepository\:\:findBySearchTerm\(\) return type with generic interface Neos\\Flow\\Persistence\\QueryResultInterface does not specify its types\: T$#'
-			identifier: missingType.generics
-			count: 1
-			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Domain/Repository/UserRepository.php
-
-		-
-			message: '#^Parameter \#1 \$orderings of method Neos\\Flow\\Persistence\\QueryInterface\<object\>\:\:setOrderings\(\) expects array\<string, ''ASC''\|''DESC''\>, non\-empty\-array\<string, string\> given\.$#'
-			identifier: argument.type
-			count: 1
-			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Domain/Repository/UserRepository.php
-
-		-
-			message: '#^Parameter \#1 \$orderings of method Neos\\Flow\\Persistence\\QueryInterface\<object\>\:\:setOrderings\(\) expects array\<string, ''ASC''\|''DESC''\>, non\-empty\-array\{''accounts\.accountIdentifier''\?\: string, ''accounts\.lastSuccessfulAuthenticationDate''\?\: string, ''name\.fullName''\?\: string\} given\.$#'
-			identifier: argument.type
-			count: 1
-			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Domain/Repository/UserRepository.php
-
-		-
 			message: '#^Instanceof between Neos\\ContentRepository\\Core\\SharedModel\\Node\\NodeAggregateId and Neos\\ContentRepository\\Core\\SharedModel\\Node\\NodeAggregateId will always evaluate to true\.$#'
 			identifier: instanceof.alwaysTrue
 			count: 1
@@ -1277,24 +1127,6 @@ parameters:
 			identifier: catch.neverThrown
 			count: 1
 			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Domain/Service/SiteImportService.php
-
-		-
-			message: '#^Parameter \#1 \$site of method Neos\\Neos\\Domain\\Service\\SiteService\:\:pruneSite\(\) expects Neos\\Neos\\Domain\\Model\\Site, object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Domain/Service/SiteService.php
-
-		-
-			message: '#^Method Neos\\Neos\\Domain\\Service\\UserService\:\:getUsers\(\) return type with generic interface Neos\\Flow\\Persistence\\QueryResultInterface does not specify its types\: T$#'
-			identifier: missingType.generics
-			count: 1
-			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Domain/Service/UserService.php
-
-		-
-			message: '#^Method Neos\\Neos\\Domain\\Service\\UserService\:\:searchUsers\(\) return type with generic interface Neos\\Flow\\Persistence\\QueryResultInterface does not specify its types\: T$#'
-			identifier: missingType.generics
-			count: 1
-			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Domain/Service/UserService.php
 
 		-
 			message: '#^Call to function assert\(\) with true will always evaluate to true\.$#'
@@ -1441,12 +1273,6 @@ parameters:
 			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Service/XliffService.php
 
 		-
-			message: '#^Parameter \#1 \$labelValue of method Neos\\Neos\\Service\\XliffService\:\:getTranslationUnitValue\(\) expects array\<string, mixed\>, array\<int, array\<string, string\>\> given\.$#'
-			identifier: argument.type
-			count: 1
-			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Service/XliffService.php
-
-		-
 			message: '#^Using nullsafe property access "\?\-\>value" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
 			identifier: nullsafe.neverNull
 			count: 1
@@ -1471,12 +1297,6 @@ parameters:
 			path: neos-dist/Packages/Neos/Neos.Neos/Classes/ViewHelpers/Backend/IfModuleAccessibleViewHelper.php
 
 		-
-			message: '#^Parameter \#2 \$subject of function preg_match expects string, Neos\\Flow\\I18n\\Locale\|string given\.$#'
-			identifier: argument.type
-			count: 1
-			path: neos-dist/Packages/Neos/Neos.Neos/Classes/ViewHelpers/Backend/JavascriptConfigurationViewHelper.php
-
-		-
 			message: '#^Strict comparison using \=\=\= between mixed and null will always evaluate to false\.$#'
 			identifier: identical.alwaysFalse
 			count: 1
@@ -1493,18 +1313,6 @@ parameters:
 			identifier: return.type
 			count: 1
 			path: neos-dist/Packages/Neos/Neos.SiteKickstarter/Classes/Generator/AfxTemplateGenerator.php
-
-		-
-			message: '#^Parameter \#1 \$callback of function array_map expects \(callable\(object\)\: mixed\)\|null, Closure\(Neos\\Neos\\Domain\\Model\\User\)\: Neos\\Neos\\Domain\\Model\\WorkspaceRoleSubject given\.$#'
-			identifier: argument.type
-			count: 1
-			path: neos-dist/Packages/Neos/Neos.Workspace.Ui/Classes/Controller/WorkspaceController.php
-
-		-
-			message: '#^Parameter \#2 \$callback of function array_reduce expects callable\(array, object\)\: array, Closure\(array, Neos\\Neos\\Domain\\Model\\User\)\: non\-empty\-array given\.$#'
-			identifier: argument.type
-			count: 1
-			path: neos-dist/Packages/Neos/Neos.Workspace.Ui/Classes/Controller/WorkspaceController.php
 
 		-
 			message: '#^Parameter \$addedTags of class Neos\\Workspace\\Ui\\ViewModel\\Review\\ContentChanges\\TagContentChange constructor expects list\<string\>, array\<string\> given\.$#'
