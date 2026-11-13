@@ -6061,6 +6061,12 @@ parameters:
 			path: repo/tests/unit/Core/Maintenance/System/Service/ShopConfiguratorTest.php
 
 		-
+			rawMessage: 'Offset ''function'' on array{function: string, line?: int, file?: string, class?: class-string, type?: ''->''|''::'', args?: list<mixed>, object?: object} on left side of ?? always exists and is not nullable.'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: repo/tests/unit/Core/Profiling/Doctrine/BacktraceDebugDataHolderTest.php
+
+		-
 			rawMessage: 'assertNotEmpty() is not allowed. Use more strict assertion.'
 			identifier: phpunit.assertEmpty
 			count: 1
