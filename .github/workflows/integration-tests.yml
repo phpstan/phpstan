@@ -524,9 +524,10 @@ jobs:
               rm -rf vendor/phpstan/phpstan/turbo-ext && cp -R ../../../turbo-ext vendor/phpstan/phpstan/turbo-ext
             phpstan-command: vendor/bin/phpstan analyse -c ../shipmonk-dead-code-detector.neon
             #baseline-file: shipmonk-dead-code-detector-baseline.neon
-          - php-version: 8.4
+          - php-version: 8.5
             repo: drupal/drupal
-            ref: 11.2.4
+            # main branch, analysed at PHPStan level 3 since https://www.drupal.org/node/3425412
+            ref: e1b2512322b8ec9ed8f136218fafe469c0b57940
             setup: |
               composer install
             phpstan-command: ../../../phpstan.phar analyse -c ../drupal.neon -vvv
