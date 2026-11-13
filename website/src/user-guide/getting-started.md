@@ -24,6 +24,8 @@ Composer will install PHPStan's executable in its `bin-dir` which defaults to `v
 
 You can also download the [latest PHAR](https://github.com/phpstan/phpstan/releases) and just use that. But without Composer, you won't be able to install and use [PHPStan extensions](/user-guide/extension-library).
 
+The PHAR and the bundled Turbo extension binaries can be verified with [build attestations](/user-guide/build-attestations).
+
 [Head here](/user-guide/docker) if you want to use PHPStan in Docker.
 
 First run
