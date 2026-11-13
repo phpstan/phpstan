@@ -1,0 +1,475 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Expression on left side of \?\? is not nullable\.$#'
+			identifier: nullCoalesce.expr
+			count: 1
+			path: repo/apis/routes/_rest_routes_fhir_r4_us_core_3_1_0.inc.php
+
+		-
+			message: '#^Parameter \#1 \$node of method DOMNode\:\:appendChild\(\) expects DOMNode, mixed given\.$#'
+			identifier: argument.type
+			count: 3
+			path: repo/ccr/createCCRAlerts.php
+
+		-
+			message: '#^Parameter \#1 \$node of method DOMNode\:\:appendChild\(\) expects DOMNode, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/ccr/createCCRImmunization.php
+
+		-
+			message: '#^Parameter \#1 \$node of method DOMNode\:\:appendChild\(\) expects DOMNode, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/ccr/createCCRMedication.php
+
+		-
+			message: '#^Parameter \#1 \$node of method DOMNode\:\:appendChild\(\) expects DOMNode, mixed given\.$#'
+			identifier: argument.type
+			count: 4
+			path: repo/ccr/createCCRProblem.php
+
+		-
+			message: '#^Parameter \#1 \$node of method DOMNode\:\:appendChild\(\) expects DOMNode, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/ccr/createCCRProcedure.php
+
+		-
+			message: '#^Parameter \#1 \$node of method DOMNode\:\:appendChild\(\) expects DOMNode, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/ccr/createCCRResult.php
+
+		-
+			message: '#^Loose comparison using \!\= between HTML_TreeNode and null will always evaluate to true\.$#'
+			identifier: notEqual.alwaysTrue
+			count: 1
+			path: repo/controllers/C_Document.class.php
+
+		-
+			message: '#^Loose comparison using \=\= between array and ''code'' will always evaluate to false\.$#'
+			identifier: equal.alwaysFalse
+			count: 1
+			path: repo/custom/code_types.inc.php
+
+		-
+			message: '#^Loose comparison using \=\= between array and ''description'' will always evaluate to false\.$#'
+			identifier: equal.alwaysFalse
+			count: 1
+			path: repo/custom/code_types.inc.php
+
+		-
+			message: '#^Loose comparison using \!\= between ''40280381\-4555\-E1C1…''\|''40280381\-4600\-425F…''\|array\{''Numerator 1''\: ''40280381\-4555\-E1C1…'', ''Numerator 2''\: ''40280381\-4555\-E1C1…''\}\|array\{''Population Criteria 1''\: array\{''Numerator 1''\: ''40280381\-4555\-E1C1…'', ''Numerator 2''\: ''40280381\-4555\-E1C1…'', ''Numerator 3''\: ''40280381\-4555\-E1C1…''\}, ''Population Criteria 2''\: array\{''Numerator 1''\: ''40280381\-4555\-E1C1…'', ''Numerator 2''\: ''40280381\-4555\-E1C1…'', ''Numerator 3''\: ''40280381\-4555\-E1C1…''\}, ''Population Criteria 3''\: array\{''Numerator 1''\: ''40280381\-4555\-E1C1…'', ''Numerator 2''\: ''40280381\-4555\-E1C1…'', ''Numerator 3''\: ''40280381\-4555\-E1C1…''\}\} and '''' will always evaluate to true\.$#'
+			identifier: notEqual.alwaysTrue
+			count: 1
+			path: repo/custom/export_qrda_xml.php
+
+		-
+			message: '#^Binary operation "\+\=" between \(float\|int\) and mixed results in an error\.$#'
+			identifier: assignOp.invalid
+			count: 2
+			path: repo/interface/forms/LBF/new.php
+
+		-
+			message: '#^Parameter \#1 \$array of function usort expects array, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/interface/forms/eye_mag/php/eye_mag_functions.php
+
+		-
+			message: '#^Parameter \#1 \$array of function usort expects array, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/interface/forms/newGroupEncounter/common.php
+
+		-
+			message: '#^Parameter \#1 \$array of function usort expects array, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/interface/forms/newpatient/C_EncounterVisitForm.class.php
+
+		-
+			message: '#^Parameter \#1 \$width of function imagecreate expects int\<1, max\>, float\<0\.5, max\>\|int\<1, max\> given\.$#'
+			identifier: argument.type
+			count: 2
+			path: repo/interface/forms/vitals/growthchart/chart.php
+
+		-
+			message: '#^Cannot access offset ''cons_id'' on array\|false\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: repo/interface/language/lang_definition.php
+
+		-
+			message: '#^Cannot access offset ''definition'' on array\|false\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: repo/interface/language/lang_definition.php
+
+		-
+			message: '#^Binary operation "\.\=" between mixed and numeric\-string results in an error\.$#'
+			identifier: assignOp.invalid
+			count: 2
+			path: repo/interface/main/calendar/add_edit_event.php
+
+		-
+			message: '#^Cannot access offset ''message_priority'' on array\|bool\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 3
+			path: repo/interface/main/dated_reminders/dated_reminders_add.php
+
+		-
+			message: '#^Parameter \#1 \$text of function text expects string, int\<min, 0\>\|int\<2, max\>\|string\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/interface/modules/custom_modules/oe-module-faxsms/contact.php
+
+		-
+			message: '#^Strict comparison using \=\=\= between mixed and true will always evaluate to false\.$#'
+			identifier: identical.alwaysFalse
+			count: 1
+			path: repo/interface/modules/zend_modules/module/Application/src/Application/Helper/Javascript.php
+
+		-
+			message: '#^Loose comparison using \!\= between HTML_TreeNode and null will always evaluate to true\.$#'
+			identifier: notEqual.alwaysTrue
+			count: 1
+			path: repo/interface/modules/zend_modules/module/Carecoordination/src/Carecoordination/Listener/CCDAEventsSubscriber.php
+
+		-
+			message: '#^Loose comparison using \!\= between array and '''' will always evaluate to true\.$#'
+			identifier: notEqual.alwaysTrue
+			count: 1
+			path: repo/interface/modules/zend_modules/module/Immunization/src/Immunization/Controller/ImmunizationController.php
+
+		-
+			message: '#^Parameter \#1 \$text of function attr_url expects string, \(float\|int\) given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/interface/orders/types.php
+
+		-
+			message: '#^Parameter \#1 \$text of function attr_url expects string, \(float\|int\) given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/interface/orders/types_edit.php
+
+		-
+			message: '#^Binary operation "\-" between mixed and \(NAN\|float\<0\.0, max\>\|int\<0, max\>\) results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 1
+			path: repo/interface/patient_file/encounter/superbill_custom_full.php
+
+		-
+			message: '#^Parameter \#1 \$text of function attr expects string, \(float\|int\) given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/interface/patient_file/history/encounters.php
+
+		-
+			message: '#^Binary operation "\+\=" between \(float\|int\) and mixed results in an error\.$#'
+			identifier: assignOp.invalid
+			count: 2
+			path: repo/interface/patient_file/summary/demographics_print.php
+
+		-
+			message: '#^Binary operation "\+\=" between \(float\|int\) and mixed results in an error\.$#'
+			identifier: assignOp.invalid
+			count: 2
+			path: repo/interface/patient_file/transaction/add_transaction.php
+
+		-
+			message: '#^Loose comparison using \!\= between array and '''' will always evaluate to true\.$#'
+			identifier: notEqual.alwaysTrue
+			count: 1
+			path: repo/interface/reports/encounters_report.php
+
+		-
+			message: '#^Binary operation "\+\=" between \(float\|int\) and mixed results in an error\.$#'
+			identifier: assignOp.invalid
+			count: 2
+			path: repo/interface/reports/front_receipts_report.php
+
+		-
+			message: '#^Binary operation "\." between ''ICD9\:'' and mixed results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 1
+			path: repo/interface/reports/non_reported.php
+
+		-
+			message: '#^Binary operation "\+\=" between mixed and \(float\|int\) results in an error\.$#'
+			identifier: assignOp.invalid
+			count: 1
+			path: repo/interface/reports/pat_ledger.php
+
+		-
+			message: '#^Binary operation "\-\=" between mixed and \(float\|int\) results in an error\.$#'
+			identifier: assignOp.invalid
+			count: 1
+			path: repo/interface/reports/pat_ledger.php
+
+		-
+			message: '#^Negated boolean expression is always false\.$#'
+			identifier: booleanNot.alwaysFalse
+			count: 1
+			path: repo/interface/reports/pat_ledger.php
+
+		-
+			message: '#^Cannot access offset int\<0, max\> on array\<mixed\>\|Countable\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: repo/interface/usergroup/usergroup_admin.php
+
+		-
+			message: '#^Cannot access offset int\<0, max\> on non\-empty\-array\<mixed\>\|Countable\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: repo/interface/usergroup/usergroup_admin.php
+
+		-
+			message: '#^Binary operation "\*" between mixed and float\<min, 0\.99\>\|int\<min, 0\> results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 2
+			path: repo/library/FeeSheet.class.php
+
+		-
+			message: '#^Binary operation "\*" between mixed and float\<min, 0\.99\>\|int\<min, 0\> results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 1
+			path: repo/library/FeeSheetHtml.class.php
+
+		-
+			message: '#^Binary operation "\.\=" between mixed and \(array\<string\>\|string\) results in an error\.$#'
+			identifier: assignOp.invalid
+			count: 1
+			path: repo/library/MedEx/API.php
+
+		-
+			message: '#^Loose comparison using \!\= between ADORecordSet and null will always evaluate to true\.$#'
+			identifier: notEqual.alwaysTrue
+			count: 1
+			path: repo/library/appointments.inc.php
+
+		-
+			message: '#^Result of && is always true\.$#'
+			identifier: booleanAnd.alwaysTrue
+			count: 1
+			path: repo/library/appointments.inc.php
+
+		-
+			message: '#^Cannot access offset float\<2\.0, 9\.0\> on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: repo/library/classes/NumberToText.class.php
+
+		-
+			message: '#^Cannot access offset \(float\<0\.0, max\>\|int\<0, max\>\) on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: repo/library/classes/php-barcode.php
+
+		-
+			message: '#^Cannot access offset ''dc_mother'' on array\|false\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: repo/library/classes/rulesets/Amc/reports/AMC_314g_1_2_21/Numerator.php
+
+		-
+			message: '#^Cannot access offset ''dc_offspring'' on array\|false\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: repo/library/classes/rulesets/Amc/reports/AMC_314g_1_2_21/Numerator.php
+
+		-
+			message: '#^Cannot access offset ''dc_siblings'' on array\|false\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: repo/library/classes/rulesets/Amc/reports/AMC_314g_1_2_21/Numerator.php
+
+		-
+			message: '#^Loose comparison using \=\= between 0\|''0''\|''2000A''\|''2000B''\|''2000C''\|''2000D'' and ''2100D'' will always evaluate to false\.$#'
+			identifier: equal.alwaysFalse
+			count: 2
+			path: repo/library/edihistory/edih_csv_parse.php
+
+		-
+			message: '#^Loose comparison using \=\= between 0\|''0''\|''2000A''\|''2000B''\|''2000C''\|''2000D'' and ''2110C'' will always evaluate to false\.$#'
+			identifier: equal.alwaysFalse
+			count: 2
+			path: repo/library/edihistory/edih_csv_parse.php
+
+		-
+			message: '#^Loose comparison using \=\= between 0\|''0''\|''2000A''\|''2000B''\|''2000C''\|''2000D'' and ''2110D'' will always evaluate to false\.$#'
+			identifier: equal.alwaysFalse
+			count: 2
+			path: repo/library/edihistory/edih_csv_parse.php
+
+		-
+			message: '#^Result of \|\| is always false\.$#'
+			identifier: booleanOr.alwaysFalse
+			count: 2
+			path: repo/library/edihistory/edih_csv_parse.php
+
+		-
+			message: '#^Binary operation "\.\=" between mixed and numeric\-string results in an error\.$#'
+			identifier: assignOp.invalid
+			count: 1
+			path: repo/library/encounter_events.inc.php
+
+		-
+			message: '#^Cannot access offset ''portal_pwd'' on array\|false\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: repo/portal/account/index_reset.php
+
+		-
+			message: '#^Cannot access offset ''id'' on array\|false\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: repo/portal/report/document_downloads_action.php
+
+		-
+			message: '#^Cannot access offset ''mimetype'' on array\|false\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: repo/portal/report/document_downloads_action.php
+
+		-
+			message: '#^Cannot assign offset ''name'' to array\|false\.$#'
+			identifier: offsetAssign.dimType
+			count: 1
+			path: repo/portal/report/document_downloads_action.php
+
+		-
+			message: '#^Negated boolean expression is always false\.$#'
+			identifier: booleanNot.alwaysFalse
+			count: 1
+			path: repo/portal/report/pat_ledger.php
+
+		-
+			message: '#^Parameter \#1 \$text of function text expects string, int\|string given\.$#'
+			identifier: argument.type
+			count: 6
+			path: repo/setup.php
+
+		-
+			message: '#^Variable \$v_realpatch might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: repo/sql_upgrade.php
+
+		-
+			message: '#^Binary operation "\-" between \(NAN\|array\|float\<0\.0, max\>\|int\<0, max\>\) and mixed results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 2
+			path: repo/src/Billing/Claim.php
+
+		-
+			message: '#^Offset ''message'' might not exist on array\{type\?\: string, benefit_type\?\: mixed, start_date\: string, end_date\: string, coverage_level\?\: mixed, coverage_type\?\: mixed, plan_type\?\: mixed, plan_description\?\: string, \.\.\.\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/src/Billing/EDI270.php
+
+		-
+			message: '#^Loose comparison using \=\= between OpenEMR\\ClinicalDecisionRules\\Interface\\RuleLibrary\\ReminderIntervalType and null will always evaluate to false\.$#'
+			identifier: equal.alwaysFalse
+			count: 1
+			path: repo/src/ClinicalDecisionRules/Interface/RuleLibrary/RuleCriteriaAge.php
+
+		-
+			message: '#^Loose comparison using \!\= between ADORecordSet and null will always evaluate to true\.$#'
+			identifier: notEqual.alwaysTrue
+			count: 2
+			path: repo/src/ClinicalDecisionRules/Interface/RulesPlanMappingEventHandlers.php
+
+		-
+			message: '#^Cannot access offset ''ip_no_prevent_timing_attack'' on array\|false\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: repo/src/Common/Auth/AuthUtils.php
+
+		-
+			message: '#^Parameter \#1 \$array of function usort expects array, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Common/Command/CreateAPIDocumentationCommand.php
+
+		-
+			message: '#^Loose comparison using \=\= between non\-empty\-array and ''null'' will always evaluate to false\.$#'
+			identifier: equal.alwaysFalse
+			count: 1
+			path: repo/src/Common/Layouts/LayoutsUtils.php
+
+		-
+			message: '#^Cannot access offset 2 on array\<mixed\>\|false\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: repo/src/Gacl/GaclApi.php
+
+		-
+			message: '#^Parameter \#1 \$search of method OpenEMR\\Services\\PatientService\:\:getAll\(\) expects array\<string, OpenEMR\\Services\\Search\\ISearchField\|string\>, array\<string, mixed\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/src/RestControllers/PatientRestController.php
+
+		-
+			message: '#^Binary operation "\.\=" between mixed and numeric\-string results in an error\.$#'
+			identifier: assignOp.invalid
+			count: 1
+			path: repo/src/Services/AppointmentService.php
+
+		-
+			message: '#^Parameter \#1 \$array of function array_values expects array\<mixed\>, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Services/FHIR/Subscriber/UuidMappingEventsSubscriber.php
+
+		-
+			message: '#^Parameter \#1 \$array of function array_values expects array\<mixed\>, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Services/FormService.php
+
+		-
+			message: '#^Property OpenEMR\\Services\\ObservationService\:\:\$reasonCodes \(array\<string\>\) does not accept array\<string, array\<string, string\>\>\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: repo/src/Services/ObservationService.php
+
+		-
+			message: '#^Binary operation "\*" between non\-empty\-string and 12 results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 1
+			path: repo/src/Services/PatientService.php
+
+		-
+			message: '#^Binary operation "\-" between non\-empty\-string and int results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 1
+			path: repo/src/Services/PatientService.php
+
+		-
+			message: '#^Loose comparison using \!\= between float\<1\.0, max\> and 0 will always evaluate to true\.$#'
+			identifier: notEqual.alwaysTrue
+			count: 1
+			path: repo/src/Services/PatientTrackerService.php
+
+		-
+			message: '#^Parameter \#1 \$string of function strlen expects string, true given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Services/PatientTrackerService.php
+
+		-
+			message: '#^Right side of && is always true\.$#'
+			identifier: booleanAnd.rightAlwaysTrue
+			count: 1
+			path: repo/src/Services/PatientTrackerService.php
+
+		-
+			message: '#^Parameter \#1 \$array of function array_values expects array\<mixed\>, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Services/Qrda/Cat3.php

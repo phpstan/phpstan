@@ -1,0 +1,37 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Loose comparison using \=\= between Piwik\\AssetManager\\UIAssetCatalog and null will always evaluate to false\.$#'
+			identifier: equal.alwaysFalse
+			count: 1
+			path: repo/core/AssetManager/UIAssetFetcher.php
+
+		-
+			message: '#^Loose comparison using \=\= between Piwik\\Option and null will always evaluate to false\.$#'
+			identifier: equal.alwaysFalse
+			count: 1
+			path: repo/core/Option.php
+
+		-
+			message: '#^Strict comparison using \=\=\= between mixed and true will always evaluate to false\.$#'
+			identifier: identical.alwaysFalse
+			count: 1
+			path: repo/core/Url.php
+
+		-
+			message: '#^Loose comparison using \=\= between 0\|float and '''' will always evaluate to false\.$#'
+			identifier: equal.alwaysFalse
+			count: 1
+			path: repo/plugins/API/RowEvolution.php
+
+		-
+			message: '#^Comparison operation "\>" between float\<2\.0, max\> and 1 is always true\.$#'
+			identifier: greater.alwaysTrue
+			count: 1
+			path: repo/plugins/PrivacyManager/Controller.php
+
+		-
+			message: '#^Strict comparison using \=\=\= between mixed and true will always evaluate to false\.$#'
+			identifier: identical.alwaysFalse
+			count: 1
+			path: repo/plugins/ScheduledReports/ScheduledReports.php

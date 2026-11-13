@@ -1,0 +1,19 @@
+includes:
+	- repo/phpstan.neon
+	- invoiceninja-baseline.neon
+	- editor-link-repo.php
+
+parameters:
+	reportUnmatchedIgnoredErrors: false
+	excludePaths:
+		analyse:
+			# these call ::dispatch() on jobs from the proprietary Modules/Admin module (gitignored, not public),
+			# Larastan's CheckDispatchArgumentTypesCompatibleWithClassConstructorRule then crashes
+			# with a non-ignorable "Class Modules\Admin\... was not found" internal error
+			- repo/app/Http/Controllers/ClientPortal/NinjaPlanController.php
+			- repo/app/Http/Controllers/CompanyController.php
+			- repo/app/Http/Controllers/TwilioController.php
+			- repo/app/Observers/UserObserver.php
+			- repo/app/PaymentDrivers/Stripe/Jobs/PaymentIntentWebhook.php
+			- repo/app/Services/EDocument/Gateway/Storecove/StorecoveProxy.php
+			- repo/app/Services/EDocument/Jobs/SendEDocument.php

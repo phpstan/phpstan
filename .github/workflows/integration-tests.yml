@@ -789,6 +789,141 @@ jobs:
             mysql: 'mysql:8.4.9@sha256:c36050afdca850f23cef85703f84c7531a5ae155a11b5ee1c60acb09937c4084' # 8.4.9
             phpstan-command: ../../../phpstan.phar analyse -c ../phpstan-dba.neon
             baseline-file: phpstan-dba-baseline.neon
+          - php-version: 8.5
+            repo: filamentphp/filament
+            ref: b4ffb120d8eb8a3941d35aa8867024310aac2f34
+            setup: |
+              # the committed composer.lock already resolves Laravel 13, which Filament's PHPStan job requires
+              composer install
+            phpstan-command: ../../../phpstan.phar analyse -c ../filament.neon
+            baseline-file: filament-baseline.neon
+          - php-version: 8.1
+            repo: matomo-org/matomo
+            ref: 58a86dee2acc2aaf73a526fe137871f835a59d86
+            setup: |
+              # mirrors Matomo's .github/workflows/phpstan.yml, which checks out with submodules: true
+              git submodule update --init
+              composer install --prefer-dist --no-progress
+            phpstan-command: ../../../phpstan.phar analyse -c ../matomo.neon
+            baseline-file: matomo-baseline.neon
+          - php-version: 8.4
+            repo: PHPOffice/PhpSpreadsheet
+            ref: 8bff5209d6641e765e179d4e968c8658dc34910c
+            setup: |
+              composer install
+            phpstan-command: ../../../phpstan.phar analyse -c ../phpspreadsheet.neon
+            baseline-file: phpspreadsheet-baseline.neon
+          - php-version: 8.2
+            repo: mautic/mautic
+            ref: 6711577a1df4e46cadeb739415574b49c3345771
+            setup: |
+              # skip post-install-cmd, it runs npm ci and builds assets, which PHPStan does not need
+              composer install --no-scripts
+              # phpstan-symfony reads var/cache/test/AppKernelTestDebugContainer.xml,
+              # built the same way as by `composer phpstan`
+              APP_ENV=test APP_DEBUG=1 bin/console > /dev/null
+            # the environment and memory limit of `composer phpstan` in the PHPStan job of Mautic's tests.yml
+            phpstan-command: APP_ENV=dev APP_DEBUG=1 ../../../phpstan.phar analyse -c ../mautic.neon --memory-limit=5G
+            baseline-file: mautic-baseline.neon
+          - php-version: 8.2
+            repo: Dolibarr/dolibarr
+            ref: e5c96de246f9da27cf4c2394a7392ef186df3c1c
+            setup: |
+              # Dolibarr has no composer.json, its .github/workflows/phpstan.yml only installs PHPStan
+              # and passes the bootstrap file with -a, as phpstan-command does
+              true
+            phpstan-command: ../../../phpstan.phar analyse -c ../dolibarr.neon --memory-limit=7G -a dev/build/phpstan/bootstrap_action.php
+            baseline-file: dolibarr-baseline.neon
+          - php-version: 8.3
+            repo: glpi-project/glpi
+            ref: 255a8423287669a9ffb7a408d56325ff87b1c92d
+            setup: |
+              # the composer part of GLPI's .github/actions/init_build.sh (bin/console dependencies install),
+              # its font, npm and locale build steps are not needed by PHPStan
+              composer install --ignore-platform-req=php+ --prefer-dist --no-progress
+            phpstan-command: ../../../phpstan.phar analyse -c ../glpi.neon --memory-limit=1G
+            baseline-file: glpi-baseline.neon
+          - php-version: 8.5
+            repo: openemr/openemr
+            ref: 944c21456314591b96443d4a57219a31014a3241
+            setup: |
+              composer install
+              # OpenEMR's per-identifier baseline (.phpstan/baseline/*.php) pins exact counts, and
+              # "expected to occur N times, but occurred N+1 times" is non-ignorable, so it cannot go into
+              # openemr-baseline.neon. Removing the counts is not enough (entries repeated across identifier
+              # files still get a count), so raise them instead.
+              sed -i "s/^    'count' => [0-9]*,$/    'count' => 999999,/" .phpstan/baseline/*.php
+            phpstan-command: ../../../phpstan.phar analyse -c ../openemr.neon --memory-limit=8G
+            baseline-file: openemr-baseline.neon
+          - php-version: 8.5
+            repo: librenms/librenms
+            ref: ef221ab969116d836a1d96f7571dd8836d81eba8
+            setup: |
+              # mirrors .github/actions/composer-install in LibreNMS, the post-install scripts
+              # (view:cache, optimize) are not run before PHPStan there either
+              composer install --no-scripts
+            phpstan-command: ../../../phpstan.phar analyse -c ../librenms.neon --memory-limit=4G
+            baseline-file: librenms-baseline.neon
+          - php-version: 8.5
+            repo: ampache/ampache
+            ref: 83d0d56711788e354000122aac0dcb7615666407
+            setup: |
+              composer install
+            phpstan-command: ../../../phpstan.phar analyse -c ../ampache.neon
+            baseline-file: ampache-baseline.neon
+          - php-version: 8.5
+            repo: espocrm/espocrm
+            ref: a694c6f0d51902bd901f7687e4ce3c84c6c949b4
+            setup: |
+              composer install
+            # EspoCRM's test.yml sets memory_limit=1024M
+            phpstan-command: ../../../phpstan.phar analyse -c ../espocrm.neon --memory-limit=1G
+            baseline-file: espocrm-baseline.neon
+          - php-version: 8.5
+            repo: api-platform/core
+            ref: f37d6d101fb9a8c055748e51e90ada64dac73979
+            setup: |
+              # mirrors the PHPStan job in API Platform's .github/workflows/ci.yml
+              export COMPOSER_ROOT_VERSION=5.0.x-dev
+              export APP_DEBUG=1
+              # soyuka/pmu installs the dependencies and links the monorepo's components from src/
+              composer global require soyuka/pmu:0.3.0
+              composer global config allow-plugins.soyuka/pmu true --no-interaction
+              composer global link .
+              composer require --dev doctrine/mongodb-odm-bundle
+              # phpstan-symfony reads the container XML of the test app
+              tests/Fixtures/app/console cache:warmup
+            # https://github.com/phpstan/phpstan-symfony/issues/37
+            phpstan-command: APP_DEBUG=1 ../../../phpstan.phar analyse -c ../api-platform.neon
+            baseline-file: api-platform-baseline.neon
+          - php-version: 8.5
+            repo: HDInnovations/UNIT3D
+            # development branch: master (the default branch, last commit 2025-12-03) locks calebdw/larastan 3.7.1,
+            # which calls PHPStan internals that changed in 2.3 and crashes with internal errors even on 2.3.5
+            ref: aa2d1b01e05efc16a26b900432f1502f3cf2afab
+            setup: |
+              # mirrors .github/actions/setup in UNIT3D without the asset build and the cache clearing,
+              # which PHPStan does not need. Larastan boots the app, it does not connect to MySQL or Redis
+              # (scanSchema: false)
+              composer install --no-scripts
+              cp .env.example .env
+              php artisan key:generate
+            phpstan-command: ../../../phpstan.phar analyse -c ../unit3d.neon --memory-limit=2G
+            baseline-file: unit3d-baseline.neon
+          - php-version: 8.5
+            repo: invoiceninja/invoiceninja
+            ref: 15ea35ea63f367eba33c04b7acd9ab1227853537
+            setup: |
+              # no PHPStan job upstream, this mirrors the setup of .github/workflows/phpunit.yml without the database
+              cp .env.ci .env
+              composer install
+              php artisan key:generate
+              # phpstan.neon includes phpstan-baseline.neon and analyses Modules/, both exist only locally
+              # (the baseline is not committed, Modules/ with the proprietary Admin module is gitignored)
+              touch phpstan-baseline.neon
+              mkdir Modules
+            phpstan-command: ../../../phpstan.phar analyse -c ../invoiceninja.neon
+            baseline-file: invoiceninja-baseline.neon
 
     steps:
       - name: Harden the runner (Audit all outbound calls)

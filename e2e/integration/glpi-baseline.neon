@@ -1,0 +1,73 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Parameter \#1 \$event of static method Reservation\:\:updateEvent\(\) expects array\{id\: int, start\: string, end\: string\}, non\-empty\-array\<mixed\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/ajax/reservations.php
+
+		-
+			message: '#^Parameter \#1 \$input of method CommonITILObject\:\:isTakeIntoAccountComputationBlocked\(\) expects array, array\<string, mixed\>\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/src/CommonITILActor.php
+
+		-
+			message: '#^Property Glpi\\Debug\\ProfilerSection\:\:\$pauses \(array\<array\{start\: int, end\?\: int\}\>\) does not accept non\-empty\-array\<array\{start\: float\<0\.0, max\>\}\|array\{start\: int, end\?\: int\}\>\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: repo/src/Glpi/Debug/ProfilerSection.php
+
+		-
+			message: '#^Property Glpi\\Debug\\ProfilerSection\:\:\$pauses \(array\<array\{start\: int, end\?\: int\}\>\) does not accept non\-empty\-array\<array\{start\: int, end\?\: float\<0\.0, max\>\|int\}\>\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: repo/src/Glpi/Debug/ProfilerSection.php
+
+		-
+			message: '#^Access to an undefined property object\:\:\$name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/src/Glpi/Inventory/Asset/Monitor.php
+
+		-
+			message: '#^Loose comparison using \!\= between array\{mixed\} and '''' will always evaluate to true\.$#'
+			identifier: notEqual.alwaysTrue
+			count: 2
+			path: repo/src/Glpi/Inventory/Asset/VirtualMachine.php
+
+		-
+			message: '#^Loose comparison using \!\= between float\|int\|numeric\-string and ''NULL'' will always evaluate to true\.$#'
+			identifier: notEqual.alwaysTrue
+			count: 1
+			path: repo/src/Glpi/Search/Provider/SQLProvider.php
+
+		-
+			message: '#^Loose comparison using \!\= between float\|int\|numeric\-string and ''null'' will always evaluate to true\.$#'
+			identifier: notEqual.alwaysTrue
+			count: 1
+			path: repo/src/Glpi/Search/Provider/SQLProvider.php
+
+		-
+			message: '#^Parameter \#1 \$size of static method Toolbox\:\:getSize\(\) expects int, int\<min, \-2\>\|int\<0, max\>\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Glpi/System/Requirement/MemoryLimit.php
+
+		-
+			message: '#^Parameter \#2 \$times of function str_repeat expects int, float\|int\<0, max\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/src/IPNetmask.php
+
+		-
+			message: '#^Binary operation "\+" between float\|int\|string\|null and float\<min, max\>\|int results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 1
+			path: repo/src/Infocom.php
+
+		-
+			message: '#^Cannot access offset ''id'' on array\<string, mixed\>\|false\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: repo/src/UserEmail.php

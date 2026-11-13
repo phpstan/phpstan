@@ -1,0 +1,7 @@
+includes:
+	- repo/phpstan.neon
+	- mautic-baseline.neon
+	- editor-link-repo.php
+
+parameters:
+	reportUnmatchedIgnoredErrors: false
