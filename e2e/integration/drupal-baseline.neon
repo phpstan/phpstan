@@ -11,3 +11,9 @@ parameters:
 			identifier: parameterByRef.type
 			count: 1
 			path: repo/core/lib/Drupal/Core/Security/RequestSanitizer.php
+
+		-
+			message: '#^Access to an undefined property Drupal\\Core\\Entity\\EntityInterface\:\:\$weight\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/core/modules/user/src/Entity/Role.php

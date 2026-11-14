@@ -13,6 +13,12 @@ parameters:
 			path: repo/src/CommonITILActor.php
 
 		-
+			message: '#^Offset ''periodicity''\|''periodicitynotice'' might not exist on non\-empty\-array\{periodicity\?\: non\-falsy\-string, periodicitynotice\?\: non\-falsy\-string\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/src/Contract.php
+
+		-
 			message: '#^Property Glpi\\Debug\\ProfilerSection\:\:\$pauses \(array\<array\{start\: int, end\?\: int\}\>\) does not accept non\-empty\-array\<array\{start\: float\<0\.0, max\>\}\|array\{start\: int, end\?\: int\}\>\.$#'
 			identifier: assign.propertyType
 			count: 1
