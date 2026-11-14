@@ -4,7 +4,7 @@ date: 2019-01-16
 tags: releases
 ---
 
-PHPStan has had a wonderful year 2018. The adoption increased from 3,200 daily downloads to 9,800. I released [9 new versions](https://github.com/phpstan/phpstan/releases), [wrote a feature article](https://www.phparch.com/2018/04/testing-strategy-with-the-help-of-static-analysis/) for php[arch] magazine, and talked about PHPStan at Dutch PHP in Amsterdam.
+PHPStan has had a wonderful year 2018. The adoption increased from 3,200 daily downloads to 9,800. I released [9 new versions](https://github.com/phpstan/phpstan/releases), [wrote a feature article](https://web.archive.org/web/20260721042354/https://www.phparch.com/2018/04/testing-strategy-with-the-help-of-static-analysis/) for php[arch] magazine, and talked about PHPStan at Dutch PHP in Amsterdam.
 
 But the moment I realized how big it has become happened at the [phpCE conference in Prague](https://joind.in/event/php-central-europe-conference-2018) at the end of October. I’ve had a really awesome time there. First, I took advantage of many international speakers who contribute to PHPStan coming to town and organized “PHPStan dinner” at my favourite indian restaurant:
 
