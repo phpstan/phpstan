@@ -31,6 +31,8 @@ class ChildClass extends ParentClass
 
 A method overrides a parent method that is marked as `@final` in PHPDoc. The `@final` annotation indicates that the method author intended it to not be overridden, even though it is not enforced at the PHP language level with the `final` keyword.
 
+The same applies to property hooks (PHP 8.4+) marked as `@final` in their PHPDoc.
+
 ## How to fix it
 
 Do not override the `@final` method. Use composition or a different approach:

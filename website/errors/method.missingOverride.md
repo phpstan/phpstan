@@ -29,6 +29,8 @@ class Bar extends Foo
 
 A method overrides a parent method but does not have the `#[\Override]` attribute. The `#[\Override]` attribute (introduced in PHP 8.3) explicitly marks methods that are intended to override a parent method. When required, it ensures that overriding methods are clearly documented and helps catch accidental breakage if the parent method is renamed or removed.
 
+The same check applies to property hooks (PHP 8.4+): a `get` or `set` hook overriding a hook of a parent class or an interface is expected to have the `#[\Override]` attribute too.
+
 This check is controlled by the `checkMissingOverrideMethodAttribute` configuration option.
 
 ## How to fix it
