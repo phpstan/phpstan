@@ -1,6 +1,6 @@
 ---
 title: "assign.readOnlyProperty"
-shortDescription: "Readonly property is assigned more than once."
+shortDescription: "Readonly property is assigned more than once or after already being initialized by its default value."
 ignorable: true
 ---
 
@@ -45,6 +45,22 @@ class Foo
 	{
 		$this->value = 2;
 		$this->value = 3;
+	}
+}
+```
+
+As of PHP 8.6, readonly properties may declare a default value. The default value already initializes the property, so assigning it again in the constructor is reported too. Only `__clone()` and `__unserialize()` are allowed to reinitialize such a property:
+
+```php
+<?php declare(strict_types = 1);
+
+class Foo
+{
+	public readonly int $value = 1;
+
+	public function __construct(int $value)
+	{
+		$this->value = $value;
 	}
 }
 ```
@@ -105,6 +121,40 @@ The same approach applies inside `__clone()` — assign the property only once:
  	{
 -		$this->value = 2;
  		$this->value = 3;
+ 	}
+ }
+```
+
+If the property has a default value but the constructor needs to set it, remove the default value:
+
+```diff-php
+ <?php declare(strict_types = 1);
+
+ class Foo
+ {
+-	public readonly int $value = 1;
++	public readonly int $value;
+
+ 	public function __construct(int $value)
+ 	{
+ 		$this->value = $value;
+ 	}
+ }
+```
+
+Or, if the value can be passed in, use a promoted constructor property with a default parameter value instead:
+
+```diff-php
+ <?php declare(strict_types = 1);
+
+ class Foo
+ {
+-	public readonly int $value = 1;
+-
+-	public function __construct(int $value)
++	public function __construct(public readonly int $value = 1)
+ 	{
+-		$this->value = $value;
  	}
  }
 ```
