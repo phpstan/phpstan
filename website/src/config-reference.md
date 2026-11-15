@@ -761,6 +761,28 @@ Controls whether PHPStan reports missing `#[\Override]` attribute on properties 
 - When `true`: always checks for missing `#[\Override]` on overriding properties.
 - When `false`: never checks.
 
+### `checkMissingOverrideConstantAttribute`
+
+**default**: `null`
+
+Controls whether PHPStan reports missing `#[\Override]` attribute on class constants and enum cases that override a constant from a parent class or an implemented interface. This is a PHP 8.6 feature.
+
+```php
+interface Foo
+{
+	const BAR = 1;
+}
+
+class Baz implements Foo
+{
+	const BAR = 2; // missing #[\Override] above this constant
+}
+```
+
+- When `null` (default): the check is enabled automatically when [`checkMissingOverrideMethodAttribute`](#checkmissingoverridemethodattribute) or [`checkMissingOverridePropertyAttribute`](#checkmissingoverridepropertyattribute) is `true`, and every analysed PHP version supports the attribute on constants (the [`phpVersion`](#phpversion) is `80600` or higher, including the lower bound of a version range).
+- When `true`: always checks for missing `#[\Override]` on overriding constants and enum cases.
+- When `false`: never checks.
+
 ### `checkStrictPrintfPlaceholderTypes`
 
 <div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 2.1.29</div>
