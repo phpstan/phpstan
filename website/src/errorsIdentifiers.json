@@ -6134,7 +6134,7 @@
     "classConstant.final": {
         "PHPStan\\Rules\\Constants\\OverridingConstantRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Constants/OverridingConstantRule.php#L72"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Constants/OverridingConstantRule.php#L77"
             ]
         },
         "PHPStan\\Rules\\Traits\\ConflictingTraitConstantsRule": {
@@ -6227,12 +6227,24 @@
     "classConstant.missingNativeType": {
         "PHPStan\\Rules\\Constants\\OverridingConstantRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Constants/OverridingConstantRule.php#L124"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Constants/OverridingConstantRule.php#L129"
             ]
         },
         "PHPStan\\Rules\\Traits\\ConflictingTraitConstantsRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Traits/ConflictingTraitConstantsRule.php#L243"
+            ]
+        }
+    },
+    "classConstant.missingOverride": {
+        "PHPStan\\Rules\\Constants\\OverridingConstantRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Constants/OverrideAttributeOnClassConstantCheck.php#L128"
+            ]
+        },
+        "PHPStan\\Rules\\EnumCases\\OverridingEnumCaseRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Constants/OverrideAttributeOnClassConstantCheck.php#L128"
             ]
         }
     },
@@ -6288,7 +6300,7 @@
     "classConstant.nativeType": {
         "PHPStan\\Rules\\Constants\\OverridingConstantRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Constants/OverridingConstantRule.php#L113"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Constants/OverridingConstantRule.php#L118"
             ]
         },
         "PHPStan\\Rules\\Traits\\ConflictingTraitConstantsRule": {
@@ -6346,6 +6358,25 @@
             ]
         }
     },
+    "classConstant.override": {
+        "PHPStan\\Rules\\Constants\\OverridingConstantRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Constants/OverrideAttributeOnClassConstantCheck.php#L102"
+            ]
+        },
+        "PHPStan\\Rules\\EnumCases\\OverridingEnumCaseRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Constants/OverrideAttributeOnClassConstantCheck.php#L102"
+            ]
+        }
+    },
+    "classConstant.overrideAttribute": {
+        "PHPStan\\Rules\\Classes\\ClassConstantAttributesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Classes/ClassConstantAttributesRule.php#L42"
+            ]
+        }
+    },
     "classConstant.phpDocType": {
         "PHPStan\\Rules\\Constants\\ValueAssignedToClassConstantRule": {
             "phpstan/phpstan-src": [
@@ -6377,7 +6408,7 @@
     "classConstant.type": {
         "PHPStan\\Rules\\Constants\\OverridingConstantRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Constants/OverridingConstantRule.php#L145"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Constants/OverridingConstantRule.php#L150"
             ]
         }
     },
@@ -6412,8 +6443,8 @@
     "classConstant.visibility": {
         "PHPStan\\Rules\\Constants\\OverridingConstantRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Constants/OverridingConstantRule.php#L84",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Constants/OverridingConstantRule.php#L93"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Constants/OverridingConstantRule.php#L89",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Constants/OverridingConstantRule.php#L98"
             ]
         },
         "PHPStan\\Rules\\Traits\\ConflictingTraitConstantsRule": {
@@ -6977,6 +7008,25 @@
             ]
         }
     },
+    "enum.caseMissingOverride": {
+        "PHPStan\\Rules\\Constants\\OverridingConstantRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Constants/OverrideAttributeOnClassConstantCheck.php#L128"
+            ]
+        },
+        "PHPStan\\Rules\\EnumCases\\OverridingEnumCaseRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Constants/OverrideAttributeOnClassConstantCheck.php#L128"
+            ]
+        }
+    },
+    "enum.caseNativeType": {
+        "PHPStan\\Rules\\EnumCases\\OverridingEnumCaseRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/EnumCases/OverridingEnumCaseRule.php#L76"
+            ]
+        }
+    },
     "enum.caseOutsideOfEnum": {
         "PHPStan\\Rules\\EnumCases\\EnumCaseOutsideEnumRule": {
             "phpstan/phpstan-src": [
@@ -6984,10 +7034,41 @@
             ]
         }
     },
+    "enum.caseOverride": {
+        "PHPStan\\Rules\\Constants\\OverridingConstantRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Constants/OverrideAttributeOnClassConstantCheck.php#L102"
+            ]
+        },
+        "PHPStan\\Rules\\EnumCases\\OverridingEnumCaseRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Constants/OverrideAttributeOnClassConstantCheck.php#L102"
+            ]
+        }
+    },
+    "enum.caseOverrideAttribute": {
+        "PHPStan\\Rules\\EnumCases\\EnumCaseAttributesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/EnumCases/EnumCaseAttributesRule.php#L42"
+            ]
+        }
+    },
+    "enum.caseOverridesFinal": {
+        "PHPStan\\Rules\\EnumCases\\OverridingEnumCaseRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/EnumCases/OverridingEnumCaseRule.php#L59"
+            ]
+        }
+    },
     "enum.caseType": {
         "PHPStan\\Rules\\Classes\\EnumSanityRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Classes/EnumSanityRule.php#L232"
+            ]
+        },
+        "PHPStan\\Rules\\EnumCases\\OverridingEnumCaseRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/EnumCases/OverridingEnumCaseRule.php#L92"
             ]
         }
     },
