@@ -1161,6 +1161,12 @@ parameters:
 			path: repo/app/Livewire/BillingPortalPurchase.php
 
 		-
+			message: '#^Using nullsafe property access on non\-nullable type mixed\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: repo/app/Livewire/BillingPortalPurchase.php
+
+		-
 			message: '#^Method App\\Livewire\\BillingPortalPurchasev2\:\:render\(\) should return Illuminate\\Contracts\\Foundation\\Application\|Illuminate\\Http\\RedirectResponse\|Illuminate\\Routing\\Redirector but returns Illuminate\\Contracts\\View\\Factory\|Illuminate\\View\\View\.$#'
 			identifier: return.type
 			count: 1
@@ -1182,6 +1188,12 @@ parameters:
 			message: '#^Property App\\Livewire\\BillingPortalPurchasev2\:\:\$email \(string\) on left side of \?\? is not nullable\.$#'
 			identifier: nullCoalesce.property
 			count: 2
+			path: repo/app/Livewire/BillingPortalPurchasev2.php
+
+		-
+			message: '#^Using nullsafe property access on non\-nullable type mixed\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
 			path: repo/app/Livewire/BillingPortalPurchasev2.php
 
 		-
