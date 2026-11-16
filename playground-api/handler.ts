@@ -56,6 +56,14 @@ interface HttpResponse {
 	body?: string;
 }
 
+function getIdParameter(request: HttpRequest): string | undefined {
+	const id: unknown = request.queryStringParameters?.id;
+	if (typeof id !== 'string' || id === '') {
+		return undefined;
+	}
+	return id;
+}
+
 interface PHPStanError {
 	message: string,
 	line: number,
@@ -506,7 +514,10 @@ async function analyseResult(request: HttpRequest): Promise<HttpResponse> {
 
 async function retrieveResult(request: HttpRequest): Promise<HttpResponse> {
 	try {
-		const id = request.queryStringParameters.id;
+		const id = getIdParameter(request);
+		if (id === undefined) {
+			return Promise.resolve({statusCode: 400});
+		}
 		const [object, storedXRay] = await Promise.all([
 			readObject('api/results/' + id + '.json'),
 			readXRay(id),
@@ -646,7 +657,10 @@ async function retrieveResult(request: HttpRequest): Promise<HttpResponse> {
 
 async function retrieveSample(request: HttpRequest): Promise<HttpResponse> {
 	try {
-		const id = request.queryStringParameters.id;
+		const id = getIdParameter(request);
+		if (id === undefined) {
+			return Promise.resolve({statusCode: 400});
+		}
 		const [object, storedXRay] = await Promise.all([
 			readObject('api/results/' + id + '.json'),
 			readXRay(id),
@@ -691,7 +705,10 @@ async function retrieveSample(request: HttpRequest): Promise<HttpResponse> {
 
 async function retrieveLegacyResult(request: HttpRequest): Promise<HttpResponse> {
 	try {
-		const id = request.queryStringParameters.id;
+		const id = getIdParameter(request);
+		if (id === undefined) {
+			return Promise.resolve({statusCode: 400});
+		}
 		const firstTwoChars = id.substr(0, 2);
 		const path = 'data/results/' + firstTwoChars + '/' + id;
 		const inputObject = await readObject(path + '/input.json');
