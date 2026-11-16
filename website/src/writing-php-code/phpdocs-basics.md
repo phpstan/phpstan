@@ -881,3 +881,15 @@ class FooClass extends BaseClass {}
 class BarClass extends BaseClass {}
 class BazClass extends BaseClass {} // Error: Type BazClass is not allowed to be a subtype of BaseClass.
 ```
+
+Only the direct subtypes are checked. Classes extending one of the allowed subtypes (like `class FooChild extends FooClass {}` in the example above) are not reported.
+
+PHPStan also understands `@psalm-inheritors` as an alias of `@phpstan-sealed`, so code written for Psalm is checked the same way:
+
+```php
+/** @psalm-inheritors FooInterface|BarInterface */
+interface BaseInterface {}
+interface FooInterface extends BaseInterface {}
+interface BarInterface extends BaseInterface {}
+interface BazInterface extends BaseInterface {} // Error: Type BazInterface is not allowed to be a subtype of BaseInterface.
+```
