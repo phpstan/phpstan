@@ -14,11 +14,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Harden the runner (Audit all outbound calls)
-        uses: step-security/harden-runner@46b06cea07f9e64621fdf066ba77ac6915163d43 # v2.22.3
+        uses: step-security/harden-runner@1d88384fd173af6ecb012dfd0264a306b711241a # v2.22.4
         with:
           egress-policy: audit
 
-      - uses: cbrgm/mastodon-github-action@5939c6e084a12d79415a1e7637a6dbf6de241ab1 # v2.2.5
+      - uses: cbrgm/mastodon-github-action@69546c2a09678575ded3a0ac3a28f10ca38a759d # v2.2.6
         if: ${{ !github.event.repository.private }}
         with:
           # GitHub event payload
