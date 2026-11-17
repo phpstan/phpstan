@@ -31,6 +31,7 @@ module.exports = async () => {
 		let ignorable = true;
 		let feasible = true;
 		let unlikely = false;
+		let autofixable = false;
 		let shortDescription = null;
 		const docPath = errorsDir + '/' + identifier + '.md';
 		if (fs.existsSync(docPath)) {
@@ -44,6 +45,9 @@ module.exports = async () => {
 			if (file.data.unlikely === true) {
 				unlikely = true;
 			}
+			if (file.data.autofixable === true) {
+				autofixable = true;
+			}
 			if (file.data.shortDescription) {
 				shortDescription = file.data.shortDescription;
 			}
@@ -56,8 +60,10 @@ module.exports = async () => {
 
 		groups.get(prefix).push({
 			identifier,
-			label: !hasSrc && otherRepos.size > 0 ? [...otherRepos].join(', ') : null,
+			// Only identifiers that phpstan-src never reports need an extension installed
+			extensions: hasSrc ? [] : [...otherRepos].sort(),
 			ignorable,
+			autofixable,
 			shortDescription,
 		});
 	}
@@ -68,6 +74,11 @@ module.exports = async () => {
 		.map(([prefix, items]) => ({
 			prefix,
 			count: items.length,
+			autofixableCount: items.filter((item) => item.autofixable).length,
+			// Set when the whole group comes from extensions, e.g. phpunit.*
+			extensions: items.every((item) => item.extensions.length > 0)
+				? [...new Set(items.flatMap((item) => item.extensions))].sort()
+				: [],
 			identifiers: items.sort((a, b) => a.identifier.localeCompare(b.identifier)),
 		}));
 };

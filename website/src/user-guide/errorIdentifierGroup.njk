@@ -37,12 +37,7 @@ sectionTitle: User Guide
 	<li>
 		<div>
 			<a href="/error-identifiers/{{ item.identifier }}">{{ item.identifier }}</a>
-			{% if item.label %}
-				<span class="inline-block whitespace-nowrap text-xs bg-gray-400 text-white font-semibold rounded py-1 px-2">{{ item.label }}</span>
-			{% endif %}
-			{% if not item.ignorable %}
-				<span class="inline-block whitespace-nowrap text-xs bg-red-500 text-white font-semibold rounded py-1 px-2">non-ignorable</span>
-			{% endif %}
+			{% include "errorIdentifierBadges.njk" %}
 		</div>
 		{% if item.shortDescription %}
 			<div class="text-sm text-gray-500">{{ item.shortDescription }}</div>

@@ -81,10 +81,56 @@ Each error identifier has its own detail page with information about why the err
 
 {% endmarkdown %}
 
-<ul>
+<div id="identifier-groups-filter" class="h-10 mb-6"></div>
+
+<div id="identifier-groups" class="group mb-8">
+
+<div class="group-[.autofixable-only]:hidden">
+{% set lastLetter = "" %}
 {% for group in errorIdentifierGroups %}
-	<li><a href="/error-identifiers/{{ group.prefix }}">{{ group.prefix }}.*</a> ({{ group.count }} {{ "identifier" if group.count === 1 else "identifiers" }})</li>
+	{% set letter = group.prefix[0] | upper %}
+	{% if letter !== lastLetter %}
+		{% if lastLetter %}</div></div>{% endif %}
+		<div class="flex gap-4 py-3 border-t border-gray-200">
+			<div class="w-6 flex-shrink-0 text-lg font-bold text-gray-400 leading-7">{{ letter }}</div>
+			<div class="flex flex-wrap gap-2">
+		{% set lastLetter = letter %}
+	{% endif %}
+	<a href="/error-identifiers/{{ group.prefix }}" class="inline-flex items-center gap-1.5 rounded-full border border-gray-200 bg-white pl-3 pr-1 py-0.5 font-mono text-sm text-gray-800 !no-underline hover:border-blue-400 hover:text-blue-700 transition duration-150">
+		{{ group.prefix }}.*
+		{% if group.autofixableCount %}<span class="font-sans text-xs" title="{{ group.autofixableCount }} auto-fixable">🔧</span>{% endif %}
+		<span class="font-sans text-xs tabular-nums text-gray-500 bg-gray-100 rounded-full px-1.5">{{ group.count }}</span>
+	</a>
 {% endfor %}
-</ul>
+</div></div>
+</div>
+
+<div class="hidden group-[.autofixable-only]:block">
+	<p>These errors can be fixed automatically by running PHPStan with the <a href="/user-guide/command-line-usage#--fix%2C---fix-ignored"><code class="whitespace-nowrap">--fix</code></a> option.</p>
+{% for group in errorIdentifierGroups %}
+	{% if group.autofixableCount %}
+	<div class="mb-6">
+		<h3 class="!mt-0 !mb-2 font-mono text-sm"><a href="/error-identifiers/{{ group.prefix }}" class="!no-underline hover:!underline">{{ group.prefix }}.*</a></h3>
+		<ul class="!ml-0 !mb-0 !list-none space-y-3 border-l-2 border-green-500 pl-4">
+		{% for item in group.identifiers %}
+			{% if item.autofixable %}
+			<li>
+				<div>
+					<a href="/error-identifiers/{{ item.identifier }}">{{ item.identifier }}</a>
+					{% include "errorIdentifierBadges.njk" %}
+				</div>
+				{% if item.shortDescription %}
+					<div class="text-sm text-gray-500">{{ item.shortDescription }}</div>
+				{% endif %}
+			</li>
+			{% endif %}
+		{% endfor %}
+		</ul>
+	</div>
+	{% endif %}
+{% endfor %}
+</div>
+
+</div>
 
 {% endblock %}
