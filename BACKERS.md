@@ -62,6 +62,7 @@ the logo of your company in PHPStan's README and the website.
 
 <!-- small-org --><li><a href="https://github.com/Enkora">Enkora Oy (Enkora)</a></li>
 <li><a href="https://github.com/wikando">wikando (wikando)</a></li>
+<li><a href="https://github.com/Triplkrypl">Vojtěch Brožek (Triplkrypl)</a></li>
 <!-- small-org -->
 </ul>
 
