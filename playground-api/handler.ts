@@ -135,6 +135,19 @@ function isMissingObjectError(e: unknown): boolean {
 	return name === 'NoSuchKey' || name === 'AccessDenied' || name === 'NotFound';
 }
 
+// Results saved by older versions of the playground have no config, or options
+// that the current schema rejects. They should still load with the defaults.
+function readStoredConfig(json: any): {strictRules: boolean, bleedingEdge: boolean, treatPhpDocTypesAsCertain: boolean, options: PlaygroundOptions | undefined} {
+	const config = json.config ?? {};
+	const options = optionsSchema.safeParse(config.options);
+	return {
+		strictRules: typeof config.strictRules !== 'undefined' ? config.strictRules : false,
+		bleedingEdge: typeof config.bleedingEdge !== 'undefined' ? config.bleedingEdge : false,
+		treatPhpDocTypesAsCertain: typeof config.treatPhpDocTypesAsCertain !== 'undefined' ? config.treatPhpDocTypesAsCertain : true,
+		options: options.success ? options.data : undefined,
+	};
+}
+
 async function readObject(key: string): Promise<string> {
 	const object = await s3.send(new GetObjectCommand({
 		Bucket: 'phpstan-playground',
@@ -512,10 +525,7 @@ async function retrieveResult(request: HttpRequest): Promise<HttpResponse> {
 			readXRay(id),
 		]);
 		const json = JSON.parse(object);
-		const strictRules = typeof json.config.strictRules !== 'undefined' ? json.config.strictRules : false;
-		const bleedingEdge = typeof json.config.bleedingEdge !== 'undefined' ? json.config.bleedingEdge : false;
-		const treatPhpDocTypesAsCertain = typeof json.config.treatPhpDocTypesAsCertain !== 'undefined' ? json.config.treatPhpDocTypesAsCertain : true;
-		const options = validateOptions(json.config?.options);
+		const {strictRules, bleedingEdge, treatPhpDocTypesAsCertain, options} = readStoredConfig(json);
 
 		let phpVersionsToAnalyse: number[] = [70200, 70300, 70400, 80000];
 		if (typeof json.versionedErrors !== 'undefined') {
@@ -572,7 +582,7 @@ async function retrieveResult(request: HttpRequest): Promise<HttpResponse> {
 		if (typeof json.versionedErrors !== 'undefined') {
 			bodyJson.versionedErrors = stripXRay(json.versionedErrors);
 		} else {
-			bodyJson.versionedErrors = [{phpVersion: 70400, errors: json.errors}];
+			bodyJson.versionedErrors = [{phpVersion: 70400, errors: json.errors ?? []}];
 		}
 		if (typeof json.versionedErrors !== 'undefined') {
 			bodyJson.tabs = createTabs(attachXRay(json.versionedErrors, storedXRay));
@@ -652,10 +662,7 @@ async function retrieveSample(request: HttpRequest): Promise<HttpResponse> {
 			readXRay(id),
 		]);
 		const json = JSON.parse(object);
-		const strictRules = typeof json.config.strictRules !== 'undefined' ? json.config.strictRules : false;
-		const bleedingEdge = typeof json.config.bleedingEdge !== 'undefined' ? json.config.bleedingEdge : false;
-		const treatPhpDocTypesAsCertain = typeof json.config.treatPhpDocTypesAsCertain !== 'undefined' ? json.config.treatPhpDocTypesAsCertain : true;
-		const options = validateOptions(json.config?.options);
+		const {strictRules, bleedingEdge, treatPhpDocTypesAsCertain, options} = readStoredConfig(json);
 
 		const bodyJson: any = {
 			code: json.code,
@@ -672,7 +679,7 @@ async function retrieveSample(request: HttpRequest): Promise<HttpResponse> {
 		if (typeof json.versionedErrors !== 'undefined') {
 			bodyJson.versionedErrors = stripXRay(json.versionedErrors);
 		} else {
-			bodyJson.versionedErrors = [{phpVersion: 70400, errors: json.errors}];
+			bodyJson.versionedErrors = [{phpVersion: 70400, errors: json.errors ?? []}];
 		}
 		bodyJson.tabs = createTabs(attachXRay(bodyJson.versionedErrors, storedXRay));
 		return Promise.resolve({
