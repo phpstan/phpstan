@@ -403,6 +403,12 @@ parameters:
 			path: repo/src/Billing/EDI270.php
 
 		-
+			message: '#^Offset ''count'' might not exist on array\{start\: mixed, count\?\: \(float\|int\)\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/src/Billing/EdiHistory/X12File.php
+
+		-
 			message: '#^Loose comparison using \=\= between OpenEMR\\ClinicalDecisionRules\\Interface\\RuleLibrary\\ReminderIntervalType and null will always evaluate to false\.$#'
 			identifier: equal.alwaysFalse
 			count: 1
@@ -461,6 +467,12 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: repo/src/Services/FormService.php
+
+		-
+			message: '#^Parameter \#1 \$search of method OpenEMR\\Services\\ObservationLabService\:\:search\(\) expects array\<string, OpenEMR\\Services\\Search\\ISearchField\>, array\<int\|string, OpenEMR\\Services\\Search\\StringSearchField\|OpenEMR\\Services\\Search\\TokenSearchField\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Services/ObservationLabService.php
 
 		-
 			message: '#^Property OpenEMR\\Services\\ObservationService\:\:\$reasonCodes \(array\<string\>\) does not accept array\<string, array\<string, string\>\>\.$#'
