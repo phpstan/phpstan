@@ -183,5 +183,7 @@ return function ($event) use ($phpstanVersion) {
 		$response['fixedCodeDiff'] = $differ->diff($code, $fixedCode);
 	}
 
-	return $response;
+	// Bref encodes the response without JSON_INVALID_UTF8_SUBSTITUTE, and both the error
+	// messages and the X-Ray can contain arbitrary bytes from string literals like "\xff".
+	return json_decode(json_encode($response, JSON_INVALID_UTF8_SUBSTITUTE | JSON_THROW_ON_ERROR), true, flags: JSON_THROW_ON_ERROR);
 };

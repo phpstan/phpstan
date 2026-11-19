@@ -38,7 +38,17 @@ function foo(int $i): int
 }
 PHP;
 
+$invalidUtf8Code = <<<'PHP'
+<?php declare(strict_types = 1);
+
+\PHPStan\dumpType("\xff");
+PHP;
+
 $requests = [
+	'invalid UTF-8 in a string literal, PHP 8.5' => [
+		['code' => $invalidUtf8Code, 'level' => '8', 'phpVersion' => 80500],
+		["Dumped type: '\u{FFFD}'"],
+	],
 	'return type, PHP 8.5' => [
 		['code' => $returnTypeCode, 'level' => '8', 'phpVersion' => 80500],
 		['Function foo() should return string but returns int.'],
@@ -96,6 +106,12 @@ foreach ($requests as $name => $request) {
 		$response = $handler($event);
 	} catch (Throwable $e) {
 		echo sprintf("FAIL %s: %s: %s\n%s\n", $name, get_class($e), $e->getMessage(), $e->getTraceAsString());
+		$failed = true;
+		continue;
+	}
+
+	if (json_encode($response) === false) {
+		echo sprintf("FAIL %s: the response cannot be encoded to JSON: %s\n", $name, json_last_error_msg());
 		$failed = true;
 		continue;
 	}
