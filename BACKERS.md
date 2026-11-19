@@ -40,6 +40,7 @@ the logo of your company in PHPStan's README and the website.
 <li><a href="https://github.com/RightCapitalHQ">RightCapital (RightCapitalHQ)</a></li>
 <li><a href="https://github.com/TicketSwap">TicketSwap (TicketSwap)</a></li>
 <li><a href="https://github.com/cdn77">CDN77.com (cdn77)</a></li>
+<li><a href="https://github.com/lfcarry-open">LFCarry (lfcarry-open)</a></li>
 <!-- bronze -->
 
 <!-- bronze-org --><li><a href="https://github.com/ohgoodlord">Goodlord (ohgoodlord)</a></li>
