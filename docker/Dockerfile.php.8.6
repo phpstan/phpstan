@@ -1,7 +1,7 @@
 # Stage 1: rebuild the php binary with profile-guided optimization, trained
 # by running this very PHPStan release on the phpstan-src codebase. All the
 # logic lives in pgo-build.sh.
-FROM php:8.6-rc-cli-alpine AS pgo-builder
+FROM php:8.6-cli-alpine AS pgo-builder
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 COPY pgo-build.sh /usr/local/bin/pgo-build
@@ -17,7 +17,7 @@ RUN pgo-build rebuild
 
 # Stage 2: the shipped image - identical to the stock one except for the
 # profile-guided php binary dropped in over the original.
-FROM php:8.6-rc-cli-alpine
+FROM php:8.6-cli-alpine
 
 ENV COMPOSER_HOME="/composer" \
     COMPOSER_ALLOW_SUPERUSER="1" \

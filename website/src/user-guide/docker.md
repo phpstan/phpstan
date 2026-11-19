@@ -38,7 +38,7 @@ COPY --from=ghcr.io/phpstan/phpstan:[TAG] /composer/vendor/phpstan/phpstan/phpst
 
 ## Different PHP version?
 
-The images are based on PHP 8.0, 8.1, 8.2 or 8.3. To force PHPStan consider the analysed source code to be for a different PHP version, set `phpVersion` in your `phpstan.neon`:
+The images are based on PHP 8.0, 8.1, 8.2, 8.3, 8.4, 8.5 or 8.6. To force PHPStan consider the analysed source code to be for a different PHP version, set `phpVersion` in your `phpstan.neon`:
 
 ```yaml
 parameters:
