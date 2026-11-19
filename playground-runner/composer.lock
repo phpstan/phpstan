@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5254a38ffa0181a12e8f169be80e5861",
+    "content-hash": "fadb6d4a21c18fabe008da13917af410",
     "packages": [
         {
             "name": "bref/bref",
-            "version": "3.0.16",
+            "version": "3.0.17",
             "source": {
                 "type": "git",
                 "url": "https://github.com/brefphp/bref.git",
-                "reference": "f5c68987dfb29f46cf79540ac494a8f8e74783d4"
+                "reference": "01f224a3e2abed75a14a1d80563400631f89e3aa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/brefphp/bref/zipball/f5c68987dfb29f46cf79540ac494a8f8e74783d4",
-                "reference": "f5c68987dfb29f46cf79540ac494a8f8e74783d4",
+                "url": "https://api.github.com/repos/brefphp/bref/zipball/01f224a3e2abed75a14a1d80563400631f89e3aa",
+                "reference": "01f224a3e2abed75a14a1d80563400631f89e3aa",
                 "shasum": ""
             },
             "require": {
@@ -69,7 +69,7 @@
             ],
             "support": {
                 "issues": "https://github.com/brefphp/bref/issues",
-                "source": "https://github.com/brefphp/bref/tree/3.0.16"
+                "source": "https://github.com/brefphp/bref/tree/3.0.17"
             },
             "funding": [
                 {
@@ -81,8 +81,8 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-11-11T15:58:48+00:00",
-            "published-time": "2026-11-11T16:00:26+00:00"
+            "time": "2026-11-19T14:53:34+00:00",
+            "published-time": "2026-11-19T14:56:00+00:00"
         },
         {
             "name": "crwlr/query-string",
