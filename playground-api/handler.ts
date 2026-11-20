@@ -48,8 +48,23 @@ function validateOptions(input: unknown): PlaygroundOptions | undefined {
 
 interface HttpRequest {
 	body: string;
-	queryStringParameters: any;
+	// API Gateway sends null when the request has no query string.
+	queryStringParameters: Record<string, string | undefined> | null;
 }
+
+function readIdParameter(request: HttpRequest): string | null {
+	const id = request.queryStringParameters?.id;
+	if (typeof id !== 'string' || id === '') {
+		return null;
+	}
+
+	return id;
+}
+
+const missingIdResponse: HttpResponse = {
+	statusCode: 400,
+	body: JSON.stringify({error: 'Missing "id" query parameter'}),
+};
 
 interface HttpResponse {
 	statusCode: number;
@@ -518,8 +533,11 @@ async function analyseResult(request: HttpRequest): Promise<HttpResponse> {
 }
 
 async function retrieveResult(request: HttpRequest): Promise<HttpResponse> {
+	const id = readIdParameter(request);
+	if (id === null) {
+		return missingIdResponse;
+	}
 	try {
-		const id = request.queryStringParameters.id;
 		const [object, storedXRay] = await Promise.all([
 			readObject('api/results/' + id + '.json'),
 			readXRay(id),
@@ -655,8 +673,11 @@ async function retrieveResult(request: HttpRequest): Promise<HttpResponse> {
 }
 
 async function retrieveSample(request: HttpRequest): Promise<HttpResponse> {
+	const id = readIdParameter(request);
+	if (id === null) {
+		return missingIdResponse;
+	}
 	try {
-		const id = request.queryStringParameters.id;
 		const [object, storedXRay] = await Promise.all([
 			readObject('api/results/' + id + '.json'),
 			readXRay(id),
@@ -697,8 +718,11 @@ async function retrieveSample(request: HttpRequest): Promise<HttpResponse> {
 }
 
 async function retrieveLegacyResult(request: HttpRequest): Promise<HttpResponse> {
+	const id = readIdParameter(request);
+	if (id === null) {
+		return missingIdResponse;
+	}
 	try {
-		const id = request.queryStringParameters.id;
 		const firstTwoChars = id.substr(0, 2);
 		const path = 'data/results/' + firstTwoChars + '/' + id;
 		const inputObject = await readObject(path + '/input.json');
