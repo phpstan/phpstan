@@ -115,6 +115,28 @@ test('a shared snippet shows its stored result without analysing it', async ({pa
 	expect(api.analyses).toHaveLength(0);
 });
 
+test('a legacy snippet shows its stored result even when it is long', async ({page}) => {
+	const legacyId = 'a'.repeat(32);
+	const lines = Array.from({length: 200}, (_, i) => `Line ${i + 1}: Some legacy error message.`);
+	await page.route('https://api.phpstan.org/**', async (route) => {
+		const url = new URL(route.request().url());
+		if (url.pathname === '/legacyResult' && url.searchParams.get('id') === legacyId) {
+			await route.fulfill({json: {
+				code: '<?php\n',
+				htmlErrors: lines.join('\n'),
+				level: '5',
+				config: {strictRules: false, bleedingEdge: false, treatPhpDocTypesAsCertain: true},
+				upToDateTabs: [],
+			}});
+			return;
+		}
+		await route.fulfill({status: 404});
+	});
+	await open(page, `/r/${legacyId}`);
+
+	await expect(page.getByText(lines[lines.length - 1])).toBeVisible();
+});
+
 test('editing a snippet leaves its URL, undo and redo move between them', async ({page}) => {
 	const api = await mockApi(page);
 	await open(page, `/r/${SNIPPET_ID}`);
