@@ -1,6 +1,7 @@
 import {EditorView, layer, RectangleMarker, LayerMarker, ViewPlugin, ViewUpdate, showTooltip, Tooltip} from '@codemirror/view';
 import {EditorSelection, EditorState, Extension, Facet, StateEffect, StateField, Text} from '@codemirror/state';
 import {XRayData} from '../XRayData';
+import {safePosAtCoords} from './posAtCoords';
 
 // AST X-Ray: a toggle in the editor's corner that outlines every AST node
 // PHPStan sees, and on hover names the node, lists its sub-nodes and shows the
@@ -641,7 +642,7 @@ const hoverPlugin = ViewPlugin.fromClass(class {
 		// and never underneath the pointer (a region can extend into rows above
 		// its node).
 		const node = state.nodes[hit];
-		const pointerPos = this.view.posAtCoords({x: event.clientX, y: event.clientY}, false) ?? node.from;
+		const pointerPos = safePosAtCoords(this.view, event, false) ?? node.from;
 		const anchor = node.multiLine ? pointerPos : Math.max(this.view.state.doc.lineAt(pointerPos).from, Math.min(node.from, pointerPos));
 		this.view.dispatch({effects: setHovered.of({node: hit, anchor})});
 	}
