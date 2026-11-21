@@ -1,7 +1,7 @@
 {
 	"require": {
 		"php": "^8.5",
-		"bref/bref": "^3.0.14",
+		"bref/bref": "^3.0.17",
 		"honeybadger-io/honeybadger-php": "^2.26",
 		"jean85/pretty-package-versions": "^2.0.4",
 		"nette/di": "^3.0",

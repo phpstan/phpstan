@@ -1,6 +1,12 @@
 parameters:
 	ignoreErrors:
 		-
+			message: '#^Expression on left side of \?\? is not nullable\.$#'
+			identifier: nullCoalesce.expr
+			count: 1
+			path: repo/application/Espo/Core/Authentication/Oidc/UserProvider/DefaultUserInfoPopulator.php
+
+		-
 			message: '#^Parameter \#2 \$arg2 of static method Espo\\Core\\Currency\\CalculatorUtil\:\:divide\(\) expects numeric\-string, ''\-INF''\|''INF''\|''NAN''\|numeric\-string given\.$#'
 			identifier: argument.type
 			count: 1
@@ -11,6 +17,12 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: repo/application/Espo/Core/Currency/Converter.php
+
+		-
+			message: '#^Negated boolean expression is always true\.$#'
+			identifier: booleanNot.alwaysTrue
+			count: 1
+			path: repo/application/Espo/Core/FieldProcessing/Relation/LinkMultipleSaver.php
 
 		-
 			message: '#^Call to function is_string\(\) with string will always evaluate to true\.$#'

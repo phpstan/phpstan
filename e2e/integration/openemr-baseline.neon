@@ -163,6 +163,18 @@ parameters:
 			path: repo/interface/patient_file/encounter/superbill_custom_full.php
 
 		-
+			message: '#^Offset ''code'' might not exist on array\{encounter\: mixed, date\: mixed, last_level_closed\: mixed, charges\: float, payments\: 0\}\|array\{encounter\: mixed, date\: mixed, last_level_closed\: mixed, code\: mixed, code_type\: mixed, charges\: 0\|float, payments\: 0\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/patient_file/front_payment.php
+
+		-
+			message: '#^Offset ''code_type'' might not exist on array\{encounter\: mixed, date\: mixed, last_level_closed\: mixed, charges\: float, payments\: 0\}\|array\{encounter\: mixed, date\: mixed, last_level_closed\: mixed, code\: mixed, code_type\: mixed, charges\: 0\|float, payments\: 0\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/patient_file/front_payment.php
+
+		-
 			message: '#^Parameter \#1 \$text of function attr expects string, \(float\|int\) given\.$#'
 			identifier: argument.type
 			count: 1
@@ -325,6 +337,24 @@ parameters:
 			path: repo/portal/account/index_reset.php
 
 		-
+			message: '#^Offset ''code'' might not exist on array\{encounter\: mixed, date\: mixed, last_level_closed\: mixed, charges\: 0\|float, payments\: 0, reason\: mixed, code_type\: mixed, code\: mixed\}\|array\{encounter\: mixed, date\: mixed, last_level_closed\: mixed, charges\: float, payments\: 0\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/portal/portal_payment.php
+
+		-
+			message: '#^Offset ''code_type'' might not exist on array\{encounter\: mixed, date\: mixed, last_level_closed\: mixed, charges\: 0\|float, payments\: 0, reason\: mixed, code_type\: mixed, code\: mixed\}\|array\{encounter\: mixed, date\: mixed, last_level_closed\: mixed, charges\: float, payments\: 0\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/portal/portal_payment.php
+
+		-
+			message: '#^Offset ''reason'' might not exist on array\{encounter\: mixed, date\: mixed, last_level_closed\: mixed, charges\: 0\|float, payments\: 0, reason\: mixed, code_type\: mixed, code\: mixed\}\|array\{encounter\: mixed, date\: mixed, last_level_closed\: mixed, charges\: float, payments\: 0\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/portal/portal_payment.php
+
+		-
 			message: '#^Cannot access offset ''id'' on array\|false\.$#'
 			identifier: offsetAccess.nonOffsetAccessible
 			count: 1
@@ -371,6 +401,12 @@ parameters:
 			identifier: offsetAccess.notFound
 			count: 1
 			path: repo/src/Billing/EDI270.php
+
+		-
+			message: '#^Offset ''count'' might not exist on array\{start\: mixed, count\?\: \(float\|int\)\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/src/Billing/EdiHistory/X12File.php
 
 		-
 			message: '#^Loose comparison using \=\= between OpenEMR\\ClinicalDecisionRules\\Interface\\RuleLibrary\\ReminderIntervalType and null will always evaluate to false\.$#'
@@ -431,6 +467,12 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: repo/src/Services/FormService.php
+
+		-
+			message: '#^Parameter \#1 \$search of method OpenEMR\\Services\\ObservationLabService\:\:search\(\) expects array\<string, OpenEMR\\Services\\Search\\ISearchField\>, array\<int\|string, OpenEMR\\Services\\Search\\StringSearchField\|OpenEMR\\Services\\Search\\TokenSearchField\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Services/ObservationLabService.php
 
 		-
 			message: '#^Property OpenEMR\\Services\\ObservationService\:\:\$reasonCodes \(array\<string\>\) does not accept array\<string, array\<string, string\>\>\.$#'

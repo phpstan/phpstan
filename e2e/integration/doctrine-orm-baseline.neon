@@ -5,3 +5,259 @@ parameters:
 			identifier: method.impossibleType
 			count: 1
 			path: repo/src/Internal/Hydration/AbstractHydrator.php
+		-
+			message: '''
+				#^Call to deprecated method getType\(\) of class Doctrine\\DBAL\\Types\\Type\:
+				since doctrine/dbal 4\.6\. Resolve the type through the type provider of the
+				            connection instead\.$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 5
+			path: repo/src/Internal/Hydration/AbstractHydrator.php
+
+		-
+			message: '''
+				#^Fetching deprecated class constant DATETIME_MUTABLE of class Doctrine\\DBAL\\Types\\Types\:
+				Use \{@see Types\:\:DATETIME_IMMUTABLE\} instead\.$#
+			'''
+			identifier: classConstant.deprecated
+			count: 1
+			path: repo/src/Mapping/DefaultTypedFieldMapper.php
+
+		-
+			message: '''
+				#^Call to deprecated method getType\(\) of class Doctrine\\DBAL\\Types\\Type\:
+				since doctrine/dbal 4\.6\. Resolve the type through the type provider of the
+				            connection instead\.$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: repo/src/Persisters/Collection/OneToManyPersister.php
+
+		-
+			message: '''
+				#^Call to deprecated method getType\(\) of class Doctrine\\DBAL\\Types\\Type\:
+				since doctrine/dbal 4\.6\. Resolve the type through the type provider of the
+				            connection instead\.$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: repo/src/Persisters/Entity/AbstractEntityInheritancePersister.php
+
+		-
+			message: '''
+				#^Call to deprecated method getType\(\) of class Doctrine\\DBAL\\Types\\Type\:
+				since doctrine/dbal 4\.6\. Resolve the type through the type provider of the
+				            connection instead\.$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 5
+			path: repo/src/Persisters/Entity/BasicEntityPersister.php
+
+		-
+			message: '''
+				#^Fetching deprecated class constant DATETIME_MUTABLE of class Doctrine\\DBAL\\Types\\Types\:
+				Use \{@see Types\:\:DATETIME_IMMUTABLE\} instead\.$#
+			'''
+			identifier: classConstant.deprecated
+			count: 1
+			path: repo/src/Persisters/Entity/BasicEntityPersister.php
+
+		-
+			message: '''
+				#^Call to deprecated method getType\(\) of class Doctrine\\DBAL\\Types\\Type\:
+				since doctrine/dbal 4\.6\. Resolve the type through the type provider of the
+				            connection instead\.$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: repo/src/Persisters/Entity/JoinedSubclassPersister.php
+
+		-
+			message: '''
+				#^Call to deprecated method getType\(\) of class Doctrine\\DBAL\\Types\\Type\:
+				since doctrine/dbal 4\.6\. Resolve the type through the type provider of the
+				            connection instead\.$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: repo/src/Query/Exec/MultiTableDeleteExecutor.php
+
+		-
+			message: '''
+				#^Call to deprecated method getType\(\) of class Doctrine\\DBAL\\Types\\Type\:
+				since doctrine/dbal 4\.6\. Resolve the type through the type provider of the
+				            connection instead\.$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: repo/src/Query/Exec/MultiTableUpdateExecutor.php
+
+		-
+			message: '''
+				#^Fetching deprecated class constant DATETIME_MUTABLE of class Doctrine\\DBAL\\Types\\Types\:
+				Use \{@see Types\:\:DATETIME_IMMUTABLE\} instead\.$#
+			'''
+			identifier: classConstant.deprecated
+			count: 1
+			path: repo/src/Query/ParameterTypeInferer.php
+
+		-
+			message: '''
+				#^Call to deprecated method getType\(\) of class Doctrine\\DBAL\\Types\\Type\:
+				since doctrine/dbal 4\.6\. Resolve the type through the type provider of the
+				            connection instead\.$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: repo/src/Query/ResultSetMappingBuilder.php
+
+		-
+			message: '''
+				#^Call to deprecated method getType\(\) of class Doctrine\\DBAL\\Types\\Type\:
+				since doctrine/dbal 4\.6\. Resolve the type through the type provider of the
+				            connection instead\.$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 5
+			path: repo/src/Query/SqlWalker.php
+
+		-
+			message: '''
+				#^Call to deprecated method getTypeRegistry\(\) of class Doctrine\\DBAL\\Types\\Type\:
+				since doctrine/dbal 4\.6\. Use \{@see Configuration\:\:getTypeProvider\(\)\}, or inject
+				            your own type provider\. There will be no static type provider in DBAL 5\.$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: repo/src/Query/SqlWalker.php
+
+		-
+			message: '''
+				#^Call to deprecated method hasType\(\) of class Doctrine\\DBAL\\Types\\Type\:
+				since doctrine/dbal 4\.6\. Ask the type provider of the connection instead\.$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: repo/src/Query/SqlWalker.php
+
+		-
+			message: '''
+				#^Call to deprecated method lookupName\(\) of class Doctrine\\DBAL\\Types\\TypeRegistry\:
+				since doctrine/dbal 4\.6\. Track the type name instead of the instance\. This method
+				            cannot be implemented once a type instance may be registered under several names\.$#
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: repo/src/Query/SqlWalker.php
+
+		-
+			message: '''
+				#^Call to deprecated method getType\(\) of class Doctrine\\DBAL\\Types\\Type\:
+				since doctrine/dbal 4\.6\. Resolve the type through the type provider of the
+				            connection instead\.$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: repo/src/Tools/Pagination/LimitSubqueryWalker.php
+
+		-
+			message: '''
+				#^Fetching deprecated class constant DATETIMETZ_MUTABLE of class Doctrine\\DBAL\\Types\\Types\:
+				Use \{@see Types\:\:DATETIMETZ_IMMUTABLE\} instead\.$#
+			'''
+			identifier: classConstant.deprecated
+			count: 1
+			path: repo/src/Tools/SchemaTool.php
+
+		-
+			message: '''
+				#^Fetching deprecated class constant DATETIME_MUTABLE of class Doctrine\\DBAL\\Types\\Types\:
+				Use \{@see Types\:\:DATETIME_IMMUTABLE\} instead\.$#
+			'''
+			identifier: classConstant.deprecated
+			count: 1
+			path: repo/src/Tools/SchemaTool.php
+
+		-
+			message: '''
+				#^Fetching deprecated class constant DATE_MUTABLE of class Doctrine\\DBAL\\Types\\Types\:
+				Use \{@see Types\:\:DATE_IMMUTABLE\} instead\.$#
+			'''
+			identifier: classConstant.deprecated
+			count: 1
+			path: repo/src/Tools/SchemaTool.php
+
+		-
+			message: '''
+				#^Fetching deprecated class constant TIME_MUTABLE of class Doctrine\\DBAL\\Types\\Types\:
+				Use \{@see Types\:\:TIME_IMMUTABLE\} instead\.$#
+			'''
+			identifier: classConstant.deprecated
+			count: 1
+			path: repo/src/Tools/SchemaTool.php
+
+		-
+			message: '''
+				#^Call to deprecated method getType\(\) of class Doctrine\\DBAL\\Types\\Type\:
+				since doctrine/dbal 4\.6\. Resolve the type through the type provider of the
+				            connection instead\.$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: repo/src/Tools/SchemaValidator.php
+
+		-
+			message: '''
+				#^Call to deprecated method hasType\(\) of class Doctrine\\DBAL\\Types\\Type\:
+				since doctrine/dbal 4\.6\. Ask the type provider of the connection instead\.$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 2
+			path: repo/src/Tools/SchemaValidator.php
+
+		-
+			message: '''
+				#^Call to deprecated method getType\(\) of class Doctrine\\DBAL\\Types\\Type\:
+				since doctrine/dbal 4\.6\. Resolve the type through the type provider of the
+				            connection instead\.$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: repo/src/Utility/PersisterHelper.php
+
+		-
+			message: '''
+				#^Fetching deprecated class constant DATETIMETZ_MUTABLE of class Doctrine\\DBAL\\Types\\Types\:
+				Use \{@see Types\:\:DATETIMETZ_IMMUTABLE\} instead\.$#
+			'''
+			identifier: classConstant.deprecated
+			count: 1
+			path: repo/src/Utility/PersisterHelper.php
+
+		-
+			message: '''
+				#^Fetching deprecated class constant DATETIME_MUTABLE of class Doctrine\\DBAL\\Types\\Types\:
+				Use \{@see Types\:\:DATETIME_IMMUTABLE\} instead\.$#
+			'''
+			identifier: classConstant.deprecated
+			count: 1
+			path: repo/src/Utility/PersisterHelper.php
+
+		-
+			message: '''
+				#^Fetching deprecated class constant DATE_MUTABLE of class Doctrine\\DBAL\\Types\\Types\:
+				Use \{@see Types\:\:DATE_IMMUTABLE\} instead\.$#
+			'''
+			identifier: classConstant.deprecated
+			count: 1
+			path: repo/src/Utility/PersisterHelper.php
+
+		-
+			message: '''
+				#^Fetching deprecated class constant TIME_MUTABLE of class Doctrine\\DBAL\\Types\\Types\:
+				Use \{@see Types\:\:TIME_IMMUTABLE\} instead\.$#
+			'''
+			identifier: classConstant.deprecated
+			count: 1
+			path: repo/src/Utility/PersisterHelper.php

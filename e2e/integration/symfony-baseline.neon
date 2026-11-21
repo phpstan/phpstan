@@ -150,6 +150,42 @@ parameters:
 			path: repo/src/Symfony/Bridge/Doctrine/Form/DoctrineOrmTypeGuesser.php
 
 		-
+			message: '''
+				#^Fetching deprecated class constant DATETIMETZ_MUTABLE of class Doctrine\\DBAL\\Types\\Types\:
+				Use \{@see Types\:\:DATETIMETZ_IMMUTABLE\} instead\.$#
+			'''
+			identifier: classConstant.deprecated
+			count: 1
+			path: repo/src/Symfony/Bridge/Doctrine/Form/DoctrineOrmTypeGuesser.php
+
+		-
+			message: '''
+				#^Fetching deprecated class constant DATETIME_MUTABLE of class Doctrine\\DBAL\\Types\\Types\:
+				Use \{@see Types\:\:DATETIME_IMMUTABLE\} instead\.$#
+			'''
+			identifier: classConstant.deprecated
+			count: 1
+			path: repo/src/Symfony/Bridge/Doctrine/Form/DoctrineOrmTypeGuesser.php
+
+		-
+			message: '''
+				#^Fetching deprecated class constant DATE_MUTABLE of class Doctrine\\DBAL\\Types\\Types\:
+				Use \{@see Types\:\:DATE_IMMUTABLE\} instead\.$#
+			'''
+			identifier: classConstant.deprecated
+			count: 1
+			path: repo/src/Symfony/Bridge/Doctrine/Form/DoctrineOrmTypeGuesser.php
+
+		-
+			message: '''
+				#^Fetching deprecated class constant TIME_MUTABLE of class Doctrine\\DBAL\\Types\\Types\:
+				Use \{@see Types\:\:TIME_IMMUTABLE\} instead\.$#
+			'''
+			identifier: classConstant.deprecated
+			count: 1
+			path: repo/src/Symfony/Bridge/Doctrine/Form/DoctrineOrmTypeGuesser.php
+
+		-
 			message: '#^Match expression does not handle remaining value\: mixed$#'
 			identifier: match.unhandled
 			count: 1
@@ -213,6 +249,42 @@ parameters:
 			message: '#^Instanceof between Doctrine\\ORM\\Mapping\\ClassMetadata and Doctrine\\ORM\\Mapping\\ClassMetadata will always evaluate to true\.$#'
 			identifier: instanceof.alwaysTrue
 			count: 5
+			path: repo/src/Symfony/Bridge/Doctrine/PropertyInfo/DoctrineExtractor.php
+
+		-
+			message: '''
+				#^Fetching deprecated class constant DATETIMETZ_MUTABLE of class Doctrine\\DBAL\\Types\\Types\:
+				Use \{@see Types\:\:DATETIMETZ_IMMUTABLE\} instead\.$#
+			'''
+			identifier: classConstant.deprecated
+			count: 2
+			path: repo/src/Symfony/Bridge/Doctrine/PropertyInfo/DoctrineExtractor.php
+
+		-
+			message: '''
+				#^Fetching deprecated class constant DATETIME_MUTABLE of class Doctrine\\DBAL\\Types\\Types\:
+				Use \{@see Types\:\:DATETIME_IMMUTABLE\} instead\.$#
+			'''
+			identifier: classConstant.deprecated
+			count: 2
+			path: repo/src/Symfony/Bridge/Doctrine/PropertyInfo/DoctrineExtractor.php
+
+		-
+			message: '''
+				#^Fetching deprecated class constant DATE_MUTABLE of class Doctrine\\DBAL\\Types\\Types\:
+				Use \{@see Types\:\:DATE_IMMUTABLE\} instead\.$#
+			'''
+			identifier: classConstant.deprecated
+			count: 2
+			path: repo/src/Symfony/Bridge/Doctrine/PropertyInfo/DoctrineExtractor.php
+
+		-
+			message: '''
+				#^Fetching deprecated class constant TIME_MUTABLE of class Doctrine\\DBAL\\Types\\Types\:
+				Use \{@see Types\:\:TIME_IMMUTABLE\} instead\.$#
+			'''
+			identifier: classConstant.deprecated
+			count: 2
 			path: repo/src/Symfony/Bridge/Doctrine/PropertyInfo/DoctrineExtractor.php
 
 		-

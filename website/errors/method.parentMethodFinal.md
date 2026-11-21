@@ -32,6 +32,26 @@ The method being defined overrides a method that is declared as `final` in the p
 
 A method is marked as `final` when the parent class author wants to guarantee that the method's behavior cannot be changed by subclasses. This is often done for security, correctness, or design reasons.
 
+The same applies to property hooks (PHP 8.4+). A `get` or `set` hook declared as `final` cannot be overridden by a hook in a child class:
+
+```php
+<?php declare(strict_types = 1);
+
+class Base
+{
+	public int $prop {
+		final get => 1;
+	}
+}
+
+class Child extends Base
+{
+	public int $prop {
+		get => 2; // ERROR: Get hook for property Child::$prop overrides final get hook for property Base::$prop.
+	}
+}
+```
+
 ## How to fix it
 
 Do not override the final method. If different behavior is needed, consider using composition instead of inheritance:

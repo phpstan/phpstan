@@ -27,7 +27,7 @@ abstract class ChildClass extends ParentClass
 
 PHP does not allow redeclaring a concrete (non-abstract) method as abstract in a child class. The parent class already provides an implementation of the method, and making it abstract in a subclass would remove that implementation, which is a fatal error at runtime.
 
-This also applies to constructors, static methods, and methods inherited through multiple levels of inheritance.
+This also applies to constructors, static methods, and methods inherited through multiple levels of inheritance, as well as to property hooks (PHP 8.4+): a non-abstract `get` or `set` hook from a parent class cannot be redeclared as abstract.
 
 ## How to fix it
 

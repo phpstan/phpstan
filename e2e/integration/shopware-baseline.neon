@@ -13,6 +13,24 @@ parameters:
 			path: repo/src/Core/Framework/Sso/Controller/SsoController.php
 
 		-
+			rawMessage: '''
+				Call to deprecated method applyVariant() of class Ramsey\Uuid\BinaryUtils:
+				ramsey/uuid no longer uses this method, and it will be removed in a future major version.
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: repo/src/Core/Framework/Uuid/Uuid.php
+
+		-
+			rawMessage: '''
+				Call to deprecated method applyVersion() of class Ramsey\Uuid\BinaryUtils:
+				ramsey/uuid no longer uses this method, and it will be removed in a future major version.
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: repo/src/Core/Framework/Uuid/Uuid.php
+
+		-
 			rawMessage: 'Offset ''function'' on array{function: string, line?: int, file?: string, class?: class-string, type?: ''->''|''::'', args?: list<mixed>, object?: object} on left side of ?? always exists and is not nullable.'
 			identifier: nullCoalesce.offset
 			count: 1

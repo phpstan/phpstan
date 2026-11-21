@@ -74,6 +74,8 @@ Want your logo here? [Learn more »](https://phpstan.org/sponsor)
 <a href="https://jobs.ticketswap.com/"><img src="website/src/images/sponsor/ticketswap.png" alt="TicketSwap" width="269" height="64"></a>
 <br>
 <a href="https://www.campoint.net/"><img src="website/src/images/sponsor/campoint.png" alt="campoint AG" width="283" height="64"></a>
+&nbsp;&nbsp;&nbsp;
+<a href="https://lfcarry.com/"><img src="website/src/images/sponsor/lfcarry.png" alt="LFCarry" width="283" height="64"></a>
 <br>
 
 

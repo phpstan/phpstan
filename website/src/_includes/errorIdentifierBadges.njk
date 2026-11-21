@@ -1,0 +1,10 @@
+{# Badges shown next to an error identifier wherever identifiers are listed. Expects `item` from errorIdentifierGroups. #}
+{% for extension in item.extensions %}
+	<span class="inline-block whitespace-nowrap text-xs bg-gray-100 text-gray-600 ring-1 ring-inset ring-gray-200 font-medium rounded-full py-0.5 px-2">{{ extension }}</span>
+{% endfor %}
+{% if item.autofixable %}
+	<span class="inline-block whitespace-nowrap text-xs bg-green-600 text-white font-semibold rounded py-1 px-2">auto-fixable</span>
+{% endif %}
+{% if not item.ignorable %}
+	<span class="inline-block whitespace-nowrap text-xs bg-red-500 text-white font-semibold rounded py-1 px-2">non-ignorable</span>
+{% endif %}
