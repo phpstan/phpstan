@@ -13,6 +13,8 @@
  *            [throwPoints, impurePoints], two lists of string indexes, present
  *            only when the expression has any; an expression with a type and
  *            no effects has neither.
+ *   effects: always true. Payloads from before effects were recorded lack it,
+ *            and their expressions must not read as throwing nothing.
  *
  * Offsets are converted from php-parser's byte offsets to UTF-16 code units,
  * which is what CodeMirror (JavaScript strings) counts in.
@@ -23,7 +25,7 @@ use PHPStanPlayground\XRay\ExprTypesCollector;
 
 /**
  * @param array<string, list<mixed>> $fileCollectedData collected data of the analysed file, keyed by collector class
- * @return array{strings: list<string>, nodes: list<array{0: int, 1: int, 2: int, 3: int, 4: int, 5: list<int|list<int>>, 6?: array{list<int>, list<int>}}>}
+ * @return array{strings: list<string>, effects: true, nodes: list<array{0: int, 1: int, 2: int, 3: int, 4: int, 5: list<int|list<int>>, 6?: array{list<int>, list<int>}}>}
  */
 function playground_xray(string $code, array $fileCollectedData): array
 {
@@ -81,6 +83,7 @@ function playground_xray(string $code, array $fileCollectedData): array
 
 	return [
 		'strings' => $strings,
+		'effects' => true,
 		'nodes' => $nodes,
 	];
 }

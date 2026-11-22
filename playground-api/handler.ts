@@ -71,6 +71,7 @@ interface PHPStanError {
 // Passed through untouched; see playground-runner/xray.php for the layout.
 interface XRayData {
 	strings: string[],
+	effects?: boolean,
 	nodes: [number, number, number, number, number, (number | number[])[], [number[], number[]]?][],
 }
 
