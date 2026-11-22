@@ -1,2 +1,7 @@
 parameters:
-	ignoreErrors: []
+	ignoreErrors:
+		-
+			message: '#^Call to DateTimeZone\:\:__construct\(\) on a separate line has no effect\.$#'
+			identifier: new.resultUnused
+			count: 1
+			path: repo/mailpoet/tests/unit/WooCommerce/CouponPreProcessorTest.php
