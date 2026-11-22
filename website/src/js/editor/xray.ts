@@ -31,10 +31,10 @@ export interface XRayNode {
 	depth: number;
 	type: string | null;
 	// What evaluating the expression may throw and why it isn't pure,
-	// including what its sub-expressions contribute. Only for expressions
-	// (type !== null).
-	throwPoints: string[];
-	impurePoints: string[];
+	// including what its sub-expressions contribute. Null when the payload
+	// predates them, so a missing list doesn't read as "throws nothing".
+	throwPoints: string[] | null;
+	impurePoints: string[] | null;
 	props: XRayProp[];
 	// Whether the node gets its own box and can be hovered. Nodes that would
 	// only duplicate a box (Name/Identifier, an Arg around its expression, ...)
@@ -102,8 +102,8 @@ function buildNodes(data: XRayData, doc: Text): XRayNode[] {
 			parent,
 			depth: 0,
 			type: type >= 0 ? string(type) : null,
-			throwPoints: effects[0].map(string),
-			impurePoints: effects[1].map(string),
+			throwPoints: data.effects === true ? effects[0].map(string) : null,
+			impurePoints: data.effects === true ? effects[1].map(string) : null,
 			props: parsedProps,
 			drawn: true,
 			multiLine: false,
@@ -721,8 +721,10 @@ function renderPopup(state: XRayState): HTMLElement {
 		const addPoints = (label: string, points: string[], empty: string): void => {
 			addRow(label, points.length > 0 ? points.join('\n') : empty, points.length > 0 ? 'cm-xray-popup-effect' : 'cm-xray-popup-faint');
 		};
-		addPoints('@throws', node.throwPoints, 'void');
-		addPoints(node.impurePoints.length === 1 ? 'effect' : 'effects', node.impurePoints, 'none');
+		if (node.throwPoints !== null && node.impurePoints !== null) {
+			addPoints('@throws', node.throwPoints, 'void');
+			addPoints(node.impurePoints.length === 1 ? 'effect' : 'effects', node.impurePoints, 'none');
+		}
 	}
 	for (const prop of node.props) {
 		addRow(prop.name, describeValue(state.nodes, prop.value), '');

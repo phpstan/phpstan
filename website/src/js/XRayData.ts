@@ -9,7 +9,10 @@
 //          -(stringIndex + 1) for a rendered scalar. effects is
 //          [throwPoints, impurePoints], two lists of string indexes, present
 //          only when the expression has any.
+// effects: whether expressions carry effects at all; payloads from before
+//          they were recorded don't, and there a missing list means unknown.
 export interface XRayData {
 	strings: string[];
+	effects?: boolean;
 	nodes: [number, number, number, number, number, (number | number[])[], [number[], number[]]?][];
 }
