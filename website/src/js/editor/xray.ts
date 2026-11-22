@@ -4,7 +4,8 @@ import {XRayData} from '../XRayData';
 
 // AST X-Ray: a toggle in the editor's corner that outlines every AST node
 // PHPStan sees, and on hover names the node, lists its sub-nodes and shows the
-// type PHPStan resolved for it. The data comes from the playground runner (see
+// type PHPStan resolved for it, with what evaluating it may throw and its
+// impure points. The data comes from the playground runner (see
 // playground-runner/xray.php); this file only renders it.
 //
 // While it is on, the editor flips to a monochrome negative (black on white
@@ -29,6 +30,11 @@ export interface XRayNode {
 	parent: number;
 	depth: number;
 	type: string | null;
+	// What evaluating the expression may throw and why it isn't pure,
+	// including what its sub-expressions contribute. Only for expressions
+	// (type !== null).
+	throwPoints: string[];
+	impurePoints: string[];
 	props: XRayProp[];
 	// Whether the node gets its own box and can be hovered. Nodes that would
 	// only duplicate a box (Name/Identifier, an Arg around its expression, ...)
@@ -83,7 +89,7 @@ function buildNodes(data: XRayData, doc: Text): XRayNode[] {
 		}
 		return value >= 0 ? value : string(-value - 1);
 	};
-	const nodes: XRayNode[] = data.nodes.map(([kind, from, to, parent, type, props]) => {
+	const nodes: XRayNode[] = data.nodes.map(([kind, from, to, parent, type, props, effects = [[], []]]) => {
 		const parsedProps: XRayProp[] = [];
 		for (let i = 0; i + 1 < props.length; i += 2) {
 			parsedProps.push({name: string(props[i] as number), value: propValue(props[i + 1])});
@@ -96,6 +102,8 @@ function buildNodes(data: XRayData, doc: Text): XRayNode[] {
 			parent,
 			depth: 0,
 			type: type >= 0 ? string(type) : null,
+			throwPoints: effects[0].map(string),
+			impurePoints: effects[1].map(string),
 			props: parsedProps,
 			drawn: true,
 			multiLine: false,
@@ -708,6 +716,13 @@ function renderPopup(state: XRayState): HTMLElement {
 	};
 	if (node.type !== null) {
 		addRow('PHPStan type', node.type, 'cm-xray-popup-type');
+		// Throw points as an exception type each ("implicit" when PHPStan only
+		// assumes something might be thrown), impure points as effects.
+		const addPoints = (label: string, points: string[], empty: string): void => {
+			addRow(label, points.length > 0 ? points.join('\n') : empty, points.length > 0 ? 'cm-xray-popup-effect' : 'cm-xray-popup-faint');
+		};
+		addPoints('@throws', node.throwPoints, 'void');
+		addPoints(node.impurePoints.length === 1 ? 'effect' : 'effects', node.impurePoints, 'none');
 	}
 	for (const prop of node.props) {
 		addRow(prop.name, describeValue(state.nodes, prop.value), '');
@@ -948,6 +963,12 @@ const theme = EditorView.baseTheme({
 	},
 	'.cm-xray-popup-type': {
 		color: '#4ade80',
+	},
+	'.cm-xray-popup-effect': {
+		color: '#fbbf24',
+	},
+	'.cm-xray-popup-faint': {
+		color: 'rgba(255, 255, 255, 0.45)',
 	},
 
 	'.cm-xray-toggle': {

@@ -66,11 +66,12 @@ interface PHPStanError {
 }
 
 // "AST X-Ray" payload produced by the runner: every AST node with its UTF-16
-// offsets, its sub-nodes and, for expressions, the type PHPStan resolved.
+// offsets, its sub-nodes and, for expressions, the type, throw points and
+// impure points PHPStan resolved.
 // Passed through untouched; see playground-runner/xray.php for the layout.
 interface XRayData {
 	strings: string[],
-	nodes: [number, number, number, number, number, (number | number[])[]][],
+	nodes: [number, number, number, number, number, (number | number[])[], [number[], number[]]?][],
 }
 
 interface VersionedErrors {
