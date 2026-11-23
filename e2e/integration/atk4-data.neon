@@ -1,0 +1,7 @@
+includes:
+	- repo/phpstan.neon.dist
+	- atk4-data-baseline.neon
+	- editor-link-repo.php
+
+parameters:
+	reportUnmatchedIgnoredErrors: false

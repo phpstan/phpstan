@@ -924,6 +924,26 @@ jobs:
               mkdir Modules
             phpstan-command: ../../../phpstan.phar analyse -c ../invoiceninja.neon
             baseline-file: invoiceninja-baseline.neon
+          - php-version: 8.4
+            repo: atk4/data
+            ref: 53d3ba33560a90190b3f18e4bba2dbef3d29781a
+            setup: |
+              # no composer.lock upstream and atk4/core is required as dev-develop, the lock pins it
+              cp ../atk4-data-composer.lock composer.lock
+              composer install
+            # atk4/data's StaticAnalysis job sets memory_limit = 2G
+            phpstan-command: ../../../phpstan.phar analyse -c ../atk4-data.neon --memory-limit=2G
+            baseline-file: atk4-data-baseline.neon
+          - php-version: 8.4
+            repo: atk4/ui
+            ref: 6550586e7e1d79233b53c0eebcf20833d2a6e238
+            setup: |
+              # no composer.lock upstream and atk4/data is required as dev-develop, the lock pins it
+              cp ../atk4-ui-composer.lock composer.lock
+              composer install
+            # atk4/ui's StaticAnalysis job sets memory_limit = 2G
+            phpstan-command: ../../../phpstan.phar analyse -c ../atk4-ui.neon --memory-limit=2G
+            baseline-file: atk4-ui-baseline.neon
 
     steps:
       - name: Harden the runner (Audit all outbound calls)
