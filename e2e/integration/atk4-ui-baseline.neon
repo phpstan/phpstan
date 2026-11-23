@@ -1,13 +1,2 @@
 parameters:
-	ignoreErrors:
-		-
-			rawMessage: 'Return type (($seed is Atk4\Ui\View ? Atk4\Ui\View : Atk4\Ui\AbstractView)) of method Atk4\Ui\Menu::add() should be covariant with return type (($object is Atk4\Ui\View ? Atk4\Ui\View : Atk4\Ui\AbstractView)) of method Atk4\Ui\View::add()'
-			identifier: method.childReturnType
-			count: 1
-			path: repo/src/Menu.php
-
-		-
-			rawMessage: 'Return type (($seed is Atk4\Ui\View ? Atk4\Ui\View : Atk4\Ui\AbstractView)) of method Atk4\Ui\Wizard::add() should be covariant with return type (($object is Atk4\Ui\View ? Atk4\Ui\View : Atk4\Ui\AbstractView)) of method Atk4\Ui\View::add()'
-			identifier: method.childReturnType
-			count: 1
-			path: repo/src/Wizard.php
+	ignoreErrors: []
