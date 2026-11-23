@@ -24,6 +24,10 @@
                     "link": "/user-guide/getting-started"
                 },
                 {
+                    "title": "PHPStan Turbo",
+                    "link": "/user-guide/turbo"
+                },
+                {
                     "title": "Command Line Usage",
                     "link": "/user-guide/command-line-usage"
                 },
