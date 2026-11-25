@@ -10218,6 +10218,23 @@
             ]
         }
     },
+    "impure.shellExec": {
+        "PHPStan\\Rules\\Pure\\PureFunctionRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Pure/FunctionPurityCheck.php#L271"
+            ]
+        },
+        "PHPStan\\Rules\\Pure\\PureMethodRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Pure/FunctionPurityCheck.php#L271"
+            ]
+        },
+        "PHPStan\\Rules\\Pure\\PurePropertyHookRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Pure/FunctionPurityCheck.php#L271"
+            ]
+        }
+    },
     "impure.static": {
         "PHPStan\\Rules\\Pure\\PureFunctionRule": {
             "phpstan/phpstan-src": [
@@ -15222,6 +15239,23 @@
         }
     },
     "possiblyImpure.require": {
+        "PHPStan\\Rules\\Pure\\PureFunctionRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Pure/FunctionPurityCheck.php#L271"
+            ]
+        },
+        "PHPStan\\Rules\\Pure\\PureMethodRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Pure/FunctionPurityCheck.php#L271"
+            ]
+        },
+        "PHPStan\\Rules\\Pure\\PurePropertyHookRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Pure/FunctionPurityCheck.php#L271"
+            ]
+        }
+    },
+    "possiblyImpure.shellExec": {
         "PHPStan\\Rules\\Pure\\PureFunctionRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Pure/FunctionPurityCheck.php#L271"
