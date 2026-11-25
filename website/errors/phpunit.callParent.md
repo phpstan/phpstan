@@ -2,6 +2,7 @@
 title: "phpunit.callParent"
 shortDescription: "Overridden setUp() or tearDown() does not call the parent method."
 ignorable: true
+autofixable: true
 ---
 
 ## Code example
@@ -51,3 +52,5 @@ Add a call to the parent method:
  	}
  }
 ```
+
+Running `vendor/bin/phpstan analyse --fix` adds the missing call automatically. `parent::setUp()` is inserted as the first statement of `setUp()`, and `parent::tearDown()` is inserted as the last statement of `tearDown()` (before a trailing `return`). The fix is not offered for methods declared in traits, or for a `tearDown()` that has an early `return` or a `throw`, because the added call would be skipped on that path.
