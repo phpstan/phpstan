@@ -16134,7 +16134,7 @@
     "property.readOnlyAssignNotInConstructor": {
         "PHPStan\\Rules\\Properties\\ReadOnlyPropertyAssignRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Properties/ReadOnlyPropertyAssignRule.php#L138"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Properties/ReadOnlyPropertyAssignRule.php#L146"
             ]
         }
     },
@@ -16163,7 +16163,7 @@
     "property.readOnlyByPhpDocAssignNotInConstructor": {
         "PHPStan\\Rules\\Properties\\ReadOnlyByPhpDocPropertyAssignRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Properties/ReadOnlyByPhpDocPropertyAssignRule.php#L125"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Properties/ReadOnlyByPhpDocPropertyAssignRule.php#L133"
             ]
         }
     },
