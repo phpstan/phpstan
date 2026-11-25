@@ -1,6 +1,12 @@
 parameters:
 	ignoreErrors:
 		-
+			message: '#^Strict comparison using \=\=\= between stdClass and null will always evaluate to false\.$#'
+			identifier: identical.alwaysFalse
+			count: 1
+			path: repo/application/Espo/Core/Api/RequestWrapper.php
+
+		-
 			message: '#^Expression on left side of \?\? is not nullable\.$#'
 			identifier: nullCoalesce.expr
 			count: 1
@@ -113,6 +119,18 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: repo/application/Espo/ORM/CollectionFactory.php
+
+		-
+			message: '#^Call to function assert\(\) with true will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/application/Espo/ORM/PDO/DefaultPDOProvider.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between PDO and null will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 1
+			path: repo/application/Espo/ORM/PDO/DefaultPDOProvider.php
 
 		-
 			message: '#^Method Espo\\ORM\\SthCollection\:\:fetchRow\(\) should return array\<string, mixed\> but returns array\<string, mixed\>\|false\.$#'

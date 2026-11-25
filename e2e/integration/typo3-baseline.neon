@@ -1,2 +1,7 @@
 parameters:
-	ignoreErrors: []
+	ignoreErrors:
+		-
+			rawMessage: 'Call to method TYPO3\CMS\FrontendLogin\Configuration\RecoveryConfiguration::getMailTemplateName() on a separate line has no effect.'
+			identifier: method.resultUnused
+			count: 1
+			path: repo/typo3/sysext/felogin/Tests/Unit/Configuration/RecoveryConfigurationTest.php

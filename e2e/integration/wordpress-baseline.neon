@@ -17,3 +17,9 @@ parameters:
 			identifier: assign.propertyType
 			count: 1
 			path: repo/src/wp-includes/class-wp-query.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between ''STATE_COMPLETE'' and ''STATE_CDATA_NODE''\|''STATE_COMMENT''\|''STATE_DOCTYPE''\|''STATE_MATCHED_TAG''\|''STATE_PRESUMPTUOUS…''\|''STATE_PROCESSING…''\|''STATE_TEXT_NODE''\|''STATE_WP_FUNKY'' will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 1
+			path: repo/src/wp-includes/html-api/class-wp-html-tag-processor.php
