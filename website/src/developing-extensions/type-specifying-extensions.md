@@ -107,6 +107,8 @@ services:
 			- phpstan.typeSpecifier.staticMethodTypeSpecifyingExtension
 ```
 
+Alternatively, register it with the [`#[AutowiredService]` attribute](/developing-extensions/dependency-injection-configuration#attribute-services) on the class. The `phpstan.typeSpecifier.staticMethodTypeSpecifyingExtension` tag is added automatically based on the implemented interface.
+
 There's also analogous functionality for:
 
 * **instance methods** using [`MethodTypeSpecifyingExtension`](https://apiref.phpstan.org/__BRANCH__/PHPStan.Type.MethodTypeSpecifyingExtension.html) interface and `phpstan.typeSpecifier.methodTypeSpecifyingExtension` service tag.

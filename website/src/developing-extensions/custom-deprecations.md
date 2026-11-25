@@ -59,3 +59,5 @@ services:
 		tags:
 			- phpstan.classDeprecationExtension
 ```
+
+Alternatively, register it with the [`#[AutowiredService]` attribute](/developing-extensions/dependency-injection-configuration#attribute-services) on the class. The `phpstan.classDeprecationExtension` tag is added automatically based on the implemented interface.

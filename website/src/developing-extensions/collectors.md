@@ -70,6 +70,8 @@ services:
 			- phpstan.collector
 ```
 
+Alternatively, register it with the [`#[AutowiredService]` attribute](/developing-extensions/dependency-injection-configuration#attribute-services) on the class, which adds the `phpstan.collector` tag automatically, or with the [`#[RegisteredCollector]` attribute](/developing-extensions/dependency-injection-configuration#%23%5Bregisteredrule%5D-and-%23%5Bregisteredcollector%5D) to register it only from a given [rule level](/user-guide/rule-levels) up.
+
 Using collected data in a custom rule
 ---------------
 

@@ -76,6 +76,8 @@ services:
 			- phpstan.broker.propertiesClassReflectionExtension
 ```
 
+Alternatively, register it with the [`#[AutowiredService]` attribute](/developing-extensions/dependency-injection-configuration#attribute-services) on the class. The `phpstan.broker.propertiesClassReflectionExtension` tag is added automatically based on the implemented interface.
+
 Methods class reflection extensions
 ---------------------
 
@@ -148,6 +150,8 @@ services:
 		tags:
 			- phpstan.broker.methodsClassReflectionExtension
 ```
+
+Alternatively, register it with the [`#[AutowiredService]` attribute](/developing-extensions/dependency-injection-configuration#attribute-services) on the class. The `phpstan.broker.methodsClassReflectionExtension` tag is added automatically based on the implemented interface.
 
 Tracking dependencies for the result cache
 ---------------

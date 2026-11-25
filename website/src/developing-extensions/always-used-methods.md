@@ -30,3 +30,5 @@ services:
 		tags:
 			- phpstan.methods.alwaysUsedMethodExtension
 ```
+
+Alternatively, register it with the [`#[AutowiredService]` attribute](/developing-extensions/dependency-injection-configuration#attribute-services) on the class. The `phpstan.methods.alwaysUsedMethodExtension` tag is added automatically based on the implemented interface.

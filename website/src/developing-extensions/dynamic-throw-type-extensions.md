@@ -90,6 +90,8 @@ services:
 			- phpstan.dynamicMethodThrowTypeExtension
 ```
 
+Alternatively, register it with the [`#[AutowiredService]` attribute](/developing-extensions/dependency-injection-configuration#attribute-services) on the class. The `phpstan.dynamicMethodThrowTypeExtension` tag is added automatically based on the implemented interface.
+
 There's also analogous functionality for:
 
 * **static methods** using [`DynamicStaticMethodThrowTypeExtension`](https://apiref.phpstan.org/__BRANCH__/PHPStan.Type.DynamicStaticMethodThrowTypeExtension.html) interface and `phpstan.dynamicStaticMethodThrowTypeExtension` service tag.

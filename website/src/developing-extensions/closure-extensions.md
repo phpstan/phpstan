@@ -41,6 +41,8 @@ services:
    - phpstan.methodParameterClosureTypeExtension
 ```
 
+Alternatively, register it with the [`#[AutowiredService]` attribute](/developing-extensions/dependency-injection-configuration#attribute-services) on the class. The `phpstan.methodParameterClosureTypeExtension` tag is added automatically based on the implemented interface.
+
 There's also analogous functionality for:
 
 * **static methods** using [`StaticMethodParameterClosureTypeExtension`](https://apiref.phpstan.org/__BRANCH__/PHPStan.Type.StaticMethodParameterClosureTypeExtension.html) interface and `phpstan.staticMethodParameterClosureTypeExtension` service tag.
@@ -86,6 +88,8 @@ services:
   tags:
    - phpstan.methodParameterClosureThisExtension
 ```
+
+Alternatively, register it with the [`#[AutowiredService]` attribute](/developing-extensions/dependency-injection-configuration#attribute-services) on the class. The `phpstan.methodParameterClosureThisExtension` tag is added automatically based on the implemented interface.
 
 There's also analogous functionality for:
 
