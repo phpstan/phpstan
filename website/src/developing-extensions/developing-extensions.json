@@ -85,6 +85,10 @@
                     "link": "/developing-extensions/dynamic-throw-type-extensions"
                 },
                 {
+                    "title": "Dynamic Side Effects Extensions",
+                    "link": "/developing-extensions/dynamic-side-effects-extensions"
+                },
+                {
                     "title": "Type-Specifying Extensions",
                     "link": "/developing-extensions/type-specifying-extensions"
                 },

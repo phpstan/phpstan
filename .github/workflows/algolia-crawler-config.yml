@@ -43,6 +43,19 @@ jobs:
             -u "${CRAWLER_USER_ID}:${API_KEY}" \
             -d @-
 
+      # The crawler applies initialIndexSettings only when it creates the index, so push them to the existing one
+      - name: "Update Index Settings"
+        env:
+          CRAWLER_API_KEY: ${{ secrets.ALGOLIA_CRAWLER_CRAWLER_API_KEY }}
+        run: |
+          APP_ID=$(jq -r '.appId' .github/workflows/algolia-crawler-config.json)
+          jq '.initialIndexSettings.phpstan' .github/workflows/algolia-crawler-config.json | \
+          curl --fail-with-body -X PUT "https://${APP_ID}.algolia.net/1/indexes/phpstan/settings" \
+            -H "Content-Type: application/json" \
+            -H "X-Algolia-Application-Id: ${APP_ID}" \
+            -H "X-Algolia-API-Key: ${CRAWLER_API_KEY}" \
+            -d @-
+
       - name: "Trigger Crawler Reindex"
         env:
           CRAWLER_ID: ${{ secrets.ALGOLIA_CRAWLER_ID }}

@@ -2,6 +2,9 @@
 title: "What is Bleeding Edge?"
 date: 2021-04-03
 tags: guides
+searchKeywords:
+  - bleedingEdge
+  - bleedingEdge.neon
 ---
 
 When developing new features that don't fit in a [minor version](/user-guide/backward-compatibility-promise), or aren't expected to be released right away, software developers have two options what to do:

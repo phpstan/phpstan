@@ -19,7 +19,7 @@
       "pathsToMatch": ["https://phpstan.org/**", "!https://phpstan.org/blog/**", "!https://phpstan.org/error-identifiers/**", "!https://phpstan.org/developing-extensions/**"],
       "recordExtractor": {
         "__type": "function",
-        "source": "({ helpers, $ }) => { const records = helpers.docsearch({ recordProps: { lvl1: [\".content h1\", \"head > title\"], content: [\".content p, .content li\"], lvl0: { selectors: \"#algoliaSectionTitle\", defaultValue: \"Documentation\" }, lvl2: [\".content h2\"], lvl3: [\".content h3\"], lvl4: [\".content h4\"], pageRank: \"90\" }, aggregateContent: true }); const keywords = $('#algoliaSearchKeywords').text(); if (keywords) { records.forEach(r => { r.searchKeywords = keywords; }); } return records; }"
+        "source": "({ helpers, $ }) => { const records = helpers.docsearch({ recordProps: { lvl1: [\".content h1\", \"head > title\"], content: [\".content p, .content li\"], lvl0: { selectors: \"#algoliaSectionTitle\", defaultValue: \"Documentation\" }, lvl2: [\".content h2\"], lvl3: [\".content h3\"], lvl4: [\".content h4\"], pageRank: \"90\" }, aggregateContent: true }); const normalize = s => s.replace(/\\s+/g, ' ').trim(); const canonical = t => t.toLowerCase().replace(/^(@|--?)/, ''); const keywords = $('#algoliaSearchKeywords').text(); const keywordTerms = keywords.split(',').map(k => canonical(normalize(k))).filter(k => k !== ''); if (keywords) { records.forEach(r => { r.searchKeywords = keywords; }); } const escape = s => s.replace(/[.*+?^${}()|[\\]\\\\]/g, '\\\\$&'); const elements = $('.content p, .content li, .content h2, .content h3, .content h4').map((i, el) => ({ id: $(el).attr('id'), text: normalize($(el).text()), codes: $(el).find('code').filter((j, code) => $(code).closest('pre').length === 0).map((j, code) => normalize($(code).text()).toLowerCase()).get().filter(t => t.length >= 2 && t.length <= 60) })).get().filter(e => e.text !== ''); const pageCodes = [...new Set(elements.flatMap(e => e.codes))].map(code => ({ term: canonical(code), regex: new RegExp('(^|[^\\\\w@$-])' + escape(code) + '(?![\\\\w-])') })); records.forEach(r => { const terms = new Set(keywordTerms); const text = normalize((r.type === 'content' ? r.content : r.hierarchy[r.type]) || ''); if (text !== '' && r.type === 'content') { elements.forEach(e => { if (e.codes.length > 0 && text.includes(e.text)) { e.codes.forEach(code => terms.add(canonical(code))); } }); } else if (text !== '') { const heading = text.toLowerCase(); pageCodes.forEach(c => { if (c.regex.test(heading)) { terms.add(c.term); } }); } if (terms.size > 0) { r.boostTerms = [...terms]; } }); return records; }"
       }
     },
     {
@@ -27,7 +27,7 @@
       "pathsToMatch": ["https://phpstan.org/developing-extensions/**"],
       "recordExtractor": {
         "__type": "function",
-        "source": "({ helpers, $ }) => { const records = helpers.docsearch({ recordProps: { lvl1: [\".content h1\", \"head > title\"], content: [\".content p, .content li\"], lvl0: { selectors: \"#algoliaSectionTitle\", defaultValue: \"Developing Extensions\" }, lvl2: [\".content h2\"], lvl3: [\".content h3\"], lvl4: [\".content h4\"], pageRank: \"70\" }, aggregateContent: true }); const keywords = $('#algoliaSearchKeywords').text(); if (keywords) { records.forEach(r => { r.searchKeywords = keywords; }); } return records; }"
+        "source": "({ helpers, $ }) => { const records = helpers.docsearch({ recordProps: { lvl1: [\".content h1\", \"head > title\"], content: [\".content p, .content li\"], lvl0: { selectors: \"#algoliaSectionTitle\", defaultValue: \"Developing Extensions\" }, lvl2: [\".content h2\"], lvl3: [\".content h3\"], lvl4: [\".content h4\"], pageRank: \"70\" }, aggregateContent: true }); const keywords = $('#algoliaSearchKeywords').text(); if (keywords) { const boostTerms = keywords.split(',').map(k => k.replace(/\\s+/g, ' ').trim().toLowerCase().replace(/^(@|--?)/, '')).filter(k => k !== ''); records.forEach(r => { r.searchKeywords = keywords; r.boostTerms = boostTerms; }); } return records; }"
       }
     },
     {
@@ -43,7 +43,7 @@
       "pathsToMatch": ["https://phpstan.org/blog/**"],
       "recordExtractor": {
         "__type": "function",
-        "source": "({ helpers, $ }) => { const records = helpers.docsearch({ recordProps: { lvl1: [\".content h1\", \"head > title\"], content: [\".content p, .content li\"], lvl0: { selectors: \"#algoliaSectionTitle\", defaultValue: \"Blog\" }, lvl2: [\".content h2\"], lvl3: [\".content h3\"], lvl4: [\".content h4\"], pageRank: \"50\" }, aggregateContent: true }); const keywords = $('#algoliaSearchKeywords').text(); if (keywords) { records.forEach(r => { r.searchKeywords = keywords; }); } return records; }"
+        "source": "({ helpers, $ }) => { const records = helpers.docsearch({ recordProps: { lvl1: [\".content h1\", \"head > title\"], content: [\".content p, .content li\"], lvl0: { selectors: \"#algoliaSectionTitle\", defaultValue: \"Blog\" }, lvl2: [\".content h2\"], lvl3: [\".content h3\"], lvl4: [\".content h4\"], pageRank: \"50\" }, aggregateContent: true }); const keywords = $('#algoliaSearchKeywords').text(); if (keywords) { const boostTerms = keywords.split(',').map(k => k.replace(/\\s+/g, ' ').trim().toLowerCase().replace(/^(@|--?)/, '')).filter(k => k !== ''); records.forEach(r => { r.searchKeywords = keywords; r.boostTerms = boostTerms; }); } return records; }"
       }
     },
     {
@@ -57,7 +57,7 @@
   ],
   "initialIndexSettings": {
     "phpstan": {
-      "attributesForFaceting": ["type", "lang"],
+      "attributesForFaceting": ["type", "lang", "filterOnly(boostTerms)"],
       "attributesToRetrieve": [
         "hierarchy",
         "content",

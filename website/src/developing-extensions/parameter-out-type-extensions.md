@@ -112,6 +112,8 @@ services:
 			- phpstan.methodParameterOutTypeExtension
 ```
 
+Alternatively, register it with the [`#[AutowiredService]` attribute](/developing-extensions/dependency-injection-configuration#attribute-services) on the class. The `phpstan.methodParameterOutTypeExtension` tag is added automatically based on the implemented interface.
+
 There's also analogous functionality for:
 
 * **static methods** using [`StaticMethodParameterOutTypeExtension`](https://apiref.phpstan.org/__BRANCH__/PHPStan.Type.StaticMethodParameterOutTypeExtension.html) interface and `phpstan.staticMethodParameterOutTypeExtension` service tag.

@@ -163,6 +163,12 @@ parameters:
 			path: repo/src/PhpSpreadsheet/Worksheet/Worksheet.php
 
 		-
+			rawMessage: 'Cannot call method setActiveSheetIndex() on PhpOffice\PhpSpreadsheet\Spreadsheet|null.'
+			identifier: method.nonObject
+			count: 1
+			path: repo/src/PhpSpreadsheet/Worksheet/Worksheet.php
+
+		-
 			rawMessage: Possibly invalid array key type string|null.
 			identifier: offsetAccess.invalidOffset
 			count: 1

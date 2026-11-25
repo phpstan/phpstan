@@ -1,7 +1,7 @@
 import ko from '@tko/build.reference';
 import $ from 'jquery';
 import littlefoot from 'littlefoot';
-import docsearch from '@docsearch/js/docsearch';
+import docsearch, {type DocSearchProps} from '@docsearch/js/docsearch';
 import '@docsearch/css';
 
 // Self-hosted Inter (variable font) via npm, replacing the external
@@ -26,6 +26,27 @@ export class MainMenuViewModel {
 			appId: '563YUB35R3',
 			indices: ['phpstan'],
 			apiKey: '38f6379285feb01cc915c6967c715ec2',
+			// The crawler tags records with the page's searchKeywords from frontmatter, and documentation records also with
+			// the inline code they mention (boostTerms, lowercase, without a leading @ or --).
+			// When the whole query is such a term, like `@param-immediately-invoked-callable`, `non-empty-string`, or `--memory-limit`,
+			// those records rank above error identifiers and API reference classes whose camelCase names contain the same words.
+			transformSearchClient: (searchClient) => ({
+				...searchClient,
+				search: (params, requestOptions) => {
+					if (!('requests' in params)) {
+						return searchClient.search(params, requestOptions);
+					}
+					return searchClient.search({
+						...params,
+						requests: params.requests.map((request) => {
+							const term = 'query' in request && typeof request.query === 'string'
+								? request.query.replace(/\s+/g, ' ').trim().toLowerCase().replace(/^(@|--?)/, '')
+								: '';
+							return term === '' ? request : {...request, optionalFilters: [`boostTerms:${term}`]};
+						}),
+					}, requestOptions);
+				},
+			}),
 			transformItems: (items: any[]) => {
 				return items.map((item) => {
 					const query = document.querySelector<HTMLInputElement>('.DocSearch-Input')?.value.trim();
@@ -37,7 +58,7 @@ export class MainMenuViewModel {
 					return item;
 				});
 			},
-		};
+		} satisfies Omit<DocSearchProps, 'container'>;
 		docsearch({container: '#docsearch', ...docsearchOptions});
 		docsearch({container: '#docsearch-mobile', ...docsearchOptions});
 	}

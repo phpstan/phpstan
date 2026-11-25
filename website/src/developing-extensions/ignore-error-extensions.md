@@ -66,3 +66,5 @@ services:
 		tags:
 			- phpstan.ignoreErrorExtension
 ```
+
+Alternatively, register it with the [`#[AutowiredService]` attribute](/developing-extensions/dependency-injection-configuration#attribute-services) on the class. The `phpstan.ignoreErrorExtension` tag is added automatically based on the implemented interface.

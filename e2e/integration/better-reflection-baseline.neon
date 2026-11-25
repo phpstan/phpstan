@@ -1,2 +1,7 @@
 parameters:
-	ignoreErrors: []
+	ignoreErrors:
+		-
+			message: '#^Access to an uninitialized @readonly property Roave\\BetterReflection\\Reflection\\ReflectionClass\:\:\$immediateMethods\.$#'
+			identifier: property.uninitializedReadonlyByPhpDoc
+			count: 1
+			path: repo/src/Reflection/ReflectionClass.php

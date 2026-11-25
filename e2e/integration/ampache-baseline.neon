@@ -11,3 +11,33 @@ parameters:
 			identifier: identical.alwaysFalse
 			count: 1
 			path: repo/src/Module/Api/Xml8_Data.php
+
+		-
+			message: '#^Cannot call method send_command\(\) on AmpacheApi\\AmpacheApi\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: repo/src/Module/Catalog/Catalog_remote.php
+
+		-
+			message: '#^Instanceof between Ampache\\Module\\Catalog\\SubsonicClient and Ampache\\Module\\Catalog\\SubsonicClient will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 6
+			path: repo/src/Module/Catalog/Catalog_subsonic.php
+
+		-
+			message: '#^Expression on left side of \?\? is not nullable\.$#'
+			identifier: nullCoalesce.expr
+			count: 1
+			path: repo/src/Module/Song/SongSorter.php
+
+		-
+			message: '#^Using nullsafe method call on non\-nullable type Ampache\\Module\\Catalog\\Catalog\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: repo/src/Module/Song/SongSorter.php
+
+		-
+			message: '#^Using nullsafe property access on non\-nullable type Ampache\\Module\\Catalog\\Catalog\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: repo/src/Module/Song/SongSorter.php

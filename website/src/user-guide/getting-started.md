@@ -22,7 +22,9 @@ composer require --dev phpstan/phpstan
 
 Composer will install PHPStan's executable in its `bin-dir` which defaults to `vendor/bin`.
 
-You can also download the [latest PHAR](https://github.com/phpstan/phpstan/releases) and just use that. But without Composer, you won't be able to install and use [PHPStan extensions](/user-guide/extension-library).
+The Composer package also contains [PHPStan Turbo](/user-guide/turbo), a native extension that makes the analysis about 60% faster. PHPStan enables it automatically on PHP 8.2 and newer.
+
+You can also download the [latest PHAR](https://github.com/phpstan/phpstan/releases) and just use that. But without Composer, you won't be able to install and use [PHPStan extensions](/user-guide/extension-library), and you'll have to [install PHPStan Turbo with PIE](/user-guide/turbo#installing-with-pie).
 
 The PHAR and the bundled Turbo extension binaries can be verified with [build attestations](/user-guide/build-attestations).
 

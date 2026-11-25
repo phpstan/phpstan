@@ -1,6 +1,46 @@
 parameters:
 	ignoreErrors:
 		-
+			rawMessage: 'Call to function password_verify() on a separate line has no effect.'
+			identifier: function.resultUnused
+			count: 3
+			path: repo/src/Core/Checkout/Customer/SalesChannel/AccountService.php
+
+		-
+			rawMessage: 'Parameter #3 $entity of method Shopware\Core\Content\ImportExport\DataAbstractionLayer\Serializer\Entity\AbstractEntitySerializer::serialize() expects array<string, mixed>|Shopware\Core\Framework\Struct\Struct|null, iterable<array<string, mixed>> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Core/Content/ImportExport/Processing/Pipe/EntityPipe.php
+
+		-
+			rawMessage: 'Call to function password_verify() on a separate line has no effect.'
+			identifier: function.resultUnused
+			count: 1
+			path: repo/src/Core/Framework/Api/OAuth/ClientRepository.php
+
+		-
+			rawMessage: '''
+				Call to method __construct() of deprecated class Lcobucci\JWT\Validation\Constraint\LooseValidAt:
+				Deprecated since v5.7, please use {@see PermissiveValidAt} instead.
+				            Accepting tokens without the "exp" claim leads to tokens that never expire
+				            (CWE-613: Insufficient Session Expiration).
+			'''
+			identifier: method.deprecatedClass
+			count: 1
+			path: repo/src/Core/Framework/Api/OAuth/JWTConfigurationFactory.php
+
+		-
+			rawMessage: '''
+				Instantiation of deprecated class Lcobucci\JWT\Validation\Constraint\LooseValidAt:
+				Deprecated since v5.7, please use {@see PermissiveValidAt} instead.
+				            Accepting tokens without the "exp" claim leads to tokens that never expire
+				            (CWE-613: Insufficient Session Expiration).
+			'''
+			identifier: new.deprecatedClass
+			count: 1
+			path: repo/src/Core/Framework/Api/OAuth/JWTConfigurationFactory.php
+
+		-
 			rawMessage: 'Parameter #1 $min (0|1) of function random_int expects lower number than parameter #2 $max (int<0, 4>).'
 			identifier: argument.type
 			count: 1
@@ -11,6 +51,28 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: repo/src/Core/Framework/Sso/Controller/SsoController.php
+
+		-
+			rawMessage: '''
+				Call to method __construct() of deprecated class Lcobucci\JWT\Validation\Constraint\LooseValidAt:
+				Deprecated since v5.7, please use {@see PermissiveValidAt} instead.
+				            Accepting tokens without the "exp" claim leads to tokens that never expire
+				            (CWE-613: Insufficient Session Expiration).
+			'''
+			identifier: method.deprecatedClass
+			count: 1
+			path: repo/src/Core/Framework/Sso/TokenService/IdTokenParser.php
+
+		-
+			rawMessage: '''
+				Instantiation of deprecated class Lcobucci\JWT\Validation\Constraint\LooseValidAt:
+				Deprecated since v5.7, please use {@see PermissiveValidAt} instead.
+				            Accepting tokens without the "exp" claim leads to tokens that never expire
+				            (CWE-613: Insufficient Session Expiration).
+			'''
+			identifier: new.deprecatedClass
+			count: 1
+			path: repo/src/Core/Framework/Sso/TokenService/IdTokenParser.php
 
 		-
 			rawMessage: '''
@@ -29,6 +91,28 @@ parameters:
 			identifier: staticMethod.deprecated
 			count: 1
 			path: repo/src/Core/Framework/Uuid/Uuid.php
+
+		-
+			rawMessage: '''
+				Call to method __construct() of deprecated class Lcobucci\JWT\Validation\Constraint\LooseValidAt:
+				Deprecated since v5.7, please use {@see PermissiveValidAt} instead.
+				            Accepting tokens without the "exp" claim leads to tokens that never expire
+				            (CWE-613: Insufficient Session Expiration).
+			'''
+			identifier: method.deprecatedClass
+			count: 3
+			path: repo/tests/unit/Core/Framework/JWT/SalesChannel/JWTGeneratorTest.php
+
+		-
+			rawMessage: '''
+				Instantiation of deprecated class Lcobucci\JWT\Validation\Constraint\LooseValidAt:
+				Deprecated since v5.7, please use {@see PermissiveValidAt} instead.
+				            Accepting tokens without the "exp" claim leads to tokens that never expire
+				            (CWE-613: Insufficient Session Expiration).
+			'''
+			identifier: new.deprecatedClass
+			count: 3
+			path: repo/tests/unit/Core/Framework/JWT/SalesChannel/JWTGeneratorTest.php
 
 		-
 			rawMessage: 'Offset ''function'' on array{function: string, line?: int, file?: string, class?: class-string, type?: ''->''|''::'', args?: list<mixed>, object?: object} on left side of ?? always exists and is not nullable.'

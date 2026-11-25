@@ -34,6 +34,7 @@ services:
 			- phpstan.resultCacheMetaExtension
 ```
 
+Alternatively, register it with the [`#[AutowiredService]` attribute](/developing-extensions/dependency-injection-configuration#attribute-services) on the class. The `phpstan.resultCacheMetaExtension` tag is added automatically based on the implemented interface.
 
 If the returned hash changes between runs, the result cache is completely invalidated and the project is analysed fully from scratch.
 
@@ -147,6 +148,8 @@ services:
 		tags:
 			- phpstan.resultCacheValueExtension
 ```
+
+Alternatively, register it with the [`#[AutowiredService]` attribute](/developing-extensions/dependency-injection-configuration#attribute-services) on the class. The `phpstan.resultCacheValueExtension` tag is added automatically based on the implemented interface.
 
 A rule or an extension then tracks what it asks about with `$scope->trackValueDependency()`, with the same `Scope&DependencyTracker` typehint as above:
 

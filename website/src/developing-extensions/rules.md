@@ -43,7 +43,7 @@ Choosing the right AST node
 
 People unfamiliar with the [AST](/developing-extensions/abstract-syntax-tree) don't know which node type to return from the `getNodeType()` method to get started. Fortunately we can follow a simple guide to find the right type.
 
-The quickest way is the **AST X-Ray** in the [playground](/try): switch it on with the button in the editor's corner, paste the code, and hover any part of it. The popup names the node under the pointer, its properties, and the type PHPStan resolved for it if it's an expression.
+The quickest way is the **AST X-Ray** in the [playground](/try): switch it on with the button in the editor's corner, paste the code, and hover any part of it. The popup names the node under the pointer, its properties, and, if it's an expression, the type PHPStan resolved for it along with what it may throw and its side effects.
 
 The same can be done locally with a rule. Write a small piece of code that contains the situation we want the rule to report:
 
@@ -251,6 +251,8 @@ services:
 		tags:
 			- phpstan.rules.rule
 ```
+
+Alternatively, register it with the [`#[RegisteredRule]` attribute](/developing-extensions/dependency-injection-configuration#%23%5Bregisteredrule%5D-and-%23%5Bregisteredcollector%5D) on the class, which also lets you choose the lowest [rule level](/user-guide/rule-levels) the rule runs on. The [`#[AutowiredService]` attribute](/developing-extensions/dependency-injection-configuration#attribute-services) works too and adds the `phpstan.rules.rule` tag automatically, so the rule runs on all rule levels.
 
 [Learn more about dependency injection and configuration »](/developing-extensions/dependency-injection-configuration)
 

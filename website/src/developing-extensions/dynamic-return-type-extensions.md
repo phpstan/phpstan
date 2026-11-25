@@ -100,6 +100,8 @@ services:
 			- phpstan.broker.dynamicMethodReturnTypeExtension
 ```
 
+Alternatively, register it with the [`#[AutowiredService]` attribute](/developing-extensions/dependency-injection-configuration#attribute-services) on the class. The `phpstan.broker.dynamicMethodReturnTypeExtension` tag is added automatically based on the implemented interface.
+
 There's also analogous functionality for:
 
 * **static methods** using [`DynamicStaticMethodReturnTypeExtension`](https://apiref.phpstan.org/__BRANCH__/PHPStan.Type.DynamicStaticMethodReturnTypeExtension.html) interface and `phpstan.broker.dynamicStaticMethodReturnTypeExtension` service tag.

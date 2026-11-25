@@ -66,6 +66,8 @@ Extension implementing RestrictedMethodUsageExtension has to be registered in th
 			- phpstan.restrictedMethodUsageExtension
 ```
 
+Alternatively, register it with the [`#[AutowiredService]` attribute](/developing-extensions/dependency-injection-configuration#attribute-services) on the class. The `phpstan.restrictedMethodUsageExtension` tag is added automatically based on the implemented interface.
+
 
 Class names
 -----------------
@@ -118,6 +120,8 @@ Extension implementing RestrictedMethodUsageExtension has to be registered in th
 			- phpstan.restrictedClassNameUsageExtension
 ```
 
+Alternatively, register it with the [`#[AutowiredService]` attribute](/developing-extensions/dependency-injection-configuration#attribute-services) on the class. The `phpstan.restrictedClassNameUsageExtension` tag is added automatically based on the implemented interface.
+
 
 Properties
 -----------------
@@ -152,6 +156,8 @@ Extension implementing RestrictedPropertyUsageExtension has to be registered in 
 			- phpstan.restrictedPropertyUsageExtension
 ```
 
+Alternatively, register it with the [`#[AutowiredService]` attribute](/developing-extensions/dependency-injection-configuration#attribute-services) on the class. The `phpstan.restrictedPropertyUsageExtension` tag is added automatically based on the implemented interface.
+
 
 Class constants
 -----------------
@@ -181,6 +187,8 @@ Extension implementing RestrictedClassConstantUsageExtension has to be registere
 		tags:
 			- phpstan.restrictedClassConstantUsageExtension
 ```
+
+Alternatively, register it with the [`#[AutowiredService]` attribute](/developing-extensions/dependency-injection-configuration#attribute-services) on the class. The `phpstan.restrictedClassConstantUsageExtension` tag is added automatically based on the implemented interface.
 
 
 Functions
@@ -213,3 +221,5 @@ Extension implementing RestrictedFunctionUsageExtension has to be registered in 
 		tags:
 			- phpstan.restrictedFunctionUsageExtension
 ```
+
+Alternatively, register it with the [`#[AutowiredService]` attribute](/developing-extensions/dependency-injection-configuration#attribute-services) on the class. The `phpstan.restrictedFunctionUsageExtension` tag is added automatically based on the implemented interface.

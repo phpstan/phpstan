@@ -19,6 +19,18 @@ parameters:
 			path: repo/src/Contract.php
 
 		-
+			message: '#^Property DBmysql\:\:\$dbh in isset\(\) is not nullable nor uninitialized\.$#'
+			identifier: isset.initializedProperty
+			count: 1
+			path: repo/src/DBmysql.php
+
+		-
+			message: '#^Instanceof between DBmysql and DBmysql will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: repo/src/Glpi/Console/Application.php
+
+		-
 			message: '#^Property Glpi\\Debug\\ProfilerSection\:\:\$pauses \(array\<array\{start\: int, end\?\: int\}\>\) does not accept non\-empty\-array\<array\{start\: float\<0\.0, max\>\}\|array\{start\: int, end\?\: int\}\>\.$#'
 			identifier: assign.propertyType
 			count: 1
@@ -71,6 +83,18 @@ parameters:
 			identifier: binaryOp.invalid
 			count: 1
 			path: repo/src/Infocom.php
+
+		-
+			message: '#^Argument of an invalid type array\|null supplied for foreach, only iterables are supported\.$#'
+			identifier: foreach.nonIterable
+			count: 1
+			path: repo/src/RuleImportAsset.php
+
+		-
+			message: '#^Parameter \#1 \$value of function count expects array\|Countable, array\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/src/RuleImportAsset.php
 
 		-
 			message: '#^Cannot access offset ''id'' on array\<string, mixed\>\|false\.$#'

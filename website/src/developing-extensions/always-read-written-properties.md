@@ -35,6 +35,8 @@ services:
 			- phpstan.properties.readWriteExtension
 ```
 
+Alternatively, register it with the [`#[AutowiredService]` attribute](/developing-extensions/dependency-injection-configuration#attribute-services) on the class. The `phpstan.properties.readWriteExtension` tag is added automatically based on the implemented interface.
+
 Properties for Doctrine ORM are already covered by the [official PHPStan extension](https://github.com/phpstan/phpstan-doctrine). The following logic is applied (see the [extension itself](https://github.com/phpstan/phpstan-doctrine/blob/ecc4aecaaf34871a2961c4c7a046bc2e092b0300/src/Rules/Doctrine/ORM/PropertiesExtension.php)):
 
 * Property is always read (it doesn't need a getter) if it's a persisted field or association. This is because we might save some data into the database without reading them in the code, only referencing the fields in DQL queries, or maybe having them read directly from the database by another company department.

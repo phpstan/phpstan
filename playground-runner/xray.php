@@ -5,11 +5,16 @@
  * payload the playground editor renders:
  *
  *   strings: every kind, type, property name and rendered scalar, interned
- *   nodes:   [kind, from, to, parent, type, props] in pre-order, where kind and
- *            type index into strings (type -1 when PHPStan has none), and props
- *            is a flat [name, value, name, value, ...] list: name indexes into
- *            strings, value is a child node index (>= 0), a list of those, or
- *            -(stringIndex + 1) for a rendered scalar.
+ *   nodes:   [kind, from, to, parent, type, props, effects?] in pre-order, where
+ *            kind and type index into strings (type -1 when PHPStan has none),
+ *            and props is a flat [name, value, name, value, ...] list: name
+ *            indexes into strings, value is a child node index (>= 0), a list
+ *            of those, or -(stringIndex + 1) for a rendered scalar. effects is
+ *            [throwPoints, impurePoints], two lists of string indexes, present
+ *            only when the expression has any; an expression with a type and
+ *            no effects has neither.
+ *   effects: always true. Payloads from before effects were recorded lack it,
+ *            and their expressions must not read as throwing nothing.
  *
  * Offsets are converted from php-parser's byte offsets to UTF-16 code units,
  * which is what CodeMirror (JavaScript strings) counts in.
@@ -20,18 +25,18 @@ use PHPStanPlayground\XRay\ExprTypesCollector;
 
 /**
  * @param array<string, list<mixed>> $fileCollectedData collected data of the analysed file, keyed by collector class
- * @return array{strings: list<string>, nodes: list<array{int, int, int, int, int, list<int|list<int>>}>}
+ * @return array{strings: list<string>, effects: true, nodes: list<array{0: int, 1: int, 2: int, 3: int, 4: int, 5: list<int|list<int>>, 6?: array{list<int>, list<int>}}>}
  */
 function playground_xray(string $code, array $fileCollectedData): array
 {
 	$byteToUtf16 = playground_xray_offset_map($code);
 	$offset = static fn (int $byte): int => $byteToUtf16 === null ? $byte : ($byteToUtf16[$byte] ?? $byteToUtf16[strlen($code)]);
 
-	/** @var array<string, string> $typesByRange */
-	$typesByRange = [];
+	/** @var array<string, array{int, int, string, string, list<string>, list<string>}> $exprsByRange */
+	$exprsByRange = [];
 	foreach ($fileCollectedData[ExprTypesCollector::class] ?? [] as $data) {
-		/** @var array{int, int, string, string} $data */
-		$typesByRange[$data[2] . '@' . $data[0] . ':' . $data[1]] = $data[3];
+		/** @var array{int, int, string, string, list<string>, list<string>} $data */
+		$exprsByRange[$data[2] . '@' . $data[0] . ':' . $data[1]] = $data;
 	}
 
 	/** @var array<string, int> $stringIndex */
@@ -52,20 +57,24 @@ function playground_xray(string $code, array $fileCollectedData): array
 	foreach ($fileCollectedData[AstNodesCollector::class] ?? [] as $astNodes) {
 		/** @var list<array{string, int, int, int, list<array{string, int|string|list<int|string>}>}> $astNodes */
 		foreach ($astNodes as [$kind, $start, $end, $parent, $props]) {
-			$type = $typesByRange[$kind . '@' . $start . ':' . $end] ?? null;
+			$expr = $exprsByRange[$kind . '@' . $start . ':' . $end] ?? null;
 			$flatProps = [];
 			foreach ($props as [$name, $propValue]) {
 				$flatProps[] = $intern($name);
 				$flatProps[] = is_array($propValue) ? array_map($value, $propValue) : $value($propValue);
 			}
-			$nodes[] = [
+			$xrayNode = [
 				$intern($kind),
 				$offset($start),
 				$offset($end),
 				$parent,
-				$type === null ? -1 : $intern($type),
+				$expr === null ? -1 : $intern($expr[3]),
 				$flatProps,
 			];
+			if ($expr !== null && (count($expr[4]) > 0 || count($expr[5]) > 0)) {
+				$xrayNode[] = [array_map($intern, $expr[4]), array_map($intern, $expr[5])];
+			}
+			$nodes[] = $xrayNode;
 		}
 
 		// One FileNode per file, so one collected entry.
@@ -74,6 +83,7 @@ function playground_xray(string $code, array $fileCollectedData): array
 
 	return [
 		'strings' => $strings,
+		'effects' => true,
 		'nodes' => $nodes,
 	];
 }

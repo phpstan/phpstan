@@ -1,6 +1,12 @@
 parameters:
 	ignoreErrors:
 		-
+			message: '#^Call to method SplPriorityQueue\<mixed,mixed\>\:\:top\(\) on a separate line has no effect\.$#'
+			identifier: method.resultUnused
+			count: 1
+			path: repo/packages/administration/src/Component/Crud/CrudControllerRegistry.php
+
+		-
 			message: '#^Function pg_query_split not found\.$#'
 			identifier: function.notFound
 			count: 1
