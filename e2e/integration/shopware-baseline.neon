@@ -1,10 +1,22 @@
 parameters:
 	ignoreErrors:
 		-
+			rawMessage: 'Call to function password_verify() on a separate line has no effect.'
+			identifier: function.resultUnused
+			count: 3
+			path: repo/src/Core/Checkout/Customer/SalesChannel/AccountService.php
+
+		-
 			rawMessage: 'Parameter #3 $entity of method Shopware\Core\Content\ImportExport\DataAbstractionLayer\Serializer\Entity\AbstractEntitySerializer::serialize() expects array<string, mixed>|Shopware\Core\Framework\Struct\Struct|null, iterable<array<string, mixed>> given.'
 			identifier: argument.type
 			count: 1
 			path: repo/src/Core/Content/ImportExport/Processing/Pipe/EntityPipe.php
+
+		-
+			rawMessage: 'Call to function password_verify() on a separate line has no effect.'
+			identifier: function.resultUnused
+			count: 1
+			path: repo/src/Core/Framework/Api/OAuth/ClientRepository.php
 
 		-
 			rawMessage: '''
