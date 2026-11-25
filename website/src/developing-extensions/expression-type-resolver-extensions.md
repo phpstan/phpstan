@@ -95,6 +95,8 @@ services:
 			- phpstan.broker.expressionTypeResolverExtension
 ```
 
+Alternatively, register it with the [`#[AutowiredService]` attribute](/developing-extensions/dependency-injection-configuration#attribute-services) on the class. The `phpstan.broker.expressionTypeResolverExtension` tag is added automatically based on the implemented interface.
+
 Tracking dependencies for the result cache
 ---------------
 

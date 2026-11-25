@@ -56,6 +56,13 @@ To support [precise try-catch-finally analysis](/blog/precise-try-catch-finally-
 
 [Learn more »](/developing-extensions/dynamic-throw-type-extensions)
 
+Dynamic side effects extensions
+-------------------
+
+If a function or method has side effects only for some arguments, like `print_r()` which prints only when `$return` is `false`, you can describe the side effects of each call by writing a dynamic side effects extension.
+
+[Learn more »](/developing-extensions/dynamic-side-effects-extensions)
+
 Type-specifying extensions
 -------------------
 

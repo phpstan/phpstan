@@ -80,6 +80,8 @@ services:
 			- phpstan.broker.operatorTypeSpecifyingExtension
 ```
 
+Alternatively, register it with the [`#[AutowiredService]` attribute](/developing-extensions/dependency-injection-configuration#attribute-services) on the class. The `phpstan.broker.operatorTypeSpecifyingExtension` tag is added automatically based on the implemented interface.
+
 Unary Operator Type Specifying Extensions
 ---
 
@@ -107,3 +109,5 @@ services:
 		tags:
 			- phpstan.broker.unaryOperatorTypeSpecifyingExtension
 ```
+
+Alternatively, register it with the [`#[AutowiredService]` attribute](/developing-extensions/dependency-injection-configuration#attribute-services) on the class. The `phpstan.broker.unaryOperatorTypeSpecifyingExtension` tag is added automatically based on the implemented interface.

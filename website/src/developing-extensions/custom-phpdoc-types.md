@@ -33,6 +33,8 @@ services:
 			- phpstan.phpDoc.typeNodeResolverExtension
 ```
 
+Alternatively, register it with the [`#[AutowiredService]` attribute](/developing-extensions/dependency-injection-configuration#attribute-services) on the class. The `phpstan.phpDoc.typeNodeResolverExtension` tag is added automatically based on the implemented interface.
+
 TypeNodeResolverExtension cannot have [`TypeNodeResolver`](https://apiref.phpstan.org/__BRANCH__/PHPStan.PhpDoc.TypeNodeResolver.html) injected in the constructor due to circular reference issue, but the extensions can implement [`TypeNodeResolverAwareExtension`](https://apiref.phpstan.org/__BRANCH__/PHPStan.PhpDoc.TypeNodeResolverAwareExtension.html) interface to obtain `TypeNodeResolver` via a setter.
 
 An example

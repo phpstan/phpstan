@@ -37,6 +37,8 @@ services:
 		class: App\PHPStan\AwesomeErrorFormatter
 ```
 
+Alternatively, register it with the [`#[AutowiredService]` attribute](/developing-extensions/dependency-injection-configuration#attribute-services) on the class: `#[AutowiredService(name: 'errorFormatter.awesome')]`.
+
 Use the name part after `errorFormatter.` as the CLI option value:
 
 ```bash

@@ -252,6 +252,8 @@ services:
 			- phpstan.rules.rule
 ```
 
+Alternatively, register it with the [`#[RegisteredRule]` attribute](/developing-extensions/dependency-injection-configuration#%23%5Bregisteredrule%5D-and-%23%5Bregisteredcollector%5D) on the class, which also lets you choose the lowest [rule level](/user-guide/rule-levels) the rule runs on. The [`#[AutowiredService]` attribute](/developing-extensions/dependency-injection-configuration#attribute-services) works too and adds the `phpstan.rules.rule` tag automatically, so the rule runs on all rule levels.
+
 [Learn more about dependency injection and configuration »](/developing-extensions/dependency-injection-configuration)
 
 Testing the rule

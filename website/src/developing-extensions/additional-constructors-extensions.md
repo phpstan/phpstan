@@ -80,3 +80,5 @@ services:
 		tags:
 			- phpstan.additionalConstructorsExtension
 ```
+
+Alternatively, register it with the [`#[AutowiredService]` attribute](/developing-extensions/dependency-injection-configuration#attribute-services) on the class. The `phpstan.additionalConstructorsExtension` tag is added automatically based on the implemented interface.

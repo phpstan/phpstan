@@ -30,3 +30,5 @@ services:
 		tags:
 			- phpstan.constants.alwaysUsedClassConstantsExtension
 ```
+
+Alternatively, register it with the [`#[AutowiredService]` attribute](/developing-extensions/dependency-injection-configuration#attribute-services) on the class. The `phpstan.constants.alwaysUsedClassConstantsExtension` tag is added automatically based on the implemented interface.
