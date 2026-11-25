@@ -7,10 +7,34 @@ parameters:
 			path: repo/build/remove-dead-translations.php
 
 		-
+			message: '#^Argument of an invalid type list\<pocketmine\\math\\AxisAlignedBB\>\|null supplied for foreach, only iterables are supported\.$#'
+			identifier: foreach.nonIterable
+			count: 1
+			path: repo/src/block/Block.php
+
+		-
+			message: '#^Method pocketmine\\block\\Block\:\:getCollisionBoxes\(\) should return list\<pocketmine\\math\\AxisAlignedBB\> but returns list\<pocketmine\\math\\AxisAlignedBB\>\|null\.$#'
+			identifier: return.type
+			count: 1
+			path: repo/src/block/Block.php
+
+		-
+			message: '#^Cannot call method asItem\(\) on pocketmine\\block\\Block\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: repo/src/block/FlowerPot.php
+
+		-
 			message: '#^Call to function is_infinite\(\) with float\<0\.0, 1\.0\> will always evaluate to false\.$#'
 			identifier: function.impossibleType
 			count: 1
 			path: repo/src/block/ItemFrame.php
+
+		-
+			message: '#^Cannot call method removeAllViewers\(\) on pocketmine\\block\\inventory\\DoubleChestInventory\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: repo/src/block/tile/Chest.php
 
 		-
 			message: '#^Casting to list\<string\> something that''s already list\<string\>\.$#'
@@ -31,10 +55,40 @@ parameters:
 			path: repo/src/data/bedrock/item/ItemSerializerDeserializerRegistrar.php
 
 		-
+			message: '#^Method pocketmine\\entity\\Entity\:\:getBlocksAroundWithEntityInsideActions\(\) should return array\<pocketmine\\block\\Block\> but returns array\<pocketmine\\block\\Block\>\|null\.$#'
+			identifier: return.type
+			count: 1
+			path: repo/src/entity/Entity.php
+
+		-
 			message: '#^Foreach overwrites \$entity with its value variable\.$#'
 			identifier: foreach.valueOverwrite
 			count: 1
 			path: repo/src/entity/object/AreaEffectCloud.php
+
+		-
+			message: '#^Parameter \#1 \$entityId of method pocketmine\\world\\World\:\:getEntity\(\) expects int, int\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/src/entity/object/ExperienceOrb.php
+
+		-
+			message: '#^Call to an undefined method pocketmine\\block\\Block\:\:onHitGround\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: repo/src/entity/object/FallingBlock.php
+
+		-
+			message: '#^Parameter \#1 \$pos of method pocketmine\\world\\World\:\:getBlock\(\) expects pocketmine\\math\\Vector3, pocketmine\\math\\Vector3\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/src/entity/projectile/Projectile.php
+
+		-
+			message: '#^Parameter \#1 \$pos of method pocketmine\\world\\World\:\:isInLoadedTerrain\(\) expects pocketmine\\math\\Vector3, pocketmine\\math\\Vector3\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/src/entity/projectile/Projectile.php
 
 		-
 			message: '#^Parameter \#1 \$class of static method pocketmine\\event\\HandlerListManager\:\:isValidClass\(\) expects ReflectionClass\<pocketmine\\event\\Event\>, ReflectionClass\<TEvent of pocketmine\\event\\Event\> given\.$#'
@@ -53,6 +107,18 @@ parameters:
 			identifier: match.alwaysTrue
 			count: 1
 			path: repo/src/network/mcpe/handler/InGamePacketHandler.php
+
+		-
+			message: '#^Parameter \#1 \$pos of method pocketmine\\world\\World\:\:getBlock\(\) expects pocketmine\\math\\Vector3, pocketmine\\math\\Vector3\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/src/player/Player.php
+
+		-
+			message: '#^Parameter \#1 \$pos of method pocketmine\\world\\World\:\:setBlock\(\) expects pocketmine\\math\\Vector3, pocketmine\\math\\Vector3\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/src/player/Player.php
 
 		-
 			message: '#^Parameter \#1 \$list of method pocketmine\\thread\\ThreadSafeClassLoader\:\:appendOrPrependLookupEntry\(\) expects pmmp\\thread\\ThreadSafeArray\<int, string\>, pmmp\\thread\\ThreadSafeArray\<\(int\|string\), mixed\> given\.$#'
@@ -103,6 +169,18 @@ parameters:
 			path: repo/src/world/generator/normal/Normal.php
 
 		-
+			message: '#^Cannot call method getName\(\) on pmmp\\TesterPlugin\\Test\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: repo/tests/plugins/TesterPlugin/src/Main.php
+
+		-
+			message: '#^Cannot call method start\(\) on pmmp\\TesterPlugin\\Test\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: repo/tests/plugins/TesterPlugin/src/Main.php
+
+		-
 			message: '#^Foreach overwrites \$newValue with its value variable\.$#'
 			identifier: foreach.valueOverwrite
 			count: 1
@@ -125,6 +203,12 @@ parameters:
 			identifier: notIdentical.alwaysFalse
 			count: 1
 			path: repo/tools/blockstate-upgrade-schema-utils.php
+
+		-
+			message: '#^Cannot call method fromIntId\(\) on pocketmine\\network\\mcpe\\protocol\\serializer\\ItemTypeDictionary\|null\.$#'
+			identifier: method.nonObject
+			count: 2
+			path: repo/tools/generate-bedrock-data-from-packets.php
 
 		-
 			message: '#^Constant JSON_THROW_ON_ERROR is not allowed for parameter \#3 \$depth of function json_decode\.$#'

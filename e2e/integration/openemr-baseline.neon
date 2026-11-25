@@ -271,6 +271,12 @@ parameters:
 			path: repo/library/appointments.inc.php
 
 		-
+			message: '#^Parameter \#1 \$mysql of method Installer\:\:mysqliSelectDb\(\) expects mysqli, mysqli\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/library/classes/Installer.class.php
+
+		-
 			message: '#^Cannot access offset float\<2\.0, 9\.0\> on mixed\.$#'
 			identifier: offsetAccess.nonOffsetAccessible
 			count: 1
@@ -515,3 +521,15 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: repo/src/Services/Qrda/Cat3.php
+
+		-
+			message: '#^Call to method PHPUnit\\Framework\\Assert\:\:assertIsInt\(\) with int will always evaluate to true\.$#'
+			identifier: method.alreadyNarrowedType
+			count: 5
+			path: repo/tests/Tests/Api/InsufficientScopeDenyApiTest.php
+
+		-
+			message: '#^Property OpenEMR\\Tests\\Api\\InsufficientScopeDenyApiTest\:\:\$seededPatient on left side of \?\? is not nullable nor uninitialized\.$#'
+			identifier: nullCoalesce.initializedProperty
+			count: 3
+			path: repo/tests/Tests/Api/InsufficientScopeDenyApiTest.php
