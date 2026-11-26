@@ -45,7 +45,7 @@ Want your logo here? [Learn more »](https://phpstan.org/sponsor)
 
 ### Bronze Sponsors
 
-<a href="https://coders.thecodingmachine.com/phpstan"><img src="website/src/images/sponsor/tcm.png" alt="TheCodingMachine" width="247" height="64"></a>
+<a href="https://thecodingmachine.com/coders/"><img src="website/src/images/sponsor/tcm.png" alt="TheCodingMachine" width="247" height="64"></a>
 &nbsp;&nbsp;&nbsp;
 <a href="https://packagist.com/?utm_source=phpstan&utm_medium=readme&utm_campaign=sponsorlogo"><img src="website/src/images/sponsor/packagist.png" alt="Private Packagist" width="283" height="64"></a>
 <br>
