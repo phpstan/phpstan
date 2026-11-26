@@ -55,6 +55,12 @@ parameters:
 			path: repo/plugins/woocommerce/includes/class-wc-structured-data.php
 
 		-
+			message: '#^Call to function is_callable\(\) with array\{\*NEVER\*, ''is_staging_site''\} will always evaluate to false\.$#'
+			identifier: function.impossibleType
+			count: 1
+			path: repo/plugins/woocommerce/includes/class-wc-tracker.php
+
+		-
 			message: '#^Parameter \#1 \$input of function array_slice expects array, list\<string\>\|false given\.$#'
 			identifier: argument.type
 			count: 2

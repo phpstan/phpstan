@@ -7,6 +7,18 @@ parameters:
 			path: repo/ajax/reservations.php
 
 		-
+			message: '#^Parameter \#1 \.\.\.\$arg1 of function max expects non\-empty\-array, list given\.$#'
+			identifier: argument.type
+			count: 3
+			path: repo/install/empty_data.php
+
+		-
+			message: '#^Method CommonDevice\:\:getMenuContent\(\) should return array\<string, array\<string, array\<string, array\{search\: string, add\?\: string, template\?\: string\}\|array\{title\: string, page\: string, icon\?\: string, links\?\: array\{search\: string, add\?\: string, template\?\: string\}\}\|string\>\|string\>\|string\|true\>\|false but returns array\{title\: string, page\: ''/front/devices\.php'', icon\: string, options\?\: non\-empty\-array\<class\-string, array\{title\: mixed, page\: string, icon\: string, links\: non\-empty\-array\<non\-falsy\-string, string\>\}\>\}\.$#'
+			identifier: return.type
+			count: 1
+			path: repo/src/CommonDevice.php
+
+		-
 			message: '#^Parameter \#1 \$input of method CommonITILObject\:\:isTakeIntoAccountComputationBlocked\(\) expects array, array\<string, mixed\>\|false given\.$#'
 			identifier: argument.type
 			count: 1
@@ -23,6 +35,12 @@ parameters:
 			identifier: isset.initializedProperty
 			count: 1
 			path: repo/src/DBmysql.php
+
+		-
+			message: '#^Method Glpi\\Api\\HL\\OpenAPIGenerator\:\:getPathSchemas\(\) should return array\<string, array\<string, array\{tags\: array\<string\>, responses\: array\<int\|string, array\{description\: string\}\>, description\?\: string, parameters\: array\<array\{''\$ref''\: string\}\|array\{name\: string, in\: string, description\: string, required\: bool, schema\: mixed\}\>, requestBody\?\: array\{content\: array\{''application/json''\: array\{schema\: array\{type\: string, format\?\: string, pattern\?\: string, properties\?\: array\<string, array\{type\: string, format\?\: string\}\>\}\}\}\}\}\>\> but returns non\-empty\-array\<string, array\<string, array\{tags\: array\<string\>, responses\: array, description\?\: string, parameters\: non\-empty\-list\<array\{name\: string, in\: string, description\: string, required\?\: bool, schema\: mixed, ''\$ref''\?\: string, default\?\: false, examples\: array\{English_GB\: array\{value\: ''en_GB'', summary\: ''English \(United…''\}, French_FR\: array\{value\: ''fr_FR'', summary\: ''French \(France\)''\}, Portuguese_BR\: array\{value\: ''pt_BR'', summary\: ''Portuguese \(Brazil\)''\}\}\}\>, requestBody\?\: array\{content\: array\{''application/json''\: array\{schema\: array\{type\: string, format\?\: string, pattern\?\: string, properties\?\: array\<string, array\{type\: string, format\?\: string\}\>\}\}\}\}, security\: array\<array\<string, array\<string, mixed\>\>\>, x\-controller\: string\}\>\>\.$#'
+			identifier: return.type
+			count: 1
+			path: repo/src/Glpi/Api/HL/OpenAPIGenerator.php
 
 		-
 			message: '#^Instanceof between DBmysql and DBmysql will always evaluate to true\.$#'
@@ -83,6 +101,18 @@ parameters:
 			identifier: binaryOp.invalid
 			count: 1
 			path: repo/src/Infocom.php
+
+		-
+			message: '#^Property NotificationTarget\<Project\>\:\:\$data \(array\<string, array\<string\>\|string\>\) does not accept array\<string, array\<array\<string, string\>\|string\>\|string\>\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: repo/src/NotificationTargetProject.php
+
+		-
+			message: '#^Property NotificationTarget\<ProjectTask\>\:\:\$data \(array\<string, array\<string\>\|string\>\) does not accept array\<string, array\<array\<string, string\>\|string\>\|string\>\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: repo/src/NotificationTargetProjectTask.php
 
 		-
 			message: '#^Argument of an invalid type array\|null supplied for foreach, only iterables are supported\.$#'

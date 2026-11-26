@@ -145,6 +145,12 @@ parameters:
 			path: repo/interface/modules/zend_modules/module/Immunization/src/Immunization/Controller/ImmunizationController.php
 
 		-
+			message: '#^Binary operation "\+" between mixed and 1 results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 1
+			path: repo/interface/modules/zend_modules/module/Immunization/src/Immunization/Controller/ImmunizationController.php
+
+		-
 			message: '#^Parameter \#1 \$text of function attr_url expects string, \(float\|int\) given\.$#'
 			identifier: argument.type
 			count: 1
@@ -191,6 +197,12 @@ parameters:
 			identifier: assignOp.invalid
 			count: 2
 			path: repo/interface/patient_file/transaction/add_transaction.php
+
+		-
+			message: '#^Parameter \#6 \$payer_type of static method OpenEMR\\Billing\\SLEOB\:\:arPostAdjustment\(\) expects string, int\<0, max\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/interface/reports/collections_report.php
 
 		-
 			message: '#^Loose comparison using \!\= between array and '''' will always evaluate to true\.$#'
@@ -331,6 +343,42 @@ parameters:
 			path: repo/library/edihistory/edih_csv_parse.php
 
 		-
+			message: '#^Offset ''AccAmt'' might not exist on array\{Date\: mixed, FileName\: mixed, Control\: string, Claim_ct\?\: int\<0, max\>, x12Partner\?\: mixed, Accept\?\: mixed, Reject\?\: mixed, AccAmt\?\: mixed, \.\.\.\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/library/edihistory/edih_csv_parse.php
+
+		-
+			message: '#^Offset ''Accept'' might not exist on array\{Date\: mixed, FileName\: mixed, Control\: string, Claim_ct\?\: int\<0, max\>, x12Partner\?\: mixed, Accept\?\: mixed, Reject\?\: mixed, AccAmt\?\: mixed, \.\.\.\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/library/edihistory/edih_csv_parse.php
+
+		-
+			message: '#^Offset ''RejAmt'' might not exist on array\{Date\: mixed, FileName\: mixed, Control\: string, Claim_ct\?\: int\<0, max\>, x12Partner\?\: mixed, Accept\?\: mixed, Reject\?\: mixed, AccAmt\?\: mixed, \.\.\.\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/library/edihistory/edih_csv_parse.php
+
+		-
+			message: '#^Offset ''Reject'' might not exist on array\{Date\: mixed, FileName\: mixed, Control\: string, Claim_ct\?\: int\<0, max\>, x12Partner\?\: mixed, Accept\?\: mixed, Reject\?\: mixed, AccAmt\?\: mixed, \.\.\.\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/library/edihistory/edih_csv_parse.php
+
+		-
+			message: '#^Offset ''Status'' might not exist on non\-empty\-array\{Status\?\: string, PtName\?\: string, InsBnft\?\: string, Trace\?\: string, Payer\?\: string, RspDate\?\: mixed, ReqDate\?\: mixed, BHT03\?\: string, \.\.\.\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/library/edihistory/edih_csv_parse.php
+
+		-
+			message: '#^Offset ''claim'' on array\{type\: string, claim\: array\<int\<0, max\>, non\-empty\-array\{Status\?\: string, PtName\?\: string, InsBnft\?\: string, Trace\?\: string, Payer\?\: string, RspDate\?\: mixed, ReqDate\?\: mixed, BHT03\?\: string, \.\.\.\}\>, file\: array\{\}\} in isset\(\) always exists and is not nullable\.$#'
+			identifier: isset.offset
+			count: 1
+			path: repo/library/edihistory/edih_csv_parse.php
+
+		-
 			message: '#^Binary operation "\.\=" between mixed and numeric\-string results in an error\.$#'
 			identifier: assignOp.invalid
 			count: 1
@@ -356,6 +404,30 @@ parameters:
 
 		-
 			message: '#^Offset ''reason'' might not exist on array\{encounter\: mixed, date\: mixed, last_level_closed\: mixed, charges\: 0\|float, payments\: 0, reason\: mixed, code_type\: mixed, code\: mixed\}\|array\{encounter\: mixed, date\: mixed, last_level_closed\: mixed, charges\: float, payments\: 0\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/portal/portal_payment.php
+
+		-
+			message: '#^Binary operation "\+\=" between \(float\|int\) and mixed results in an error\.$#'
+			identifier: assignOp.invalid
+			count: 2
+			path: repo/portal/portal_payment.php
+
+		-
+			message: '#^Offset ''code'' might not exist on array\{encounter\: mixed, date\: mixed, last_level_closed\: mixed, charges\: \(float\|int\), payments\: 0, reason\: mixed, code_type\: mixed, code\: mixed\}\|array\{encounter\: mixed, date\: mixed, last_level_closed\: mixed, charges\: \(float\|int\), payments\: 0\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/portal/portal_payment.php
+
+		-
+			message: '#^Offset ''code_type'' might not exist on array\{encounter\: mixed, date\: mixed, last_level_closed\: mixed, charges\: \(float\|int\), payments\: 0, reason\: mixed, code_type\: mixed, code\: mixed\}\|array\{encounter\: mixed, date\: mixed, last_level_closed\: mixed, charges\: \(float\|int\), payments\: 0\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/portal/portal_payment.php
+
+		-
+			message: '#^Offset ''reason'' might not exist on array\{encounter\: mixed, date\: mixed, last_level_closed\: mixed, charges\: \(float\|int\), payments\: 0, reason\: mixed, code_type\: mixed, code\: mixed\}\|array\{encounter\: mixed, date\: mixed, last_level_closed\: mixed, charges\: \(float\|int\), payments\: 0\}\.$#'
 			identifier: offsetAccess.notFound
 			count: 1
 			path: repo/portal/portal_payment.php
@@ -515,6 +587,42 @@ parameters:
 			identifier: booleanAnd.rightAlwaysTrue
 			count: 1
 			path: repo/src/Services/PatientTrackerService.php
+
+		-
+			message: '#^Cannot access offset ''aggregation_type'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: repo/src/Services/Qdm/ResultsCalculator.php
+
+		-
+			message: '#^Cannot access offset ''hqmf_id'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: repo/src/Services/Qdm/ResultsCalculator.php
+
+		-
+			message: '#^Cannot access offset ''observation_parameter'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: repo/src/Services/Qdm/ResultsCalculator.php
+
+		-
+			message: '#^Cannot access offset ''observations'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: repo/src/Services/Qdm/ResultsCalculator.php
+
+		-
+			message: '#^Cannot access property \$observations on mixed\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: repo/src/Services/Qdm/ResultsCalculator.php
+
+		-
+			message: '#^Parameter \#1 \$array of function array_values expects array\<mixed\>, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Services/Qdm/ResultsCalculator.php
 
 		-
 			message: '#^Parameter \#1 \$array of function array_values expects array\<mixed\>, mixed given\.$#'
