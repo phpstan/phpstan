@@ -1,6 +1,42 @@
 parameters:
 	ignoreErrors:
 		-
+			message: '#^Access to an undefined property App\\Models\\User\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\User\>\:\:\$group\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/Http/Controllers/Staff/BanController.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\User\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\User\>\:\:\$passkey\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/Http/Controllers/Staff/BanController.php
+
+		-
+			message: '#^Call to an undefined method App\\Models\\User\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\User\>\:\:notify\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: repo/app/Http/Controllers/Staff/BanController.php
+
+		-
+			message: '#^Call to an undefined method App\\Models\\User\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\User\>\:\:update\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: repo/app/Http/Controllers/Staff/BanController.php
+
+		-
+			message: '#^Parameter \#1 \$model of method Illuminate\\Database\\Eloquent\\Model\:\:is\(\) expects Illuminate\\Database\\Eloquent\\Model\|null, App\\Models\\User\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\User\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/app/Http/Controllers/Staff/BanController.php
+
+		-
+			message: '#^Parameter \#1 \$user of static method App\\Services\\Unit3dAnnounce\:\:addUser\(\) expects App\\Models\\User, App\\Models\\User\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\User\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/app/Http/Controllers/Staff/BanController.php
+
+		-
 			message: '#^Variable \$level might not be defined\.$#'
 			identifier: variable.undefined
 			count: 1

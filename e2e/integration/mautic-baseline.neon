@@ -11,3 +11,9 @@ parameters:
 			identifier: method.notFound
 			count: 1
 			path: repo/app/bundles/LeadBundle/Segment/Query/Filter/ComplexRelationValueFilterQueryBuilder.php
+
+		-
+			message: '#^Variable \$totalPages in isset\(\) always exists and is not nullable\.$#'
+			identifier: isset.variable
+			count: 1
+			path: repo/app/bundles/ReportBundle/Controller/ReportController.php
