@@ -183,6 +183,12 @@ jobs:
             composer install
             ../../phpstan analyse -l 8 Module
         include:
+          - php-version: 7.4
+            ini-values: memory_limit=256M
+            operating-system: ubuntu-latest
+            script: |
+              cd e2e/bug-15813
+              ../../phpstan analyse
           - php-version: 8.0
             ini-values: memory_limit=256M
             operating-system: ubuntu-latest
