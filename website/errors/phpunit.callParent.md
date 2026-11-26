@@ -35,6 +35,8 @@ This error is reported by the [phpstan-phpunit](https://github.com/phpstan/phpst
 
 When a PHPUnit test class overrides `setUp()` or `tearDown()` and the parent class (other than `TestCase` itself) also defines these methods, failing to call the parent method can skip important initialization or cleanup logic. This can lead to subtle test failures or resource leaks.
 
+The error is not reported when the method always terminates early, for example when it unconditionally calls `markTestSkipped()`, `markTestIncomplete()`, `fail()`, or throws an exception. In that case calling the parent method is not needed.
+
 ## How to fix it
 
 Add a call to the parent method:
