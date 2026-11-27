@@ -233,3 +233,15 @@ parameters:
 			identifier: argument.invalidConstant
 			count: 1
 			path: repo/tools/generate-item-upgrade-schema.php
+
+		-
+			message: '#^Offset 0\|1 might not exist on non\-empty\-array\{1\?\: ''minecraft\:copper…''\|''minecraft\:exposed…''\|''minecraft\:oxidized…''\|''minecraft\:waxed…''\|''minecraft\:weathered…'', 0\?\: ''minecraft\:copper…''\|''minecraft\:exposed…''\|''minecraft\:oxidized…''\|''minecraft\:waxed…''\|''minecraft\:weathered…''\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/src/data/bedrock/item/ItemSerializerDeserializerRegistrar.php
+
+		-
+			message: '#^Offset 0\|1\|2\|3 might not exist on non\-empty\-array\{0\?\: non\-empty\-array\{1\?\: ''minecraft\:copper…''\|''minecraft\:exposed…''\|''minecraft\:oxidized…''\|''minecraft\:waxed…''\|''minecraft\:weathered…'', 0\?\: ''minecraft\:copper…''\|''minecraft\:exposed…''\|''minecraft\:oxidized…''\|''minecraft\:waxed…''\|''minecraft\:weathered…''\}, 1\?\: non\-empty\-array\{1\?\: ''minecraft\:copper…''\|''minecraft\:exposed…''\|''minecraft\:oxidized…''\|''minecraft\:waxed…''\|''minecraft\:weathered…'', 0\?\: ''minecraft\:copper…''\|''minecraft\:exposed…''\|''minecraft\:oxidized…''\|''minecraft\:waxed…''\|''minecraft\:weathered…''\}, 2\?\: non\-empty\-array\{1\?\: ''minecraft\:copper…''\|''minecraft\:exposed…''\|''minecraft\:oxidized…''\|''minecraft\:waxed…''\|''minecraft\:weathered…'', 0\?\: ''minecraft\:copper…''\|''minecraft\:exposed…''\|''minecraft\:oxidized…''\|''minecraft\:waxed…''\|''minecraft\:weathered…''\}, 3\?\: non\-empty\-array\{1\?\: ''minecraft\:copper…''\|''minecraft\:exposed…''\|''minecraft\:oxidized…''\|''minecraft\:waxed…''\|''minecraft\:weathered…'', 0\?\: ''minecraft\:copper…''\|''minecraft\:exposed…''\|''minecraft\:oxidized…''\|''minecraft\:waxed…''\|''minecraft\:weathered…''\}\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/src/data/bedrock/item/ItemSerializerDeserializerRegistrar.php

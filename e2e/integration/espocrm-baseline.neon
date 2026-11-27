@@ -173,3 +173,33 @@ parameters:
 			identifier: varTag.nativeType
 			count: 1
 			path: repo/application/Espo/Tools/OAuthServer/EntryPoints/AuthorizeComplete.php
+
+		-
+			message: '#^Offset ''dir'' might not exist on array\{file\?\: mixed, dir\?\: mixed\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 2
+			path: repo/application/Espo/Core/Utils/File/Permission.php
+
+		-
+			message: '#^Offset ''file'' might not exist on array\{file\?\: mixed, dir\?\: mixed\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 2
+			path: repo/application/Espo/Core/Utils/File/Permission.php
+
+		-
+			message: '#^Method Espo\\ORM\\Query\\DeleteBuilder\:\:normalizeOrderExpressionItemArray\(\) should return array\<array\{string, bool\|string\}\> but returns list\<array\{int\|string, mixed\}\|array\{mixed, bool\|string\|null\}\>\.$#'
+			identifier: return.type
+			count: 1
+			path: repo/application/Espo/ORM/Query/DeleteBuilder.php
+
+		-
+			message: '#^Method Espo\\ORM\\Query\\SelectBuilder\:\:normalizeOrderExpressionItemArray\(\) should return array\<array\{string, bool\|string\}\> but returns list\<array\{int\|string, mixed\}\|array\{mixed, bool\|string\|null\}\>\.$#'
+			identifier: return.type
+			count: 1
+			path: repo/application/Espo/ORM/Query/SelectBuilder.php
+
+		-
+			message: '#^Method Espo\\ORM\\Query\\UpdateBuilder\:\:normalizeOrderExpressionItemArray\(\) should return array\<array\{string, bool\|string\}\> but returns list\<array\{int\|string, mixed\}\|array\{mixed, bool\|string\|null\}\>\.$#'
+			identifier: return.type
+			count: 1
+			path: repo/application/Espo/ORM/Query/UpdateBuilder.php

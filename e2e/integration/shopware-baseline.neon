@@ -191,3 +191,9 @@ parameters:
 			identifier: nullCoalesce.offset
 			count: 1
 			path: repo/tests/unit/Core/Profiling/Doctrine/BacktraceDebugDataHolderTest.php
+
+		-
+			rawMessage: 'Ternary operator condition is always true.'
+			identifier: ternary.alwaysTrue
+			count: 1
+			path: repo/src/Core/Content/Media/File/FileFetcher.php

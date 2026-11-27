@@ -47,3 +47,27 @@ parameters:
 			identifier: nullsafe.neverNull
 			count: 1
 			path: repo/src/Module/Song/SongSorter.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between non\-falsy\-string and ''0'' will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 1
+			path: repo/src/Module/Application/Image/AbstractShowAction.php
+
+		-
+			message: '#^Left side of && is always true\.$#'
+			identifier: booleanAnd.leftAlwaysTrue
+			count: 1
+			path: repo/src/Module/Catalog/Catalog.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between non\-falsy\-string and ''0'' will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 1
+			path: repo/src/Module/Share/ShareUiLinkRenderer.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between non\-falsy\-string and ''0'' will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 1
+			path: repo/src/Module/Util/ZipHandler.php

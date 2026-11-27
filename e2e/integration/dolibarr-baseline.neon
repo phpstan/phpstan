@@ -263,3 +263,15 @@ parameters:
 			identifier: notIdentical.alwaysTrue
 			count: 1
 			path: repo/htdocs/website/index.php
+
+		-
+			message: '#^Parameter \#2 \$params of function dolBuildUrl expects array\<string, float\|int\|string\>, array\<int\|string, int\<min, \-1\>\|int\<1, max\>\|string\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/htdocs/main.inc.php
+
+		-
+			message: '#^Parameter \#1 \$Tmenu of function getNav expects array\<int\|string, array\{id\: string, rank\: int, url\: string, name\: string\}\|array\{id\: string, rank\: int, url\: string\|false, name\: string, group\: string, override\?\: int\<0, 1\>, children\?\: array\<array\{id\: string, rank\: int, url\: string, name\: string, group\: string, override\?\: int\<0, 1\>\}\>\}\>, array\{user\?\: array\{id\: ''user_account'', rank\: 99998, url\: false, name\: non\-falsy\-string\}, user_logout\: array\{id\: ''user_logout'', rank\: 99999, url\: non\-falsy\-string, name\: non\-falsy\-string\}\} given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/htdocs/public/webportal/tpl/menu.tpl.php
