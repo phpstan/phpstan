@@ -557,3 +557,27 @@ parameters:
 			identifier: function.alreadyNarrowedType
 			count: 5
 			path: flow-dist/Packages/Framework/Neos.Utility.ObjectHandling/Classes/ObjectAccess.php
+
+		-
+			message: '#^Binary operation "\." between non\-falsy\-string and array\<mixed, mixed\>\|string results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/Http/UriTemplate.php
+
+		-
+			message: '#^Parameter \#2 \$array of function implode expects array\<string\>, array\<array\<mixed, mixed\>\|string\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/Http/UriTemplate.php
+
+		-
+			message: '#^Property Neos\\Flow\\ObjectManagement\\ObjectManager\<ObjectRecordInstance of object\>\:\:\$objects \(array\<string, array\{i\?\: object, l\?\: string, s\: int, p\?\: string, c\?\: ''''\|class\-string, ca\?\: array\<int, array\{t\: int, v\: mixed, wm\: int\}\|null\>, f\?\: array\{string, string\}, fa\?\: array\<int, array\{t\: int, v\: mixed\}\|null\>, \.\.\.\}\>\) does not accept non\-empty\-array\<string, array\{i\: \$this\(Neos\\Flow\\ObjectManagement\\ObjectManager\<ObjectRecordInstance of object\>\)\}\|array\{i\?\: object, l\?\: string, s\: int, p\?\: string, c\?\: ''''\|class\-string, ca\?\: array\<int, array\{t\: int, v\: mixed, wm\: int\}\|null\>, f\?\: array\{string, string\}, fa\?\: array\<int, array\{t\: int, v\: mixed\}\|null\>, \.\.\.\}\>\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/ObjectManagement/ObjectManager.php
+
+		-
+			message: '#^Property Neos\\Flow\\ObjectManagement\\ObjectManager\<ObjectRecordInstance of object\>\:\:\$objects \(array\<string, array\{i\?\: object, l\?\: string, s\: int, p\?\: string, c\?\: ''''\|class\-string, ca\?\: array\<int, array\{t\: int, v\: mixed, wm\: int\}\|null\>, f\?\: array\{string, string\}, fa\?\: array\<int, array\{t\: int, v\: mixed\}\|null\>, \.\.\.\}\>\) does not accept non\-empty\-array\<string, array\{i\: object\}\|array\{i\?\: object, l\?\: string, s\: int, p\?\: string, c\?\: ''''\|class\-string, ca\?\: array\<int, array\{t\: int, v\: mixed, wm\: int\}\|null\>, f\?\: array\{string, string\}, fa\?\: array\<int, array\{t\: int, v\: mixed\}\|null\>, \.\.\.\}\>\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/ObjectManagement/ObjectManager.php

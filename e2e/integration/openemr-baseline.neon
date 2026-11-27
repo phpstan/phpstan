@@ -893,3 +893,477 @@ parameters:
 			identifier: nullCoalesce.initializedProperty
 			count: 3
 			path: repo/tests/Tests/Api/InsufficientScopeDenyApiTest.php
+
+		-
+			message: '#^Cannot access offset ''''\|non\-falsy\-string on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: repo/custom/ajax_download.php
+
+		-
+			message: '#^Binary operation "\.\=" between ''''\|non\-falsy\-string and mixed results in an error\.$#'
+			identifier: assignOp.invalid
+			count: 1
+			path: repo/custom/code_types.inc.php
+
+		-
+			message: '#^Offset ''DENEX''\|''DENEXCEP''\|''DENOM''\|''IPP''\|''NUMER'' might not exist on ''00193FC7\-AEE4\-4507…''\|''0525FBA2\-F068\-4706…''\|''0899A359\-0CD8\-4977…''\|''0ED7B212\-369B\-489A…''\|''201F5A6E\-4DDE\-43A2…''\|''2448B0C6\-6848\-4DCB…''\|''26046A5C\-E2CC\-4A27…''\|''35B1A6DF\-1871\-4633…''\|''3EE6DFF5\-AB17\-482F…''\|''3F4CDE57\-1C5C\-4250…''\|''40280381\-3D61\-56A7…''\|''4327D845\-6194\-410D…''\|''4E118B62\-2AF8\-4F51…''\|''545DA813\-89ED\-4DCD…''\|''663FB12B\-0FF4\-49AB…''\|''6721D6DA\-E87D\-4E42…''\|''6ED6A787\-C871\-49B9…''\|''7549BA9E\-1841\-4231…''\|''873AECC7\-E15B\-49E7…''\|''9D1135EA\-BA90\-45E7…''\|''A72855CE\-3C60\-41F9…''\|''B5C9EC50\-3011\-43DC…''\|''B61EC2DC\-0841\-4906…''\|''C29B6555\-3BC7\-416F…''\|''C948D0D2\-D6E9\-4099…''\|''D04EFECB\-A901\-4565…''\|''E5F80C25\-6816\-4992…''\|''EC400908\-35BE\-439B…''\|''EDED90E9\-E4FE\-47E6…''\|''F48702E6\-D39A\-49D8…''\|''FA1B3953\-AE58\-4541…''\|''FEC7251A\-BF8D\-4472…''\|''FF7016E1\-E8C7\-43BA…''\|array\{''Numerator 1''\: array\{IPP\: ''10127790\-AE94\-4070…'', DENOM\: ''3B3C1568\-F875\-49B1…'', DENEX\: ''B288D5A4\-D573\-4FAA…'', NUMER\: ''FD4649BD\-B962\-4CBE…'', STRAT\: ''40280381\-3D61\-56A7…'', DISPLAY_TEXT\: ''BMI Recorded, RS1\:…''\}, ''Numerator 2''\: array\{IPP\: ''10127790\-AE94\-4070…'', DENOM\: ''3B3C1568\-F875\-49B1…'', DENEX\: ''B288D5A4\-D573\-4FAA…'', NUMER\: ''52FBD726\-4DD1\-48F5…'', STRAT\: ''40280381\-3D61\-56A7…'', DISPLAY_TEXT\: ''BMI Recorded, RS2\:…''\}, ''Numerator 3''\: array\{IPP\: ''10127790\-AE94\-4070…'', DENOM\: ''3B3C1568\-F875\-49B1…'', DENEX\: ''B288D5A4\-D573\-4FAA…'', NUMER\: ''C43CE779\-C5EE\-4C15…'', STRAT\: ''40280381\-3D61\-56A7…'', DISPLAY_TEXT\: ''Nutrition…''\}\}\|array\{''Numerator 1''\: array\{IPP\: ''10127790\-AE94\-4070…'', DENOM\: ''3B3C1568\-F875\-49B1…'', DENEX\: ''B288D5A4\-D573\-4FAA…'', NUMER\: ''FD4649BD\-B962\-4CBE…'', STRAT\: ''40280381\-3D61\-56A7…'', DISPLAY_TEXT\: ''Nutrition…''\}, ''Numerator 2''\: array\{IPP\: ''10127790\-AE94\-4070…'', DENOM\: ''3B3C1568\-F875\-49B1…'', DENEX\: ''B288D5A4\-D573\-4FAA…'', NUMER\: ''52FBD726\-4DD1\-48F5…'', STRAT\: ''40280381\-3D61\-56A7…'', DISPLAY_TEXT\: ''Physical Activity…''\}, ''Numerator 3''\: array\{IPP\: ''10127790\-AE94\-4070…'', DENOM\: ''3B3C1568\-F875\-49B1…'', DENEX\: ''B288D5A4\-D573\-4FAA…'', NUMER\: ''C43CE779\-C5EE\-4C15…'', STRAT\: ''40280381\-3D61\-56A7…'', DISPLAY_TEXT\: ''Physical Activity…''\}\}\|array\{''Numerator 1''\: array\{IPP\: ''10127790\-AE94\-4070…'', DENOM\: ''3B3C1568\-F875\-49B1…'', DENEX\: ''B288D5A4\-D573\-4FAA…'', NUMER\: ''FD4649BD\-B962\-4CBE…''\}, ''Numerator 2''\: array\{IPP\: ''10127790\-AE94\-4070…'', DENOM\: ''3B3C1568\-F875\-49B1…'', DENEX\: ''B288D5A4\-D573\-4FAA…'', NUMER\: ''52FBD726\-4DD1\-48F5…''\}, ''Numerator 3''\: array\{IPP\: ''10127790\-AE94\-4070…'', DENOM\: ''3B3C1568\-F875\-49B1…'', DENEX\: ''B288D5A4\-D573\-4FAA…'', NUMER\: ''C43CE779\-C5EE\-4C15…''\}\}\|array\{IPP\: ''1C936855\-E644\-44C0…'', DENOM\: ''27F1591C\-2060\-462C…'', DENEX\: ''9B0C3C26\-D621\-4EA3…'', NUMER\: ''3095531C\-24D7\-4AFB…''\}\|array\{IPP\: ''6E701B1C\-6CA5\-4AD5…'', DENOM\: ''E4DC29B8\-EB26\-4A01…'', DENEX\: ''BB1B4301\-C275\-4BAC…'', NUMER\: ''7669026D\-3683\-44CC…''\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/custom/export_qrda_xml.php
+
+		-
+			message: '#^Offset ''NUMER'' might not exist on ''00193FC7\-AEE4\-4507…''\|''0525FBA2\-F068\-4706…''\|''0899A359\-0CD8\-4977…''\|''0ED7B212\-369B\-489A…''\|''201F5A6E\-4DDE\-43A2…''\|''2448B0C6\-6848\-4DCB…''\|''26046A5C\-E2CC\-4A27…''\|''35B1A6DF\-1871\-4633…''\|''3EE6DFF5\-AB17\-482F…''\|''3F4CDE57\-1C5C\-4250…''\|''40280381\-3D61\-56A7…''\|''4327D845\-6194\-410D…''\|''4E118B62\-2AF8\-4F51…''\|''545DA813\-89ED\-4DCD…''\|''663FB12B\-0FF4\-49AB…''\|''6721D6DA\-E87D\-4E42…''\|''6ED6A787\-C871\-49B9…''\|''7549BA9E\-1841\-4231…''\|''873AECC7\-E15B\-49E7…''\|''9D1135EA\-BA90\-45E7…''\|''A72855CE\-3C60\-41F9…''\|''B5C9EC50\-3011\-43DC…''\|''B61EC2DC\-0841\-4906…''\|''C29B6555\-3BC7\-416F…''\|''C948D0D2\-D6E9\-4099…''\|''D04EFECB\-A901\-4565…''\|''E5F80C25\-6816\-4992…''\|''EC400908\-35BE\-439B…''\|''EDED90E9\-E4FE\-47E6…''\|''F48702E6\-D39A\-49D8…''\|''FA1B3953\-AE58\-4541…''\|''FEC7251A\-BF8D\-4472…''\|''FF7016E1\-E8C7\-43BA…''\|array\{''Numerator 1''\: array\{IPP\: ''10127790\-AE94\-4070…'', DENOM\: ''3B3C1568\-F875\-49B1…'', DENEX\: ''B288D5A4\-D573\-4FAA…'', NUMER\: ''FD4649BD\-B962\-4CBE…'', STRAT\: ''40280381\-3D61\-56A7…'', DISPLAY_TEXT\: ''BMI Recorded, RS1\:…''\}, ''Numerator 2''\: array\{IPP\: ''10127790\-AE94\-4070…'', DENOM\: ''3B3C1568\-F875\-49B1…'', DENEX\: ''B288D5A4\-D573\-4FAA…'', NUMER\: ''52FBD726\-4DD1\-48F5…'', STRAT\: ''40280381\-3D61\-56A7…'', DISPLAY_TEXT\: ''BMI Recorded, RS2\:…''\}, ''Numerator 3''\: array\{IPP\: ''10127790\-AE94\-4070…'', DENOM\: ''3B3C1568\-F875\-49B1…'', DENEX\: ''B288D5A4\-D573\-4FAA…'', NUMER\: ''C43CE779\-C5EE\-4C15…'', STRAT\: ''40280381\-3D61\-56A7…'', DISPLAY_TEXT\: ''Nutrition…''\}\}\|array\{''Numerator 1''\: array\{IPP\: ''10127790\-AE94\-4070…'', DENOM\: ''3B3C1568\-F875\-49B1…'', DENEX\: ''B288D5A4\-D573\-4FAA…'', NUMER\: ''FD4649BD\-B962\-4CBE…'', STRAT\: ''40280381\-3D61\-56A7…'', DISPLAY_TEXT\: ''Nutrition…''\}, ''Numerator 2''\: array\{IPP\: ''10127790\-AE94\-4070…'', DENOM\: ''3B3C1568\-F875\-49B1…'', DENEX\: ''B288D5A4\-D573\-4FAA…'', NUMER\: ''52FBD726\-4DD1\-48F5…'', STRAT\: ''40280381\-3D61\-56A7…'', DISPLAY_TEXT\: ''Physical Activity…''\}, ''Numerator 3''\: array\{IPP\: ''10127790\-AE94\-4070…'', DENOM\: ''3B3C1568\-F875\-49B1…'', DENEX\: ''B288D5A4\-D573\-4FAA…'', NUMER\: ''C43CE779\-C5EE\-4C15…'', STRAT\: ''40280381\-3D61\-56A7…'', DISPLAY_TEXT\: ''Physical Activity…''\}\}\|array\{''Numerator 1''\: array\{IPP\: ''10127790\-AE94\-4070…'', DENOM\: ''3B3C1568\-F875\-49B1…'', DENEX\: ''B288D5A4\-D573\-4FAA…'', NUMER\: ''FD4649BD\-B962\-4CBE…''\}, ''Numerator 2''\: array\{IPP\: ''10127790\-AE94\-4070…'', DENOM\: ''3B3C1568\-F875\-49B1…'', DENEX\: ''B288D5A4\-D573\-4FAA…'', NUMER\: ''52FBD726\-4DD1\-48F5…''\}, ''Numerator 3''\: array\{IPP\: ''10127790\-AE94\-4070…'', DENOM\: ''3B3C1568\-F875\-49B1…'', DENEX\: ''B288D5A4\-D573\-4FAA…'', NUMER\: ''C43CE779\-C5EE\-4C15…''\}\}\|array\{IPP\: ''1C936855\-E644\-44C0…'', DENOM\: ''27F1591C\-2060\-462C…'', DENEX\: ''9B0C3C26\-D621\-4EA3…'', NUMER\: ''3095531C\-24D7\-4AFB…''\}\|array\{IPP\: ''6E701B1C\-6CA5\-4AD5…'', DENOM\: ''E4DC29B8\-EB26\-4A01…'', DENEX\: ''BB1B4301\-C275\-4BAC…'', NUMER\: ''7669026D\-3683\-44CC…''\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/custom/export_qrda_xml.php
+
+		-
+			message: '#^Binary operation "\." between mixed and ''''\|non\-falsy\-string results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 1
+			path: repo/interface/forms/eye_mag/php/eye_mag_functions.php
+
+		-
+			message: '#^Offset ''ODVESSELS''\|''OSVESSELS'' might not exist on array\{ODVESSELS\?\: ''1'', OSVESSELS\?\: ''1''\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/forms/eye_mag/php/eye_mag_functions.php
+
+		-
+			message: '#^Call to function is_countable\(\) with list\<mixed\> will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/interface/main/finder/document_select.php
+
+		-
+			message: '#^Binary operation "\." between mixed and ''''\|non\-falsy\-string results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 1
+			path: repo/interface/main/messages/print_postcards.php
+
+		-
+			message: '#^Binary operation "\.\=" between ''''\|non\-falsy\-string and mixed results in an error\.$#'
+			identifier: assignOp.invalid
+			count: 2
+			path: repo/interface/modules/custom_modules/oe-module-dorn/src/ReceiveHl7Results.php
+
+		-
+			message: '#^Offset ''facility'' does not exist on array\{result_data_type\: ''L'', comments\: non\-falsy\-string, result\: '''', result_code\: mixed, result_text\: mixed, date\: string, units\: mixed, range\: mixed, \.\.\.\}\|array\{result_data_type\: string, comments\: "\\n", document_id\?\: mixed, date\: string, result_code\: mixed, result_text\: mixed, units\: mixed, range\: mixed, \.\.\.\}\|array\{result_data_type\: string, comments\: "\\n", result\: mixed, result_code\: mixed, result_text\: mixed, date\: string, units\: mixed, range\: mixed, \.\.\.\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/modules/custom_modules/oe-module-dorn/src/ReceiveHl7Results.php
+
+		-
+			message: '#^Offset ''care_plan'' might not exist on array\{care_plan\?\: non\-empty\-array\<int\<1, max\>, array\{extension\: mixed, root\: mixed, text\: mixed, code\: mixed, description\: mixed, plan_type\: mixed\}\>\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/modules/zend_modules/module/Carecoordination/src/Carecoordination/Model/CarecoordinationTable.php
+
+		-
+			message: '#^Offset ''encounter'' might not exist on array\{encounter\?\: non\-empty\-array\<int\<1, max\>, array\{extension\: mixed, root\: mixed, date\: mixed, provider_npi\: mixed, provider_name\: mixed, provider_address\: mixed, provider_city\: mixed, provider_state\: mixed, \.\.\.\}\>\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/modules/zend_modules/module/Carecoordination/src/Carecoordination/Model/CarecoordinationTable.php
+
+		-
+			message: '#^Offset ''functional_cognitive_status'' might not exist on array\{functional_cognitive_status\?\: non\-empty\-array\<int\<1, max\>, array\{extension\: mixed, root\: mixed, text\: mixed, code\: mixed, date\: mixed, description\: mixed\}\>\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/modules/zend_modules/module/Carecoordination/src/Carecoordination/Model/CarecoordinationTable.php
+
+		-
+			message: '#^Offset ''immunization'' might not exist on array\{immunization\?\: non\-empty\-array\<int\<1, max\>, array\{extension\: mixed, root\: mixed, administered_date\: mixed, route_code\: mixed, route_code_text\: mixed, cvx_code\: mixed, cvx_code_text\: mixed, amount_administered\: mixed, \.\.\.\}\>\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/modules/zend_modules/module/Carecoordination/src/Carecoordination/Model/CarecoordinationTable.php
+
+		-
+			message: '#^Offset ''lists1'' might not exist on array\{lists1\?\: non\-empty\-array\<int\<1, max\>, array\{extension\: mixed, root\: mixed, begdate\: mixed, enddate\: mixed, list_code\: mixed, list_code_text\: mixed, status\: mixed, observation_text\: mixed, \.\.\.\}\>\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/modules/zend_modules/module/Carecoordination/src/Carecoordination/Model/CarecoordinationTable.php
+
+		-
+			message: '#^Offset ''lists2'' might not exist on array\{lists2\?\: non\-empty\-array\<int\<1, max\>, array\{extension\: mixed, begdate\: mixed, enddate\: mixed, list_code\: mixed, list_code_text\: mixed, severity_al\: mixed, status\: mixed, reaction\: mixed, \.\.\.\}\>\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/modules/zend_modules/module/Carecoordination/src/Carecoordination/Model/CarecoordinationTable.php
+
+		-
+			message: '#^Offset ''lists3'' might not exist on array\{lists3\?\: non\-empty\-array\<int\<1, max\>, array\{extension\: mixed, root\: mixed, begdate\: mixed, enddate\: mixed, route\: mixed, note\: mixed, indication\: mixed, route_display\: mixed, \.\.\.\}\>\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/modules/zend_modules/module/Carecoordination/src/Carecoordination/Model/CarecoordinationTable.php
+
+		-
+			message: '#^Offset ''procedure'' might not exist on array\{procedure\?\: non\-empty\-array\<int\<1, max\>, array\{extension\: mixed, root\: mixed, codeSystemName\: mixed, code\: mixed, code_text\: mixed, date\: mixed, represented_organization1\: mixed, represented_organization_address1\: mixed, \.\.\.\}\>\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/modules/zend_modules/module/Carecoordination/src/Carecoordination/Model/CarecoordinationTable.php
+
+		-
+			message: '#^Offset ''procedure_result'' might not exist on array\{procedure_result\?\: non\-empty\-array\<int\<1, max\>, array\{proc_text\: mixed, proc_code\: mixed, extension\: mixed, date\: mixed, status\: mixed, results_text\: mixed, results_code\: mixed, results_range\: mixed, \.\.\.\}\>\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/modules/zend_modules/module/Carecoordination/src/Carecoordination/Model/CarecoordinationTable.php
+
+		-
+			message: '#^Offset ''referral'' might not exist on array\{referral\?\: non\-empty\-array\<int\<1, max\>, array\{body\: mixed, root\: mixed\}\>\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/modules/zend_modules/module/Carecoordination/src/Carecoordination/Model/CarecoordinationTable.php
+
+		-
+			message: '#^Offset ''vitals'' might not exist on array\{vitals\?\: non\-empty\-array\<int\<1, max\>, array\{extension\: mixed, date\: mixed, temperature\: mixed, bpd\: mixed, bps\: mixed, head_circ\: mixed, pulse\: mixed, height\: mixed, \.\.\.\}\>\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/modules/zend_modules/module/Carecoordination/src/Carecoordination/Model/CarecoordinationTable.php
+
+		-
+			message: '#^Offset 0 might not exist on array\{0\?\: non\-empty\-array\<mixed\>\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 2
+			path: repo/interface/modules/zend_modules/module/Carecoordination/src/Carecoordination/Model/EncounterccdadispatchTable.php
+
+		-
+			message: '#^Offset ''field_name_value_array'' might not exist on array\{approval_status\: 1, type\: 11, ip_address\: mixed, field_name_value_array\: non\-empty\-array\<non\-empty\-array\<int, non\-empty\-array\<string, mixed\>\>\>, entry_identification_array\: non\-empty\-array\<non\-empty\-array\<int, int\>\>\}\|array\{approval_status\: 1, type\: 11, ip_address\: mixed, field_name_value_array\?\: non\-empty\-array\<non\-empty\-array\<int, array\<string, mixed\>\>\>, entry_identification_array\: non\-empty\-array\<non\-empty\-array\<int, int\>\>\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/modules/zend_modules/module/Ccr/src/Ccr/Controller/CcrController.php
+
+		-
+			message: '#^Offset ''documents'' might not exist on array\{documents\?\: non\-empty\-array\<mixed\>, misc_address_book\?\: non\-empty\-array\<mixed\>, procedure_type\?\: non\-empty\-array\<mixed\>, procedure_result\?\: non\-empty\-array\<mixed\>, immunizations\?\: non\-empty\-array\<mixed\>, prescriptions\?\: non\-empty\-array\<mixed\>, lists2\?\: non\-empty\-array\<mixed\>, lists1\?\: non\-empty\-array\<mixed\>, \.\.\.\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/modules/zend_modules/module/Ccr/src/Ccr/Model/CcrTable.php
+
+		-
+			message: '#^Offset ''immunizations'' might not exist on array\{documents\?\: non\-empty\-array\<mixed\>, misc_address_book\?\: non\-empty\-array\<mixed\>, procedure_type\?\: non\-empty\-array\<mixed\>, procedure_result\?\: non\-empty\-array\<mixed\>, immunizations\?\: non\-empty\-array\<mixed\>, prescriptions\?\: non\-empty\-array\<mixed\>, lists2\?\: non\-empty\-array\<mixed\>, lists1\?\: non\-empty\-array\<mixed\>, \.\.\.\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 2
+			path: repo/interface/modules/zend_modules/module/Ccr/src/Ccr/Model/CcrTable.php
+
+		-
+			message: '#^Offset ''lists1'' might not exist on array\{documents\?\: non\-empty\-array\<mixed\>, misc_address_book\?\: non\-empty\-array\<mixed\>, procedure_type\?\: non\-empty\-array\<mixed\>, procedure_result\?\: non\-empty\-array\<mixed\>, immunizations\?\: non\-empty\-array\<mixed\>, prescriptions\?\: non\-empty\-array\<mixed\>, lists2\?\: non\-empty\-array\<mixed\>, lists1\?\: non\-empty\-array\<mixed\>, \.\.\.\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 4
+			path: repo/interface/modules/zend_modules/module/Ccr/src/Ccr/Model/CcrTable.php
+
+		-
+			message: '#^Offset ''lists2'' might not exist on array\{documents\?\: non\-empty\-array\<mixed\>, misc_address_book\?\: non\-empty\-array\<mixed\>, procedure_type\?\: non\-empty\-array\<mixed\>, procedure_result\?\: non\-empty\-array\<mixed\>, immunizations\?\: non\-empty\-array\<mixed\>, prescriptions\?\: non\-empty\-array\<mixed\>, lists2\?\: non\-empty\-array\<mixed\>, lists1\?\: non\-empty\-array\<mixed\>, \.\.\.\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/modules/zend_modules/module/Ccr/src/Ccr/Model/CcrTable.php
+
+		-
+			message: '#^Offset ''patient_data'' might not exist on array\{documents\?\: non\-empty\-array\<mixed\>, misc_address_book\?\: non\-empty\-array\<mixed\>, procedure_type\?\: non\-empty\-array\<mixed\>, procedure_result\?\: non\-empty\-array\<mixed\>, immunizations\?\: non\-empty\-array\<mixed\>, prescriptions\?\: non\-empty\-array\<mixed\>, lists2\?\: non\-empty\-array\<mixed\>, lists1\?\: non\-empty\-array\<mixed\>, \.\.\.\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/modules/zend_modules/module/Ccr/src/Ccr/Model/CcrTable.php
+
+		-
+			message: '#^Offset ''prescriptions'' might not exist on array\{documents\?\: non\-empty\-array\<mixed\>, misc_address_book\?\: non\-empty\-array\<mixed\>, procedure_type\?\: non\-empty\-array\<mixed\>, procedure_result\?\: non\-empty\-array\<mixed\>, immunizations\?\: non\-empty\-array\<mixed\>, prescriptions\?\: non\-empty\-array\<mixed\>, lists2\?\: non\-empty\-array\<mixed\>, lists1\?\: non\-empty\-array\<mixed\>, \.\.\.\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/modules/zend_modules/module/Ccr/src/Ccr/Model/CcrTable.php
+
+		-
+			message: '#^Binary operation "\.\=" between ''''\|non\-falsy\-string and mixed results in an error\.$#'
+			identifier: assignOp.invalid
+			count: 2
+			path: repo/interface/orders/receive_hl7_results.inc.php
+
+		-
+			message: '#^Offset ''facility'' does not exist on array\{result_data_type\: ''L'', comments\: non\-falsy\-string, result\: '''', result_code\: mixed, result_text\: mixed, date\: string, units\: mixed, range\: mixed, \.\.\.\}\|array\{result_data_type\: string, comments\: "\\n", document_id\?\: mixed, date\: string, result_code\: mixed, result_text\: mixed, units\: mixed, range\: mixed, \.\.\.\}\|array\{result_data_type\: string, comments\: "\\n", result\: mixed, result_code\: mixed, result_text\: mixed, date\: string, units\: mixed, range\: mixed, \.\.\.\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/orders/receive_hl7_results.inc.php
+
+		-
+			message: '#^Binary operation "\.\=" between ''''\|non\-falsy\-string and mixed results in an error\.$#'
+			identifier: assignOp.invalid
+			count: 1
+			path: repo/interface/orders/single_order_results.inc.php
+
+		-
+			message: '#^Loose comparison using \!\= between non\-falsy\-string and '''' will always evaluate to true\.$#'
+			identifier: notEqual.alwaysTrue
+			count: 1
+			path: repo/interface/orders/single_order_results.inc.php
+
+		-
+			message: '#^Binary operation "\.\=" between ''''\|non\-falsy\-string and mixed results in an error\.$#'
+			identifier: assignOp.invalid
+			count: 1
+			path: repo/interface/patient_file/download_template.php
+
+		-
+			message: '#^Offset ''adjustments'' might not exist on array\{insname\: string, pid\: mixed, count\?\: \(float\|int\), charges\: \(float\|int\), adjustments\?\: mixed, paid\: \(float\|int\), amount\: \(float\|int\), agedbal\?\: array\<int, \(float\|int\)\>, \.\.\.\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/reports/collections_report.php
+
+		-
+			message: '#^Offset ''amount'' might not exist on array\{insname\: string, pid\: mixed, count\?\: \(float\|int\), charges\?\: mixed, adjustments\?\: mixed, paid\?\: mixed, amount\?\: mixed, agedbal\?\: array\<int, \(float\|int\)\>, \.\.\.\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/reports/collections_report.php
+
+		-
+			message: '#^Offset ''charges'' might not exist on array\{insname\: string, pid\: mixed, count\?\: \(float\|int\), charges\?\: mixed, adjustments\?\: mixed, paid\: \(float\|int\), amount\: \(float\|int\), agedbal\?\: array\<int, \(float\|int\)\>, \.\.\.\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/reports/collections_report.php
+
+		-
+			message: '#^Offset ''count'' might not exist on array\{insname\: string, pid\: mixed, count\?\: \(float\|int\), charges\: \(float\|int\), adjustments\: \(float\|int\), paid\: \(float\|int\), amount\: \(float\|int\), agedbal\?\: array\<int, \(float\|int\)\>, \.\.\.\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/reports/collections_report.php
+
+		-
+			message: '#^Offset ''paid'' might not exist on array\{insname\: string, pid\: mixed, count\?\: \(float\|int\), charges\?\: mixed, adjustments\?\: mixed, paid\?\: mixed, amount\: \(float\|int\), agedbal\?\: array\<int, \(float\|int\)\>, \.\.\.\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/reports/collections_report.php
+
+		-
+			message: '#^Offset 0 might not exist on array\{0\?\: mixed, 1\?\: int\<0, max\>, 2\?\: int\<0, max\>, 3\?\: int\<0, max\>, 4\?\: int\<0, max\>, 5\?\: int\<0, max\>, 6\?\: int\<0, max\>, 7\?\: int\<0, max\>, \.\.\.\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/reports/ippf_daily.php
+
+		-
+			message: '#^Offset 10 might not exist on array\{0\?\: mixed, 1\?\: int\<0, max\>, 2\?\: int\<0, max\>, 3\?\: int\<0, max\>, 4\?\: int\<0, max\>, 5\?\: int\<0, max\>, 6\?\: int\<0, max\>, 7\?\: int\<0, max\>, \.\.\.\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/reports/ippf_daily.php
+
+		-
+			message: '#^Offset 11 might not exist on array\{0\?\: mixed, 1\?\: int\<0, max\>, 2\?\: int\<0, max\>, 3\?\: int\<0, max\>, 4\?\: int\<0, max\>, 5\?\: int\<0, max\>, 6\?\: int\<0, max\>, 7\?\: int\<0, max\>, \.\.\.\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/reports/ippf_daily.php
+
+		-
+			message: '#^Offset 12 might not exist on array\{0\?\: mixed, 1\?\: int\<0, max\>, 2\?\: int\<0, max\>, 3\?\: int\<0, max\>, 4\?\: int\<0, max\>, 5\?\: int\<0, max\>, 6\?\: int\<0, max\>, 7\?\: int\<0, max\>, \.\.\.\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/reports/ippf_daily.php
+
+		-
+			message: '#^Offset 4 might not exist on array\{0\?\: mixed, 1\?\: int\<0, max\>, 2\?\: int\<0, max\>, 3\?\: int\<0, max\>, 4\?\: int\<0, max\>, 5\?\: int\<0, max\>, 6\?\: int\<0, max\>, 7\?\: int\<0, max\>, \.\.\.\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/reports/ippf_daily.php
+
+		-
+			message: '#^Offset 5 might not exist on array\{0\?\: mixed, 1\?\: int\<0, max\>, 2\?\: int\<0, max\>, 3\?\: int\<0, max\>, 4\?\: int\<0, max\>, 5\?\: int\<0, max\>, 6\?\: int\<0, max\>, 7\?\: int\<0, max\>, \.\.\.\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/reports/ippf_daily.php
+
+		-
+			message: '#^Offset 6 might not exist on array\{0\?\: mixed, 1\?\: int\<0, max\>, 2\?\: int\<0, max\>, 3\?\: int\<0, max\>, 4\?\: int\<0, max\>, 5\?\: int\<0, max\>, 6\?\: int\<0, max\>, 7\?\: int\<0, max\>, \.\.\.\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/reports/ippf_daily.php
+
+		-
+			message: '#^Offset 7 might not exist on array\{0\?\: mixed, 1\?\: int\<0, max\>, 2\?\: int\<0, max\>, 3\?\: int\<0, max\>, 4\?\: int\<0, max\>, 5\?\: int\<0, max\>, 6\?\: int\<0, max\>, 7\?\: int\<0, max\>, \.\.\.\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/reports/ippf_daily.php
+
+		-
+			message: '#^Offset 8 might not exist on array\{0\?\: mixed, 1\?\: int\<0, max\>, 2\?\: int\<0, max\>, 3\?\: int\<0, max\>, 4\?\: int\<0, max\>, 5\?\: int\<0, max\>, 6\?\: int\<0, max\>, 7\?\: int\<0, max\>, \.\.\.\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/reports/ippf_daily.php
+
+		-
+			message: '#^Offset 9 might not exist on array\{0\?\: mixed, 1\?\: int\<0, max\>, 2\?\: int\<0, max\>, 3\?\: int\<0, max\>, 4\?\: int\<0, max\>, 5\?\: int\<0, max\>, 6\?\: int\<0, max\>, 7\?\: int\<0, max\>, \.\.\.\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/reports/ippf_daily.php
+
+		-
+			message: '#^Offset int\<1, 12\> might not exist on array\{0\?\: mixed, 1\?\: int\<0, max\>, 2\?\: int\<0, max\>, 3\?\: int\<0, max\>, 4\?\: int\<0, max\>, 5\?\: int\<0, max\>, 6\?\: int\<0, max\>, 7\?\: int\<0, max\>, \.\.\.\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/reports/ippf_daily.php
+
+		-
+			message: '#^Binary operation "\." between mixed and ''''\|non\-falsy\-string results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 1
+			path: repo/interface/super/layout_service_codes.php
+
+		-
+			message: '#^Binary operation "\." between ''''\|non\-falsy\-string and mixed results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 1
+			path: repo/interface/usergroup/usergroup_admin_add.php
+
+		-
+			message: '#^Offset ''Fac'' might not exist on array\{Stat\?\: non\-falsy\-string, Fac\?\: non\-falsy\-string\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 3
+			path: repo/library/MedEx/API.php
+
+		-
+			message: '#^Binary operation "\.\=" between ''''\|non\-falsy\-string and mixed results in an error\.$#'
+			identifier: assignOp.invalid
+			count: 2
+			path: repo/library/classes/NumberToText.class.php
+
+		-
+			message: '#^Binary operation "\." between mixed and ''''\|non\-falsy\-string results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 1
+			path: repo/library/classes/smtp/login_sasl_client.php
+
+		-
+			message: '#^Binary operation "\.\=" between ''''\|non\-falsy\-string and mixed results in an error\.$#'
+			identifier: assignOp.invalid
+			count: 1
+			path: repo/library/csv_like_join.php
+
+		-
+			message: '#^Binary operation "\." between ''''\|non\-falsy\-string and mixed results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 3
+			path: repo/library/custom_template/personalize.php
+
+		-
+			message: '#^Binary operation "\.\=" between ''''\|non\-falsy\-string and mixed results in an error\.$#'
+			identifier: assignOp.invalid
+			count: 1
+			path: repo/library/edihistory/edih_278_html.php
+
+		-
+			message: '#^Offset 0 might not exist on ''''\|non\-falsy\-string\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/library/edihistory/edih_835_html.php
+
+		-
+			message: '#^Offset ''claim'' on array\{type\: string, claim\: array\<int\<0, max\>, non\-empty\-array\<literal\-string&non\-falsy\-string, mixed\>\>, file\: array\{\}\} in isset\(\) always exists and is not nullable\.$#'
+			identifier: isset.offset
+			count: 1
+			path: repo/library/edihistory/edih_csv_parse.php
+
+		-
+			message: '#^Binary operation "\-" between non\-empty\-string and string results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 1
+			path: repo/library/formatting.inc.php
+
+		-
+			message: '#^Binary operation "\.\=" between ''''\|non\-falsy\-string and mixed results in an error\.$#'
+			identifier: assignOp.invalid
+			count: 2
+			path: repo/library/options.inc.php
+
+		-
+			message: '#^Binary operation "\.\=" between mixed and ''''\|non\-falsy\-string results in an error\.$#'
+			identifier: assignOp.invalid
+			count: 1
+			path: repo/portal/lib/appsql.class.php
+
+		-
+			message: '#^Offset ''data'' might not exist on array\{\}\|array\{data\: non\-empty\-array, company\: array\|false, object\: InsuranceCompany\}\|array\{data\: non\-empty\-array, company\?\: array\|false\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 2
+			path: repo/src/Billing/Claim.php
+
+		-
+			message: '#^Binary operation "\.\=" between ''''\|non\-falsy\-string and mixed results in an error\.$#'
+			identifier: assignOp.invalid
+			count: 1
+			path: repo/src/ClinicalDecisionRules/Interface/RuleLibrary/ReminderIntervals.php
+
+		-
+			message: '#^Binary operation "\.\=" between ''''\|non\-falsy\-string and mixed results in an error\.$#'
+			identifier: assignOp.invalid
+			count: 1
+			path: repo/src/Common/Forms/Types/BillingCodeType.php
+
+		-
+			message: '#^Binary operation "\.\=" between ''''\|non\-falsy\-string and mixed results in an error\.$#'
+			identifier: assignOp.invalid
+			count: 1
+			path: repo/src/Common/Forms/Types/SmokingStatusType.php
+
+		-
+			message: '#^Binary operation "\." between mixed and ''''\|non\-falsy\-string results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 1
+			path: repo/src/Patient/Cards/CareTeamViewCard.php
+
+		-
+			message: '#^Binary operation "\." between mixed and ''''\|non\-falsy\-string results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 1
+			path: repo/src/Rx/RxList.php
+
+		-
+			message: '#^Binary operation "\.\=" between ''''\|non\-falsy\-string and mixed results in an error\.$#'
+			identifier: assignOp.invalid
+			count: 1
+			path: repo/src/Services/DocumentTemplates/DocumentTemplateRender.php
+
+		-
+			message: '#^Parameter \#2 \$haystack of function in_array expects array, list\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Services/DocumentTemplates/DocumentTemplateService.php
+
+		-
+			message: '#^Binary operation "\.\=" between ''''\|non\-falsy\-string and mixed results in an error\.$#'
+			identifier: assignOp.invalid
+			count: 1
+			path: repo/src/Services/DrugSalesService.php
+
+		-
+			message: '#^Cannot access offset ''_count''\|''_offset''\|''_sort'' on array\{_count\?\: mixed, _offset\?\: mixed, _sort\?\: mixed\}\|OpenEMR\\Services\\Search\\ISearchField\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: repo/src/Services/FHIR/FhirDocRefService.php
+
+		-
+			message: '#^Cannot access offset ''_count''\|''_offset''\|''_sort'' on array\{_count\?\: mixed, _offset\?\: mixed, _sort\?\: mixed\}\|OpenEMR\\Services\\Search\\ISearchField\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: repo/src/Services/FHIR/FhirServiceBase.php
+
+		-
+			message: '#^Binary operation "\.\=" between mixed and ''''\|non\-falsy\-string results in an error\.$#'
+			identifier: assignOp.invalid
+			count: 2
+			path: repo/src/Services/GroupService.php
+
+		-
+			message: '#^Binary operation "\." between ''''\|non\-falsy\-string and mixed results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 1
+			path: repo/src/Services/PatientNameHistoryService.php
+
+		-
+			message: '#^Offset ''measure'' on array\{category\: array\{coding\: array\{array\{system\: mixed, code\: mixed, display\: mixed\}\}, text\: mixed\}, measure\: array\{coding\: array\{array\{system\: mixed, code\: mixed, display\: mixed\}\}, text\: mixed\}, target\: array\{coding\: array\{array\{system\: mixed, code\: mixed, display\: mixed\}\}, text\: mixed\}, description\: array\{coding\: array\{array\{system\: mixed, code\: mixed, display\: mixed\}\}, text\: mixed\}\|array\{text\: ''Has reliable…''\|''No threat of…''\}\}\|array\{category\: array\{coding\: array\{array\{system\: mixed, code\: mixed, display\: mixed\}\}, text\: mixed\}, measure\: array\{coding\: array\{array\{system\: mixed, code\: mixed, display\: mixed\}\}, text\: mixed\}, target\: array\{text\: ''Never''\}, description\: array\{text\: ''Adequate social…''\}\}\|array\{category\: array\{coding\: array\{array\{system\: mixed, code\: mixed, display\: mixed\}\}, text\: mixed\}, measure\: array\{text\: ''Adequate digital…''\}, target\: array\{text\: ''Yes''\}, description\: array\{text\: ''Has adequate…''\}\}\|array\{category\: array\{coding\: array\{array\{system\: mixed, code\: mixed, display\: mixed\}\}, text\: mixed\}, measure\: array\{text\: ''Childcare needs…''\}, target\: array\{coding\: array\{array\{system\: mixed, code\: mixed, display\: mixed\}\}, text\: mixed\}, description\: array\{text\: ''Childcare needs…''\}\}\|array\{category\: array\{coding\: array\{array\{system\: mixed, code\: mixed, display\: mixed\}\}, text\: mixed\}, measure\: array\{text\: ''Financial strain…''\}, target\: array\{coding\: array\{array\{system\: mixed, code\: mixed, display\: mixed\}\}, text\: mixed\}, description\: array\{text\: ''Reduced financial…''\}\}\|array\{category\: array\{coding\: array\{array\{system\: mixed, code\: mixed, display\: mixed\}\}, text\: mixed\}, measure\: array\{text\: ''IPV screen''\}, target\: array\{coding\: array\{array\{system\: mixed, code\: mixed, display\: mixed\}\}, text\: mixed\}, description\: array\{text\: ''Safe interpersonal…''\}\} in empty\(\) always exists and is not falsy\.$#'
+			identifier: empty.offset
+			count: 1
+			path: repo/src/Services/SDOH/HistorySdohService.php
+
+		-
+			message: '#^Offset ''target'' on array\{category\: array\{coding\: array\{array\{system\: mixed, code\: mixed, display\: mixed\}\}, text\: mixed\}, measure\: array\{coding\: array\{array\{system\: mixed, code\: mixed, display\: mixed\}\}, text\: mixed\}, target\: array\{coding\: array\{array\{system\: mixed, code\: mixed, display\: mixed\}\}, text\: mixed\}, description\: array\{coding\: array\{array\{system\: mixed, code\: mixed, display\: mixed\}\}, text\: mixed\}\|array\{text\: ''Has reliable…''\|''No threat of…''\}\}\|array\{category\: array\{coding\: array\{array\{system\: mixed, code\: mixed, display\: mixed\}\}, text\: mixed\}, measure\: array\{coding\: array\{array\{system\: mixed, code\: mixed, display\: mixed\}\}, text\: mixed\}, target\: array\{text\: ''Never''\}, description\: array\{text\: ''Adequate social…''\}\}\|array\{category\: array\{coding\: array\{array\{system\: mixed, code\: mixed, display\: mixed\}\}, text\: mixed\}, measure\: array\{text\: ''Adequate digital…''\}, target\: array\{text\: ''Yes''\}, description\: array\{text\: ''Has adequate…''\}\}\|array\{category\: array\{coding\: array\{array\{system\: mixed, code\: mixed, display\: mixed\}\}, text\: mixed\}, measure\: array\{text\: ''Childcare needs…''\}, target\: array\{coding\: array\{array\{system\: mixed, code\: mixed, display\: mixed\}\}, text\: mixed\}, description\: array\{text\: ''Childcare needs…''\}\}\|array\{category\: array\{coding\: array\{array\{system\: mixed, code\: mixed, display\: mixed\}\}, text\: mixed\}, measure\: array\{text\: ''Financial strain…''\}, target\: array\{coding\: array\{array\{system\: mixed, code\: mixed, display\: mixed\}\}, text\: mixed\}, description\: array\{text\: ''Reduced financial…''\}\}\|array\{category\: array\{coding\: array\{array\{system\: mixed, code\: mixed, display\: mixed\}\}, text\: mixed\}, measure\: array\{text\: ''IPV screen''\}, target\: array\{coding\: array\{array\{system\: mixed, code\: mixed, display\: mixed\}\}, text\: mixed\}, description\: array\{text\: ''Safe interpersonal…''\}\} in empty\(\) always exists and is not falsy\.$#'
+			identifier: empty.offset
+			count: 1
+			path: repo/src/Services/SDOH/HistorySdohService.php
+
+		-
+			message: '#^Binary operation "\." between mixed and ''''\|non\-falsy\-string results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 1
+			path: repo/tests/Tests/Certification/HIT1/G10_Certification/SinglePatientApi/CapabilityStatementTest.php

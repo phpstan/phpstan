@@ -167,3 +167,207 @@ parameters:
 			identifier: offsetAccess.nonOffsetAccessible
 			count: 1
 			path: repo/src/UserEmail.php
+
+		-
+			message: '#^Method CommonDevice\:\:getDeviceTypes\(\) should return array\<array\<class\-string\<CommonDevice\>\>\|class\-string\<CommonDevice\>\> but returns array\<int\<0, max\>\|string, array\<int, class\-string\|CommonDevice\>\|class\-string\|CommonDevice\>\.$#'
+			identifier: return.type
+			count: 1
+			path: repo/src/CommonDevice.php
+
+		-
+			message: '#^Method CommonITILObject\:\:getAdditionalMenuOptions\(\) should return array\<string, array\{title\: string, page\: string, icon\?\: string, links\?\: array\{search\: string, add\?\: string, template\?\: string\}\}\>\|false but returns non\-empty\-array\<class\-string\<ITILTemplate\>, array\{links\: array\{search\?\: string, add\: string\}\}\|array\{title\: string, page\: string, icon\: string, links\: array\{search\: string\}\|array\{search\?\: string, add\: string\}\}\>\.$#'
+			identifier: return.type
+			count: 1
+			path: repo/src/CommonITILObject.php
+
+		-
+			message: '#^Binary operation "\." between ''''\|non\-empty\-array\|int\<min, \-1\>\|int\<1, max\>\|non\-falsy\-string and ''/pics/icones'' results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 1
+			path: repo/src/Config.php
+
+		-
+			message: '#^Offset ''table'' might not exist on array\{\}\|array\{0\: non\-falsy\-string, 1\: non\-falsy\-string, 2\: ''''\|non\-falsy\-string, 3\: ''''\|non\-falsy\-string, 4\: non\-empty\-string, table\: non\-empty\-string, 5\: non\-empty\-string, 6\: non\-empty\-string\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/src/DBmysql.php
+
+		-
+			message: '#^Offset ''property'' might not exist on array\{operator\?\: mixed, value_expected\?\: mixed, property\?\: mixed, field\?\: string\|null\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 2
+			path: repo/src/Glpi/Api/HL/RSQL/Parser.php
+
+		-
+			message: '#^Binary operation "\.\=" between ''''\|non\-empty\-array\|int\<min, \-1\>\|int\<1, max\>\|non\-falsy\-string and ''&debug\=1''\|''debug\=1'' results in an error\.$#'
+			identifier: assignOp.invalid
+			count: 1
+			path: repo/src/Glpi/Application/View/Extension/FrontEndAssetsExtension.php
+
+		-
+			message: '#^Offset ''plugin_key'' might not exist on array\{\}\|array\{0\: non\-falsy\-string, plugin_key\: non\-empty\-string, 1\: non\-empty\-string, plugin_resource\: ''''\|non\-falsy\-string, 2\: ''''\|non\-falsy\-string\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 2
+			path: repo/src/Glpi/Application/View/Extension/FrontEndAssetsExtension.php
+
+		-
+			message: '#^Offset ''plugin_resource'' might not exist on array\{\}\|array\{0\: non\-falsy\-string, plugin_key\: non\-empty\-string, 1\: non\-empty\-string, plugin_resource\: ''''\|non\-falsy\-string, 2\: ''''\|non\-falsy\-string\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 2
+			path: repo/src/Glpi/Application/View/Extension/FrontEndAssetsExtension.php
+
+		-
+			message: '#^Offset ''plugin_key'' might not exist on array\{\}\|array\{0\: non\-falsy\-string, plugin_key\: non\-empty\-string, 1\: non\-empty\-string, plugin_resource\: ''''\|non\-falsy\-string, 2\: ''''\|non\-falsy\-string\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 2
+			path: repo/src/Glpi/Http/Firewall.php
+
+		-
+			message: '#^Offset ''plugin_resource'' might not exist on array\{\}\|array\{0\: non\-falsy\-string, plugin_key\: non\-empty\-string, 1\: non\-empty\-string, plugin_resource\: ''''\|non\-falsy\-string, 2\: ''''\|non\-falsy\-string\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 2
+			path: repo/src/Glpi/Http/Firewall.php
+
+		-
+			message: '#^Offset ''plugin_key'' might not exist on array\{\}\|array\{0\: non\-falsy\-string, plugin_key\: non\-empty\-string, 1\: non\-empty\-string, plugin_resource\: ''''\|non\-falsy\-string, 2\: ''''\|non\-falsy\-string\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 2
+			path: repo/src/Glpi/Http/SessionManager.php
+
+		-
+			message: '#^Offset ''plugin_resource'' might not exist on array\{\}\|array\{0\: non\-falsy\-string, plugin_key\: non\-empty\-string, 1\: non\-empty\-string, plugin_resource\: ''''\|non\-falsy\-string, 2\: ''''\|non\-falsy\-string\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 2
+			path: repo/src/Glpi/Http/SessionManager.php
+
+		-
+			message: '#^Offset ''plugin_key'' might not exist on array\{\}\|array\{0\: non\-falsy\-string, plugin_key\: non\-empty\-string, 1\: non\-empty\-string, plugin_resource\: ''''\|non\-falsy\-string, 2\: ''''\|non\-falsy\-string\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/src/Glpi/Kernel/Listener/PostBootListener/SessionStart.php
+
+		-
+			message: '#^Offset ''plugin_resource'' might not exist on array\{\}\|array\{0\: non\-falsy\-string, plugin_key\: non\-empty\-string, 1\: non\-empty\-string, plugin_resource\: ''''\|non\-falsy\-string, 2\: ''''\|non\-falsy\-string\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/src/Glpi/Kernel/Listener/PostBootListener/SessionStart.php
+
+		-
+			message: '#^Offset ''plugin_key'' might not exist on array\{\}\|array\{0\: non\-falsy\-string, plugin_key\: non\-empty\-string, 1\: non\-empty\-string, plugin_resource\: ''''\|non\-falsy\-string, 2\: ''''\|non\-falsy\-string\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 3
+			path: repo/src/Glpi/Kernel/Listener/RequestListener/FrontEndAssetsListener.php
+
+		-
+			message: '#^Offset ''plugin_resource'' might not exist on array\{\}\|array\{0\: non\-falsy\-string, plugin_key\: non\-empty\-string, 1\: non\-empty\-string, plugin_resource\: ''''\|non\-falsy\-string, 2\: ''''\|non\-falsy\-string\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/src/Glpi/Kernel/Listener/RequestListener/FrontEndAssetsListener.php
+
+		-
+			message: '#^Offset ''plugin_key'' might not exist on array\{\}\|array\{0\: non\-falsy\-string, plugin_key\: non\-empty\-string, 1\: non\-empty\-string, plugin_resource\: ''''\|non\-falsy\-string, 2\: ''''\|non\-falsy\-string\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 3
+			path: repo/src/Glpi/Kernel/Listener/RequestListener/LegacyRouterListener.php
+
+		-
+			message: '#^Offset ''plugin_resource'' might not exist on array\{\}\|array\{0\: non\-falsy\-string, plugin_key\: non\-empty\-string, 1\: non\-empty\-string, plugin_resource\: ''''\|non\-falsy\-string, 2\: ''''\|non\-falsy\-string\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/src/Glpi/Kernel/Listener/RequestListener/LegacyRouterListener.php
+
+		-
+			message: '#^Offset ''plugin_key'' might not exist on array\{\}\|array\{0\: non\-falsy\-string, plugin_key\: non\-empty\-string, 1\: non\-empty\-string, plugin_resource\: ''''\|non\-falsy\-string, 2\: ''''\|non\-falsy\-string\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/src/Glpi/Kernel/Listener/RequestListener/PluginsRouterListener.php
+
+		-
+			message: '#^Offset ''plugin_resource'' might not exist on array\{\}\|array\{0\: non\-falsy\-string, plugin_key\: non\-empty\-string, 1\: non\-empty\-string, plugin_resource\: ''''\|non\-falsy\-string, 2\: ''''\|non\-falsy\-string\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/src/Glpi/Kernel/Listener/RequestListener/PluginsRouterListener.php
+
+		-
+			message: '#^Method Glpi\\Migration\\GenericobjectPluginMigration\:\:getCustomFieldSpecs\(\) should return array\{system_name\: string, label\: string, type\: class\-string\<Glpi\\Asset\\CustomFieldType\\AbstractType\>, itemtype\?\: class\-string\<CommonDBTM\>, options\?\: array\{min\?\: int, max\?\: int, step\?\: int\}\} but returns array\{system_name\: string, label\: string, type\: ''Glpi\\\\Asset\\\\CustomFieldType\\\\BooleanType''\|''Glpi\\\\Asset\\\\CustomFieldType\\\\DateTimeType''\|''Glpi\\\\Asset\\\\CustomFieldType\\\\DateType''\|''Glpi\\\\Asset\\\\CustomFieldType\\\\NumberType''\|''Glpi\\\\Asset\\\\CustomFieldType\\\\StringType''\|''Glpi\\\\Asset\\\\CustomFieldType\\\\TextType''\|''Glpi\\\\Asset\\\\CustomFieldType\\\\URLType'', translations\?\: array\{\}\}\|array\{system_name\: string, label\: string, type\: ''Glpi\\\\Asset\\\\CustomFieldType\\\\BooleanType''\|''Glpi\\\\Asset\\\\CustomFieldType\\\\DateTimeType''\|''Glpi\\\\Asset\\\\CustomFieldType\\\\DateType''\|''Glpi\\\\Asset\\\\CustomFieldType\\\\NumberType''\|''Glpi\\\\Asset\\\\CustomFieldType\\\\TextType'', options\?\: array\{step\: ''any''\}, translations\: array\{\}\}\|array\{system_name\: string, label\: string, type\: ''Glpi\\\\Asset\\\\CustomFieldType\\\\NumberType'', options\: array\{min\?\: int, max\?\: int, step\?\: int\}, translations\: array\{\}\}\|array\{system_name\: string, label\: string, type\: ''Glpi\\\\Asset\\\\CustomFieldType\\\\NumberType'', options\: array\{step\: ''any''\}\}\|array\{system_name\: string\|null, label\: string, type\: ''Glpi\\\\Asset\\\\CustomFieldType\\\\BooleanType''\|''Glpi\\\\Asset\\\\CustomFieldType\\\\DateTimeType''\|''Glpi\\\\Asset\\\\CustomFieldType\\\\DateType''\|''Glpi\\\\Asset\\\\CustomFieldType\\\\DropdownType''\|''Glpi\\\\Asset\\\\CustomFieldType\\\\NumberType''\|''Glpi\\\\Asset\\\\CustomFieldType\\\\TextType'', itemtype\: class\-string\<CommonDBTM\>, translations\: array\{\}\}\|array\{system_name\: string\|null, label\: string, type\: ''Glpi\\\\Asset\\\\CustomFieldType\\\\DropdownType'', itemtype\: class\-string\<CommonDBTM\>\}\|array\{system_name\: string\|null, label\: string, type\: ''Glpi\\\\Asset\\\\CustomFieldType\\\\NumberType'', itemtype\: class\-string\<CommonDBTM\>, options\: array\{min\?\: int, max\?\: int, step\?\: int\}, translations\: array\{\}\}\.$#'
+			identifier: return.type
+			count: 1
+			path: repo/src/Glpi/Migration/GenericobjectPluginMigration.php
+
+		-
+			message: '#^Offset ''major'' might not exist on array\{\}\|array\{0\: non\-falsy\-string, major\: numeric\-string, 1\: numeric\-string, minor\: numeric\-string, 2\: numeric\-string, 3\?\: ''''\|non\-falsy\-string, bugfix\?\: ''''\|numeric\-string, 4\?\: ''''\|numeric\-string, \.\.\.\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/src/Glpi/Toolbox/VersionParser.php
+
+		-
+			message: '#^Offset ''minor'' might not exist on array\{\}\|array\{0\: non\-falsy\-string, major\: numeric\-string, 1\: numeric\-string, minor\: numeric\-string, 2\: numeric\-string, 3\?\: ''''\|non\-falsy\-string, bugfix\?\: ''''\|numeric\-string, 4\?\: ''''\|numeric\-string, \.\.\.\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/src/Glpi/Toolbox/VersionParser.php
+
+		-
+			message: '#^Offset ''plugin_key'' might not exist on array\{\}\|array\{0\: non\-falsy\-string, plugin_key\: non\-empty\-string, 1\: non\-empty\-string, plugin_resource\: ''''\|non\-falsy\-string, 2\: ''''\|non\-falsy\-string\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/src/Html.php
+
+		-
+			message: '#^Offset ''plugin_resource'' might not exist on array\{\}\|array\{0\: non\-falsy\-string, plugin_key\: non\-empty\-string, 1\: non\-empty\-string, plugin_resource\: ''''\|non\-falsy\-string, 2\: ''''\|non\-falsy\-string\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/src/Html.php
+
+		-
+			message: '#^Offset ''event'' might not exist on array\{\}\|array\{0\: non\-falsy\-string, uuid\: non\-empty\-string, 1\: non\-empty\-string, 2\: ''''\|non\-falsy\-string, itemtype\: string, 3\: string, items_id\: ''''\|numeric\-string, 4\: ''''\|numeric\-string, \.\.\.\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/src/MailCollector.php
+
+		-
+			message: '#^Offset ''uuid'' might not exist on array\{\}\|array\{0\: non\-falsy\-string, uuid\: non\-empty\-string, 1\: non\-empty\-string, 2\: ''''\|non\-falsy\-string, itemtype\: string, 3\: string, items_id\: ''''\|numeric\-string, 4\: ''''\|numeric\-string, \.\.\.\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/src/MailCollector.php
+
+		-
+			message: '#^Offset ''uuid'' might not exist on array\{\}\|array\{0\: non\-falsy\-string, uuid\: non\-empty\-string, 1\: non\-empty\-string, 2\?\: ''''\|non\-falsy\-string, itemtype\?\: string, 3\?\: string, items_id\?\: numeric\-string, 4\?\: numeric\-string\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/src/MailCollector.php
+
+		-
+			message: '#^Property NotificationTarget\<Project\>\:\:\$data \(array\<string, array\<string\>\|string\>\) does not accept array\<string, array\<array\<string, mixed\>\|string\>\|string\>\.$#'
+			identifier: assign.propertyType
+			count: 2
+			path: repo/src/NotificationTargetProject.php
+
+		-
+			message: '#^Property NotificationTarget\<Project\>\:\:\$data \(array\<string, array\<string\>\|string\>\) does not accept array\<string, array\<string\>\|float\|int\|string\>\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: repo/src/NotificationTargetProject.php
+
+		-
+			message: '#^Property NotificationTarget\<ProjectTask\>\:\:\$data \(array\<string, array\<string\>\|string\>\) does not accept array\<string, array\<array\<string, mixed\>\|string\>\|string\>\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: repo/src/NotificationTargetProjectTask.php
+
+		-
+			message: '#^Offset ''data'' might not exist on array\{data\?\: non\-empty\-array\<int\<0, max\>, mixed\>, name\?\: mixed\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 2
+			path: repo/src/PrinterLog.php
+
+		-
+			message: '#^Method Rule\:\:getMenuContent\(\) should return array\<string, array\<string, array\<string, array\{search\: string, add\?\: string, template\?\: string\}\|array\{title\: string, page\: string, icon\?\: string, links\?\: array\{search\: string, add\?\: string, template\?\: string\}\}\|string\>\|string\>\|string\|true\>\|false but returns array\{rule\?\: array\{title\: string, page\: string, icon\: string, options\?\: non\-empty\-array\<string, array\{title\: string, page\: string, links\?\: array\{add\: string\}\|array\{add\?\: string, search\: ''/front/transfer\.php'', transfer_list\?\: ''/front/transfer…''\}\}\>\}, dictionnary\?\: array\{options\: non\-empty\-array\<non\-falsy\-string, array\{title\: string, page\: string, links\: array\{search\: string, add\?\: string\}\}\>\}\|array\{title\: string, shortcut\: '''', page\: ''/front/dictionnary…'', icon\: string, options\: non\-empty\-array\<non\-falsy\-string, array\{title\: string, page\: string, links\: array\{search\: string, add\?\: string\}\}\>\}, is_multi_entries\: true\}\.$#'
+			identifier: return.type
+			count: 1
+			path: repo/src/Rule.php
+
+		-
+			message: '#^Offset ''engine'' might not exist on array\{\}\|array\{0\: non\-falsy\-string, engine\: non\-empty\-string, 1\: non\-empty\-string, 2\?\: ''''\|non\-falsy\-string, version\?\: string, 3\?\: string, 4\?\: ''''\|non\-falsy\-string, comment\?\: non\-falsy\-string, \.\.\.\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/src/Telemetry.php

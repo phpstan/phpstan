@@ -455,3 +455,21 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: repo/plugins/woocommerce/src/StoreApi/Schemas/V1/ProductCategorySchema.php
+
+		-
+			message: '#^Parameter \#3 \$args of function wp_update_term expects array\{alias_of\?\: string, description\?\: string, parent\?\: int, slug\?\: string\}, array\{name\?\: array\|string, slug\?\: array\|string, description\?\: array\|string\} given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/plugins/woocommerce/includes/class-wc-ajax.php
+
+		-
+			message: '#^Offset ''user_email'' might not exist on array\{product_id\: int, user_email\: non\-empty\-string, user_id\: int\}\|array\{product_id\: int, user_id\: int\<min, \-1\>\|int\<1, max\>, user_email\: string\}\|array\{product_id\: int\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/plugins/woocommerce/src/Internal/StockNotifications/Admin/NotificationCreatePage.php
+
+		-
+			message: '#^Offset ''user_id'' might not exist on array\{product_id\: int, user_email\: non\-empty\-string, user_id\: int\}\|array\{product_id\: int, user_id\: int\<min, \-1\>\|int\<1, max\>, user_email\: string\}\|array\{product_id\: int\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/plugins/woocommerce/src/Internal/StockNotifications/Admin/NotificationCreatePage.php

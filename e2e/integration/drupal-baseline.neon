@@ -23,3 +23,15 @@ parameters:
 			identifier: property.notFound
 			count: 1
 			path: repo/core/modules/user/src/Entity/Role.php
+
+		-
+			message: '#^Method Drupal\\Core\\Update\\DatabaseUpdate\:\:systemSchemaRequirements\(\) should return array\<string, array\{title\: Drupal\\Core\\StringTranslation\\TranslatableMarkup, value\: mixed, description\: Drupal\\Core\\StringTranslation\\TranslatableMarkup, severity\: Drupal\\Core\\Extension\\Requirement\\RequirementSeverity\}\> but returns array\{''minimum schema''\: array\{value\: ''The installed…'', description\: non\-falsy\-string, title\: ''Minimum schema…''\}\|array\{value\: ''The installed…'', severity\: Drupal\\Core\\Extension\\Requirement\\RequirementSeverity\:\:Error, description\: non\-falsy\-string, title\: ''Minimum schema…''\}\}\.$#'
+			identifier: return.type
+			count: 1
+			path: repo/core/lib/Drupal/Core/Update/DatabaseUpdate.php
+
+		-
+			message: '#^Method Drupal\\Tests\\content_moderation\\Functional\\ViewsModerationStateFilterTest\:\:providerTestWorkflowChanges\(\) should return array\<string\> but returns array\<string, array\<int, string\>\>\.$#'
+			identifier: return.type
+			count: 1
+			path: repo/core/modules/content_moderation/tests/src/Functional/ViewsModerationStateFilterTest.php
