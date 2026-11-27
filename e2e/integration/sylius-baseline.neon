@@ -5,3 +5,9 @@ parameters:
 			identifier: varTag.nativeType
 			count: 1
 			path: repo/src/Sylius/Bundle/CoreBundle/PriceHistory/Processor/ProductLowestPriceBeforeDiscountProcessor.php
+
+		-
+			message: '#^Variable \$maxDays on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.variable
+			count: 1
+			path: repo/src/Sylius/Bundle/CoreBundle/Provider/FastestDeliveryTimeProvider.php

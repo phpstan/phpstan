@@ -13,6 +13,12 @@ parameters:
 			path: repo/htdocs/admin/system/constall.php
 
 		-
+			message: '#^Strict comparison using \=\=\= between non\-falsy\-string and null will always evaluate to false\.$#'
+			identifier: identical.alwaysFalse
+			count: 1
+			path: repo/htdocs/admin/system/dbtable.php
+
+		-
 			message: '#^Variable \$dolibarr_main_auth_ldap_admin_pass might not be defined\.$#'
 			identifier: variable.undefined
 			count: 2
@@ -67,16 +73,64 @@ parameters:
 			path: repo/htdocs/blockedlog/class/blockedlog.class.php
 
 		-
+			message: '#^Strict comparison using \=\=\= between 0 and 0 will always evaluate to true\.$#'
+			identifier: identical.alwaysTrue
+			count: 1
+			path: repo/htdocs/compta/facture/card.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between Commande\|CommandeFournisseur\|Contrat\|Facture\|FactureFournisseur\|Fichinter\|Propal and null will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 1
+			path: repo/htdocs/contact/consumption.php
+
+		-
 			message: '#^Variable \$search_doc_ref might not be defined\.$#'
 			identifier: variable.undefined
 			count: 1
 			path: repo/htdocs/core/ajax/ajaxdirpreview.php
 
 		-
+			message: '#^Strict comparison using \!\=\= between DolGraph and null will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 2
+			path: repo/htdocs/core/boxes/box_graph_invoices_permonth.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between DolGraph and null will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 2
+			path: repo/htdocs/core/boxes/box_graph_invoices_supplier_permonth.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between DolGraph and null will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 2
+			path: repo/htdocs/core/boxes/box_graph_orders_permonth.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between DolGraph and null will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 2
+			path: repo/htdocs/core/boxes/box_graph_orders_supplier_permonth.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between DolGraph and null will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 2
+			path: repo/htdocs/core/boxes/box_graph_propales_permonth.php
+
+		-
 			message: '#^Dead catch \- Exception is never thrown in the try block\.$#'
 			identifier: catch.neverThrown
 			count: 2
 			path: repo/htdocs/core/class/translate.class.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between CMailFile and null will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 1
+			path: repo/htdocs/core/class/utils.class.php
 
 		-
 			message: '#^Parameter \#2 \$x1 of function imagefilledrectangle expects int, float given\.$#'
@@ -169,6 +223,12 @@ parameters:
 			path: repo/htdocs/fourn/class/fournisseur.product.class.php
 
 		-
+			message: '#^Strict comparison using \!\=\= between NamingContract and null will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 3
+			path: repo/htdocs/modulebuilder/index.php
+
+		-
 			message: '#^Variable \$type might not be defined\.$#'
 			identifier: variable.undefined
 			count: 4
@@ -181,6 +241,12 @@ parameters:
 			path: repo/htdocs/public/webportal/lib/webportal.lib.php
 
 		-
+			message: '#^Strict comparison using \!\=\= between non\-falsy\-string and '''' will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 1
+			path: repo/htdocs/societe/consumption.php
+
+		-
 			message: '#^Variable \$keyCodeForEnter might not be defined\.$#'
 			identifier: variable.undefined
 			count: 2
@@ -191,3 +257,9 @@ parameters:
 			identifier: variable.undefined
 			count: 1
 			path: repo/htdocs/webportal/controllers/document.controller.class.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between Website and null will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 1
+			path: repo/htdocs/website/index.php

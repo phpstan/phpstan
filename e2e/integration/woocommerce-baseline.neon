@@ -49,6 +49,12 @@ parameters:
 			path: repo/plugins/woocommerce/includes/class-wc-download-handler.php
 
 		-
+			message: '#^Negated boolean expression is always false\.$#'
+			identifier: booleanNot.alwaysFalse
+			count: 1
+			path: repo/plugins/woocommerce/includes/class-wc-rest-authentication.php
+
+		-
 			message: '#^Call to an undefined method object\:\:get_id\(\)\.$#'
 			identifier: method.notFound
 			count: 1
@@ -127,6 +133,12 @@ parameters:
 			path: repo/plugins/woocommerce/includes/libraries/class-wc-eval-math.php
 
 		-
+			message: '#^Negated boolean expression is always true\.$#'
+			identifier: booleanNot.alwaysTrue
+			count: 1
+			path: repo/plugins/woocommerce/includes/libraries/class-wc-eval-math.php
+
+		-
 			message: '#^Parameter \#2 \$to of function rename expects string, bool\|string given\.$#'
 			identifier: argument.type
 			count: 1
@@ -137,6 +149,12 @@ parameters:
 			identifier: offsetAssign.valueType
 			count: 1
 			path: repo/plugins/woocommerce/includes/rest-api/Controllers/Version1/class-wc-rest-products-v1-controller.php
+
+		-
+			message: '#^Right side of && is always true\.$#'
+			identifier: booleanAnd.rightAlwaysTrue
+			count: 2
+			path: repo/plugins/woocommerce/includes/rest-api/Controllers/Version2/class-wc-rest-orders-v2-controller.php
 
 		-
 			message: '#^Call to an undefined method WC_Data\:\:get_parent_id\(\)\.$#'
@@ -207,6 +225,18 @@ parameters:
 		-
 			message: '#^Call to an undefined method object\:\:setTimestamp\(\)\.$#'
 			identifier: method.notFound
+			count: 2
+			path: repo/plugins/woocommerce/src/Admin/API/Reports/DataStore.php
+
+		-
+			message: '#^Call to method format\(\) on an unknown class Automattic\\WooCommerce\\Admin\\API\\Reports\\DateTime\.$#'
+			identifier: class.notFound
+			count: 2
+			path: repo/plugins/woocommerce/src/Admin/API/Reports/DataStore.php
+
+		-
+			message: '#^Call to method setTimestamp\(\) on an unknown class Automattic\\WooCommerce\\Admin\\API\\Reports\\DateTime\.$#'
+			identifier: class.notFound
 			count: 2
 			path: repo/plugins/woocommerce/src/Admin/API/Reports/DataStore.php
 
@@ -325,6 +355,12 @@ parameters:
 			path: repo/plugins/woocommerce/src/Internal/Abilities/Domain/Traits/ProductAbilityTrait.php
 
 		-
+			message: '#^Strict comparison using \=\=\= between false and false will always evaluate to true\.$#'
+			identifier: identical.alwaysTrue
+			count: 1
+			path: repo/plugins/woocommerce/src/Internal/Admin/Homescreen.php
+
+		-
 			message: '#^Parameter \#1 \$args of method WP_Ajax_Response\:\:add\(\) expects array\{what\?\: string, action\?\: string\|false, id\?\: int\|WP_Error, old_id\?\: int\|false, position\?\: string, data\?\: string\|WP_Error, supplemental\?\: array\}, array\{what\: ''comment'', id\: string, data\: string\|false, position\: ''\-1''\|int, supplemental\: array\{in_moderation\: int, i18n_comments_text\: string, i18n_moderation_text\: string, parent_approved\: string, parent_post_id\: \*NEVER\*\}\|array\{in_moderation\: int, i18n_comments_text\: string, i18n_moderation_text\: string\}\} given\.$#'
 			identifier: argument.type
 			count: 1
@@ -343,6 +379,12 @@ parameters:
 			path: repo/plugins/woocommerce/src/Internal/Admin/Settings/SettingsUISchema.php
 
 		-
+			message: '#^Strict comparison using \!\=\= between null and string will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 3
+			path: repo/plugins/woocommerce/src/Internal/Admin/Settings/SettingsUISchema.php
+
+		-
 			message: '#^Call to function in_array\(\) with arguments ''\.\.\.''\|''\<''\|''\<\=''\|''\>''\|''\>\='', array\{''\>'', ''\>\='', ''\='', ''\<\='', ''\<'', ''\.\.\.''\} and true will always evaluate to true\.$#'
 			identifier: function.alreadyNarrowedType
 			count: 1
@@ -353,6 +395,12 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: repo/plugins/woocommerce/src/Internal/Logging/RemoteLogger.php
+
+		-
+			message: '#^Variable \$regular in empty\(\) always exists and is not falsy\.$#'
+			identifier: empty.variable
+			count: 1
+			path: repo/plugins/woocommerce/src/Internal/ProductFeed/Mapping/UcpProductMapper.php
 
 		-
 			message: '#^Instanceof between WC_Order and WC_Order will always evaluate to true\.$#'

@@ -13,6 +13,24 @@ parameters:
 			path: repo/install/empty_data.php
 
 		-
+			message: '#^Strict comparison using \!\=\= between non\-empty\-string and '''' will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 1
+			path: repo/install/install.php
+
+		-
+			message: '#^Strict comparison using \=\=\= between true and true will always evaluate to true\.$#'
+			identifier: identical.alwaysTrue
+			count: 2
+			path: repo/src/CommonDBRelation.php
+
+		-
+			message: '#^Right side of && is always true\.$#'
+			identifier: booleanAnd.rightAlwaysTrue
+			count: 1
+			path: repo/src/CommonDBTM.php
+
+		-
 			message: '#^Method CommonDevice\:\:getMenuContent\(\) should return array\<string, array\<string, array\<string, array\{search\: string, add\?\: string, template\?\: string\}\|array\{title\: string, page\: string, icon\?\: string, links\?\: array\{search\: string, add\?\: string, template\?\: string\}\}\|string\>\|string\>\|string\|true\>\|false but returns array\{title\: string, page\: ''/front/devices\.php'', icon\: string, options\?\: non\-empty\-array\<class\-string, array\{title\: mixed, page\: string, icon\: string, links\: non\-empty\-array\<non\-falsy\-string, string\>\}\>\}\.$#'
 			identifier: return.type
 			count: 1
@@ -37,10 +55,22 @@ parameters:
 			path: repo/src/DBmysql.php
 
 		-
+			message: '#^Negated boolean expression is always true\.$#'
+			identifier: booleanNot.alwaysTrue
+			count: 1
+			path: repo/src/DbUtils.php
+
+		-
 			message: '#^Method Glpi\\Api\\HL\\OpenAPIGenerator\:\:getPathSchemas\(\) should return array\<string, array\<string, array\{tags\: array\<string\>, responses\: array\<int\|string, array\{description\: string\}\>, description\?\: string, parameters\: array\<array\{''\$ref''\: string\}\|array\{name\: string, in\: string, description\: string, required\: bool, schema\: mixed\}\>, requestBody\?\: array\{content\: array\{''application/json''\: array\{schema\: array\{type\: string, format\?\: string, pattern\?\: string, properties\?\: array\<string, array\{type\: string, format\?\: string\}\>\}\}\}\}\}\>\> but returns non\-empty\-array\<string, array\<string, array\{tags\: array\<string\>, responses\: array, description\?\: string, parameters\: non\-empty\-list\<array\{name\: string, in\: string, description\: string, required\?\: bool, schema\: mixed, ''\$ref''\?\: string, default\?\: false, examples\: array\{English_GB\: array\{value\: ''en_GB'', summary\: ''English \(United…''\}, French_FR\: array\{value\: ''fr_FR'', summary\: ''French \(France\)''\}, Portuguese_BR\: array\{value\: ''pt_BR'', summary\: ''Portuguese \(Brazil\)''\}\}\}\>, requestBody\?\: array\{content\: array\{''application/json''\: array\{schema\: array\{type\: string, format\?\: string, pattern\?\: string, properties\?\: array\<string, array\{type\: string, format\?\: string\}\>\}\}\}\}, security\: array\<array\<string, array\<string, mixed\>\>\>, x\-controller\: string\}\>\>\.$#'
 			identifier: return.type
 			count: 1
 			path: repo/src/Glpi/Api/HL/OpenAPIGenerator.php
+
+		-
+			message: '#^Right side of && is always true\.$#'
+			identifier: booleanAnd.rightAlwaysTrue
+			count: 2
+			path: repo/src/Glpi/Application/ImportMapGenerator.php
 
 		-
 			message: '#^Instanceof between DBmysql and DBmysql will always evaluate to true\.$#'
@@ -95,6 +125,12 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: repo/src/IPNetmask.php
+
+		-
+			message: '#^Elseif condition is always true\.$#'
+			identifier: elseif.alwaysTrue
+			count: 1
+			path: repo/src/Impact.php
 
 		-
 			message: '#^Binary operation "\+" between float\|int\|string\|null and float\<min, max\>\|int results in an error\.$#'

@@ -19,6 +19,18 @@ parameters:
 			path: repo/packages/core/tests/EnvironmentTest.php
 
 		-
+			message: '#^Instanceof between Tempest\\Intl\\MessageFormat\\Parser\\Node\\Expression\\FunctionCall and Tempest\\Intl\\MessageFormat\\Parser\\Node\\Expression\\FunctionCall will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: repo/packages/intl/src/MessageFormat/Parser/MessageFormatParser.php
+
+		-
+			message: '#^Unreachable statement \- code above always terminates\.$#'
+			identifier: deadCode.unreachable
+			count: 1
+			path: repo/packages/intl/src/MessageFormat/Parser/MessageFormatParser.php
+
+		-
 			message: '#^Call to method PHPUnit\\Framework\\Assert\:\:assertSame\(\) with ''0'' and ''0'' will always evaluate to true\.$#'
 			identifier: method.alreadyNarrowedType
 			count: 1

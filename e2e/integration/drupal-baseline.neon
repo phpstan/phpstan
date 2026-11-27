@@ -1,6 +1,12 @@
 parameters:
 	ignoreErrors:
 		-
+			message: '#^Variable \$relationship_specifier on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.variable
+			count: 1
+			path: repo/core/lib/Drupal/Core/Entity/Query/Sql/Tables.php
+
+		-
 			message: '#^Property Drupal\\Core\\File\\MimeType\\MimeTypeMap\:\:\$mapping \(array\{mimetypes\: array\{int, string\}, extensions\: array\{string, int\}\}\) does not accept array\{mimetypes\: array\{\}, extensions\: array\{string, int\}\}\.$#'
 			identifier: assign.propertyType
 			count: 1

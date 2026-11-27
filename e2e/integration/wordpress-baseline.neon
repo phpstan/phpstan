@@ -1,10 +1,40 @@
 parameters:
 	ignoreErrors:
 		-
+			message: '#^Strict comparison using \=\=\= between ''dropins'' and ''dropins'' will always evaluate to true\.$#'
+			identifier: identical.alwaysTrue
+			count: 1
+			path: repo/src/wp-admin/includes/class-wp-plugins-list-table.php
+
+		-
 			message: '#^Offset float\<0\.0, max\> does not exist on list\<float\>\.$#'
 			identifier: offsetAccess.notFound
 			count: 1
 			path: repo/src/wp-admin/includes/class-wp-site-health.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between false and mixed will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 1
+			path: repo/src/wp-admin/includes/dashboard.php
+
+		-
+			message: '#^Elseif condition is always true\.$#'
+			identifier: elseif.alwaysTrue
+			count: 1
+			path: repo/src/wp-admin/includes/image.php
+
+		-
+			message: '#^Right side of && is always true\.$#'
+			identifier: booleanAnd.rightAlwaysTrue
+			count: 1
+			path: repo/src/wp-admin/options-general.php
+
+		-
+			message: '#^Negated boolean expression is always true\.$#'
+			identifier: booleanNot.alwaysTrue
+			count: 1
+			path: repo/src/wp-admin/options-permalink.php
 
 		-
 			message: '#^Property WP_Query\:\:\$posts \(array\<int\|WP_Post\>\|null\) does not accept list\<stdClass\>\|null\.$#'
@@ -19,7 +49,25 @@ parameters:
 			path: repo/src/wp-includes/class-wp-query.php
 
 		-
+			message: '#^Right side of && is always true\.$#'
+			identifier: booleanAnd.rightAlwaysTrue
+			count: 1
+			path: repo/src/wp-includes/html-api/class-wp-html-decoder.php
+
+		-
 			message: '#^Strict comparison using \!\=\= between ''STATE_COMPLETE'' and ''STATE_CDATA_NODE''\|''STATE_COMMENT''\|''STATE_DOCTYPE''\|''STATE_MATCHED_TAG''\|''STATE_PRESUMPTUOUS…''\|''STATE_PROCESSING…''\|''STATE_TEXT_NODE''\|''STATE_WP_FUNKY'' will always evaluate to true\.$#'
 			identifier: notIdentical.alwaysTrue
 			count: 1
 			path: repo/src/wp-includes/html-api/class-wp-html-tag-processor.php
+
+		-
+			message: '#^Variable \$attribute_value in empty\(\) always exists and is not falsy\.$#'
+			identifier: empty.variable
+			count: 1
+			path: repo/src/wp-includes/media.php
+
+		-
+			message: '#^Negated boolean expression is always true\.$#'
+			identifier: booleanNot.alwaysTrue
+			count: 1
+			path: repo/src/wp-includes/user.php

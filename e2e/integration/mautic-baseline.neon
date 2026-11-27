@@ -1,6 +1,36 @@
 parameters:
 	ignoreErrors:
 		-
+			message: '#^Negated boolean expression is always true\.$#'
+			identifier: booleanNot.alwaysTrue
+			count: 1
+			path: repo/app/bundles/ApiBundle/Extension/OwnershipScopedCollectionExtension.php
+
+		-
+			message: '#^Right side of && is always true\.$#'
+			identifier: booleanAnd.rightAlwaysTrue
+			count: 1
+			path: repo/app/bundles/CampaignBundle/Controller/EventController.php
+
+		-
+			message: '#^Negated boolean expression is always true\.$#'
+			identifier: booleanNot.alwaysTrue
+			count: 2
+			path: repo/app/bundles/DashboardBundle/Controller/DashboardController.php
+
+		-
+			message: '#^Negated boolean expression is always true\.$#'
+			identifier: booleanNot.alwaysTrue
+			count: 2
+			path: repo/app/bundles/LeadBundle/Controller/NoteController.php
+
+		-
+			message: '#^Right side of && is always true\.$#'
+			identifier: booleanAnd.rightAlwaysTrue
+			count: 2
+			path: repo/app/bundles/LeadBundle/Entity/Lead.php
+
+		-
 			message: '#^Call to an undefined method Mautic\\LeadBundle\\Segment\\Query\\Expression\\ExpressionBuilder\:\:endsWith\(\)\.$#'
 			identifier: method.notFound
 			count: 1
@@ -17,3 +47,15 @@ parameters:
 			identifier: isset.variable
 			count: 1
 			path: repo/app/bundles/ReportBundle/Controller/ReportController.php
+
+		-
+			message: '#^Right side of && is always true\.$#'
+			identifier: booleanAnd.rightAlwaysTrue
+			count: 1
+			path: repo/app/bundles/UserBundle/Entity/User.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between array\{\} and non\-empty\-array will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 1
+			path: repo/plugins/MauticCrmBundle/Integration/ZohoIntegration.php
