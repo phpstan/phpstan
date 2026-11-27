@@ -1,2 +1,7 @@
 parameters:
 	ignoreErrors:
+		-
+			message: '#^Strict comparison using \=\=\= between null and non\-empty\-list\<SqlFtw\\Sql\\Dml\\Query\\SelectExpression\> will always evaluate to false\.$#'
+			identifier: identical.alwaysFalse
+			count: 1
+			path: repo/src/SqlAst/ParserInference.php

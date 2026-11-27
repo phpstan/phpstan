@@ -37,6 +37,12 @@ parameters:
 			path: repo/application/Espo/Core/Htmlizer/Htmlizer.php
 
 		-
+			message: '#^Instanceof between Espo\\Core\\ORM\\Entity and Espo\\Core\\ORM\\Entity will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: repo/application/Espo/Core/Htmlizer/Htmlizer.php
+
+		-
 			message: '#^Offset 1 might not exist on array\{\}\|array\{non\-falsy\-string, string, string\}\.$#'
 			identifier: offsetAccess.notFound
 			count: 1
@@ -149,6 +155,18 @@ parameters:
 			identifier: identical.alwaysTrue
 			count: 1
 			path: repo/application/Espo/Tools/Email/AddressService.php
+
+		-
+			message: '#^Negated boolean expression is always false\.$#'
+			identifier: booleanNot.alwaysFalse
+			count: 1
+			path: repo/application/Espo/Tools/EmailNotification/Processor.php
+
+		-
+			message: '#^Right side of && is always true\.$#'
+			identifier: booleanAnd.rightAlwaysTrue
+			count: 1
+			path: repo/application/Espo/Tools/LeadCapture/CaptureService.php
 
 		-
 			message: '#^PHPDoc tag @var with type array\<non\-empty\-string\> is not subtype of native type list\<non\-falsy\-string\>\.$#'

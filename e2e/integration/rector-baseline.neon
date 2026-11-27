@@ -1,6 +1,30 @@
 parameters:
 	ignoreErrors:
 		-
+			message: '#^Instanceof between PhpParser\\Node\\Expr\\Assign and PhpParser\\Node\\Expr\\Assign will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: repo/rules/EarlyReturn/Rector/Return_/PreparedValueToEarlyReturnRector.php
+
+		-
+			message: '#^If condition is always true\.$#'
+			identifier: if.alwaysTrue
+			count: 1
+			path: repo/rules/TypeDeclaration/Rector/ClassMethod/NumericReturnTypeFromStrictScalarReturnsRector.php
+
+		-
+			message: '#^Unreachable statement \- code above always terminates\.$#'
+			identifier: deadCode.unreachable
+			count: 1
+			path: repo/rules/TypeDeclaration/Rector/ClassMethod/NumericReturnTypeFromStrictScalarReturnsRector.php
+
+		-
+			message: '#^PHPDoc tag @var with type string is not subtype of native type non\-falsy\-string\.$#'
+			identifier: varTag.nativeType
+			count: 1
+			path: repo/src/FileSystem/FilesFinder.php
+
+		-
 			message: '#^Only abstract classes can be extended$#'
 			identifier: symplify.forbiddenExtendOfNonAbstractClass
 			count: 1

@@ -1,2 +1,7 @@
 parameters:
-	ignoreErrors: []
+	ignoreErrors:
+		-
+			rawMessage: 'Strict comparison using === between null and null will always evaluate to true.'
+			identifier: identical.alwaysTrue
+			count: 1
+			path: repo/src/Platforms/MySQL/Comparator.php

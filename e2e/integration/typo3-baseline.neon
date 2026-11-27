@@ -1,7 +1,67 @@
 parameters:
 	ignoreErrors:
 		-
+			rawMessage: Right side of && is always true.
+			identifier: booleanAnd.rightAlwaysTrue
+			count: 1
+			path: repo/typo3/sysext/backend/Classes/Controller/SetupModuleController.php
+
+		-
+			rawMessage: Using nullsafe method call on non-nullable type TYPO3\CMS\Core\Schema\TcaSchema. Use -> instead.
+			identifier: nullsafe.neverNull
+			count: 1
+			path: repo/typo3/sysext/backend/Classes/Utility/BackendUtility.php
+
+		-
+			rawMessage: Negated boolean expression is always true.
+			identifier: booleanNot.alwaysTrue
+			count: 1
+			path: repo/typo3/sysext/core/Classes/DataHandling/DataHandler.php
+
+		-
+			rawMessage: Instanceof between string and TYPO3\CMS\Core\Resource\FileInterface will always evaluate to false.
+			identifier: instanceof.alwaysFalse
+			count: 1
+			path: repo/typo3/sysext/core/Classes/Imaging/Svg/SvgDocumentFactory.php
+
+		-
+			rawMessage: Negated boolean expression is always true.
+			identifier: booleanNot.alwaysTrue
+			count: 1
+			path: repo/typo3/sysext/core/Classes/Routing/PageSlugCandidateProvider.php
+
+		-
+			rawMessage: Negated boolean expression is always true.
+			identifier: booleanNot.alwaysTrue
+			count: 1
+			path: repo/typo3/sysext/core/Classes/TypoScript/FrontendTypoScriptFactory.php
+
+		-
+			rawMessage: Result of || is always true.
+			identifier: booleanOr.alwaysTrue
+			count: 1
+			path: repo/typo3/sysext/core/Classes/TypoScript/FrontendTypoScriptFactory.php
+
+		-
+			rawMessage: 'Strict comparison using === between non-empty-array<non-empty-string, non-empty-array<mixed>> and array{} will always evaluate to false.'
+			identifier: identical.alwaysFalse
+			count: 1
+			path: repo/typo3/sysext/extbase/Classes/Mvc/Web/RequestBuilderDefaultValues.php
+
+		-
+			rawMessage: 'Strict comparison using === between non-empty-string and null will always evaluate to false.'
+			identifier: identical.alwaysFalse
+			count: 1
+			path: repo/typo3/sysext/extbase/Classes/Mvc/Web/RequestBuilderDefaultValues.php
+
+		-
 			rawMessage: 'Call to method TYPO3\CMS\FrontendLogin\Configuration\RecoveryConfiguration::getMailTemplateName() on a separate line has no effect.'
 			identifier: method.resultUnused
 			count: 1
 			path: repo/typo3/sysext/felogin/Tests/Unit/Configuration/RecoveryConfigurationTest.php
+
+		-
+			rawMessage: Right side of && is always true.
+			identifier: booleanAnd.rightAlwaysTrue
+			count: 1
+			path: repo/typo3/sysext/frontend/Classes/Content/RecordCollector.php

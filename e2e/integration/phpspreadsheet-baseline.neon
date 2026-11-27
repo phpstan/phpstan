@@ -7,6 +7,12 @@ parameters:
 			path: repo/src/PhpSpreadsheet/Calculation/Calculation.php
 
 		-
+			rawMessage: Variable $expectingOperand is assigned value false but it already has that value.
+			identifier: assign.redundant
+			count: 1
+			path: repo/src/PhpSpreadsheet/Calculation/Calculation.php
+
+		-
 			rawMessage: Possibly invalid array key type int|string|null.
 			identifier: offsetAccess.invalidOffset
 			count: 4
@@ -227,6 +233,12 @@ parameters:
 			identifier: offsetAccess.invalidOffset
 			count: 7
 			path: repo/src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
+
+		-
+			rawMessage: 'Strict comparison using !== between SimpleXMLElement and null will always evaluate to true.'
+			identifier: notIdentical.alwaysTrue
+			count: 4
+			path: repo/tests/Benchmark/XlsxStreamingReadClass.php
 
 		-
 			rawMessage: Possibly invalid array key type int|null.

@@ -1,2 +1,13 @@
 parameters:
-	ignoreErrors: []
+	ignoreErrors:
+		-
+			message: '#^Instanceof between ApiPlatform\\Metadata\\GraphQl\\Subscription and ApiPlatform\\Metadata\\GraphQl\\Subscription will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: repo/src/GraphQl/Type/TypeBuilder.php
+
+		-
+			message: '#^Result of \|\| is always true\.$#'
+			identifier: booleanOr.alwaysTrue
+			count: 1
+			path: repo/src/GraphQl/Type/TypeBuilder.php

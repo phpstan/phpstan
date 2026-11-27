@@ -169,6 +169,12 @@ parameters:
 			path: repo/src/world/generator/normal/Normal.php
 
 		-
+			message: '#^For loop initial assignment overwrites variable \$z\.$#'
+			identifier: for.variableOverwrite
+			count: 1
+			path: repo/src/world/generator/normal/Normal.php
+
+		-
 			message: '#^Cannot call method getName\(\) on pmmp\\TesterPlugin\\Test\|null\.$#'
 			identifier: method.nonObject
 			count: 1
@@ -203,6 +209,18 @@ parameters:
 			identifier: notIdentical.alwaysFalse
 			count: 1
 			path: repo/tools/blockstate-upgrade-schema-utils.php
+
+		-
+			message: '#^Foreach overwrites \$newPropertyValue with its value variable\.$#'
+			identifier: foreach.valueOverwrite
+			count: 3
+			path: repo/tools/blockstate-upgrade-schema-utils.php
+
+		-
+			message: '#^Foreach overwrites \$file with its value variable\.$#'
+			identifier: foreach.valueOverwrite
+			count: 1
+			path: repo/tools/compact-regions.php
 
 		-
 			message: '#^Cannot call method fromIntId\(\) on pocketmine\\network\\mcpe\\protocol\\serializer\\ItemTypeDictionary\|null\.$#'

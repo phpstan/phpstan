@@ -7,10 +7,28 @@ parameters:
 			path: repo/src/Core/Checkout/Customer/SalesChannel/AccountService.php
 
 		-
+			rawMessage: Negated boolean expression is always false.
+			identifier: booleanNot.alwaysFalse
+			count: 1
+			path: repo/src/Core/Content/Cms/DataResolver/Element/AbstractCmsElementResolver.php
+
+		-
 			rawMessage: 'Parameter #3 $entity of method Shopware\Core\Content\ImportExport\DataAbstractionLayer\Serializer\Entity\AbstractEntitySerializer::serialize() expects array<string, mixed>|Shopware\Core\Framework\Struct\Struct|null, iterable<array<string, mixed>> given.'
 			identifier: argument.type
 			count: 1
 			path: repo/src/Core/Content/ImportExport/Processing/Pipe/EntityPipe.php
+
+		-
+			rawMessage: 'Strict comparison using === between PhpParser\Node\Stmt\ClassMethod and null will always evaluate to false.'
+			identifier: identical.alwaysFalse
+			count: 1
+			path: repo/src/Core/DevOps/StaticAnalyze/PHPStan/Rules/Tests/NoCreateMockWithoutExpectationsRule.php
+
+		-
+			rawMessage: If condition is always true.
+			identifier: if.alwaysTrue
+			count: 1
+			path: repo/src/Core/Framework/Api/Controller/IndexingController.php
 
 		-
 			rawMessage: 'Call to function password_verify() on a separate line has no effect.'
@@ -41,10 +59,34 @@ parameters:
 			path: repo/src/Core/Framework/Api/OAuth/JWTConfigurationFactory.php
 
 		-
+			rawMessage: Negated boolean expression is always true.
+			identifier: booleanNot.alwaysTrue
+			count: 1
+			path: repo/src/Core/Framework/DataAbstractionLayer/Dbal/EntityDefinitionQueryHelper.php
+
+		-
+			rawMessage: Right side of && is always true.
+			identifier: booleanAnd.rightAlwaysTrue
+			count: 1
+			path: repo/src/Core/Framework/DataAbstractionLayer/Dbal/FieldResolver/TranslationFieldResolver.php
+
+		-
 			rawMessage: 'Parameter #1 $min (0|1) of function random_int expects lower number than parameter #2 $max (int<0, 4>).'
 			identifier: argument.type
 			count: 1
 			path: repo/src/Core/Framework/Demodata/Generator/ProductGenerator.php
+
+		-
+			rawMessage: 'Strict comparison using !== between Symfony\Component\HttpFoundation\Request and null will always evaluate to true.'
+			identifier: notIdentical.alwaysTrue
+			count: 1
+			path: repo/src/Core/Framework/Mcp/Tool/McpToolResponse.php
+
+		-
+			rawMessage: Using nullsafe property access on non-nullable type Symfony\Component\HttpFoundation\Request. Use -> instead.
+			identifier: nullsafe.neverNull
+			count: 1
+			path: repo/src/Core/Framework/Mcp/Tool/ToolsetEnableTool.php
 
 		-
 			rawMessage: 'Parameter #1 $email of method Shopware\Core\Framework\Sso\LoginResponseService::createErrorResponse() expects string, string|null given.'
@@ -91,6 +133,36 @@ parameters:
 			identifier: staticMethod.deprecated
 			count: 1
 			path: repo/src/Core/Framework/Uuid/Uuid.php
+
+		-
+			rawMessage: 'Offset int<0, 1> on array{''import'', ''export''} on left side of ?? always exists and is not nullable.'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: repo/tests/integration/Core/Content/ImportExport/Repository/ImportExportLogRepositoryTest.php
+
+		-
+			rawMessage: Negated boolean expression is always true.
+			identifier: booleanNot.alwaysTrue
+			count: 2
+			path: repo/tests/integration/Core/Content/Product/SearchKeyword/ProductSearchKeywordAnalyzerTest.php
+
+		-
+			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertGreaterThanOrEqual() with 0 and int<0, max> will always evaluate to true.'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 1
+			path: repo/tests/integration/Core/Content/Product/SearchKeyword/ProductSearchTermInterpreterTest.php
+
+		-
+			rawMessage: Negated boolean expression is always true.
+			identifier: booleanNot.alwaysTrue
+			count: 1
+			path: repo/tests/integration/Core/Framework/Migration/MigrationCommandTest.php
+
+		-
+			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertGreaterThanOrEqual() with arguments 0, int<0, max> and ''Verified no…'' will always evaluate to true.'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 1
+			path: repo/tests/unit/Core/Framework/Api/ApiDefinition/Generator/StoreApiGeneratorTest.php
 
 		-
 			rawMessage: '''

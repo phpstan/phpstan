@@ -663,6 +663,12 @@ parameters:
 			path: repo/src/Symfony/Bridge/PhpUnit/DeprecationErrorHandler/Deprecation.php
 
 		-
+			message: '#^Strict comparison using \!\=\= between null and string will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 1
+			path: repo/src/Symfony/Bridge/PhpUnit/DeprecationErrorHandler/Deprecation.php
+
+		-
 			message: '#^Trait Symfony\\Bridge\\PhpUnit\\ExpectDeprecationTrait is used zero times and is not analysed\.$#'
 			identifier: trait.unused
 			count: 1
@@ -3651,6 +3657,12 @@ parameters:
 			path: repo/src/Symfony/Component/Dotenv/Dotenv.php
 
 		-
+			message: '#^Right side of && is always true\.$#'
+			identifier: booleanAnd.rightAlwaysTrue
+			count: 1
+			path: repo/src/Symfony/Component/Dotenv/Dotenv.php
+
+		-
 			message: '#^Class Symfony\\Component\\Emoji\\EmojiTransliterator has an uninitialized readonly property \$id\. Assign it in the constructor\.$#'
 			identifier: property.uninitializedReadonly
 			count: 1
@@ -5586,6 +5598,12 @@ parameters:
 			path: repo/src/Symfony/Component/HttpKernel/HttpCache/ResponseCacheStrategy.php
 
 		-
+			message: '#^Strict comparison using \!\=\= between null and null will always evaluate to false\.$#'
+			identifier: notIdentical.alwaysFalse
+			count: 4
+			path: repo/src/Symfony/Component/HttpKernel/HttpCache/ResponseCacheStrategy.php
+
+		-
 			message: '#^Call to function assert\(\) with true will always evaluate to true\.$#'
 			identifier: function.alreadyNarrowedType
 			count: 1
@@ -5794,6 +5812,12 @@ parameters:
 			identifier: trait.unused
 			count: 1
 			path: repo/src/Symfony/Component/JsonPath/Test/JsonPathAssertionsTrait.php
+
+		-
+			message: '#^Right side of && is always true\.$#'
+			identifier: booleanAnd.rightAlwaysTrue
+			count: 1
+			path: repo/src/Symfony/Component/JsonPath/Tokenizer/JsonPathTokenizer.php
 
 		-
 			message: '#^Parameter \#2 \$callback of function usort expects callable\(Symfony\\Component\\JsonStreamer\\DataModel\\Read\\DataModelNodeInterface, Symfony\\Component\\JsonStreamer\\DataModel\\Read\\DataModelNodeInterface\)\: int, Closure\(Symfony\\Component\\JsonStreamer\\DataModel\\Read\\BackedEnumNode\|Symfony\\Component\\JsonStreamer\\DataModel\\Read\\CollectionNode\|Symfony\\Component\\JsonStreamer\\DataModel\\Read\\ObjectNode\|Symfony\\Component\\JsonStreamer\\DataModel\\Read\\ScalarNode, Symfony\\Component\\JsonStreamer\\DataModel\\Read\\BackedEnumNode\|Symfony\\Component\\JsonStreamer\\DataModel\\Read\\CollectionNode\|Symfony\\Component\\JsonStreamer\\DataModel\\Read\\ObjectNode\|Symfony\\Component\\JsonStreamer\\DataModel\\Read\\ScalarNode\)\: \(\-1\|0\|1\) given\.$#'

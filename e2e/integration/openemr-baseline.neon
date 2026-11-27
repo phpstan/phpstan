@@ -67,6 +67,12 @@ parameters:
 			path: repo/custom/export_qrda_xml.php
 
 		-
+			message: '#^Negated boolean expression is always true\.$#'
+			identifier: booleanNot.alwaysTrue
+			count: 1
+			path: repo/interface/fax/fax_dispatch.php
+
+		-
 			message: '#^Binary operation "\+\=" between \(float\|int\) and mixed results in an error\.$#'
 			identifier: assignOp.invalid
 			count: 2
@@ -77,6 +83,222 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: repo/interface/forms/eye_mag/php/eye_mag_functions.php
+
+		-
+			message: '#^Cannot use \+\+ on mixed\.$#'
+			identifier: postInc.type
+			count: 1
+			path: repo/interface/forms/eye_mag/php/eye_mag_functions.php
+
+		-
+			message: '#^Offset ''COMMENTS'' might not exist on ''''\|non\-empty\-array\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/forms/eye_mag/php/eye_mag_functions.php
+
+		-
+			message: '#^Offset ''ODADD'' might not exist on ''''\|non\-empty\-array\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/forms/eye_mag/php/eye_mag_functions.php
+
+		-
+			message: '#^Offset ''ODAXIS'' might not exist on ''''\|non\-empty\-array\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/forms/eye_mag/php/eye_mag_functions.php
+
+		-
+			message: '#^Offset ''ODCYL'' might not exist on ''''\|non\-empty\-array\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/forms/eye_mag/php/eye_mag_functions.php
+
+		-
+			message: '#^Offset ''ODMIDADD'' might not exist on ''''\|non\-empty\-array\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/forms/eye_mag/php/eye_mag_functions.php
+
+		-
+			message: '#^Offset ''ODNEARVA'' might not exist on ''''\|non\-empty\-array\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/forms/eye_mag/php/eye_mag_functions.php
+
+		-
+			message: '#^Offset ''ODPRISM'' might not exist on ''''\|non\-empty\-array\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/forms/eye_mag/php/eye_mag_functions.php
+
+		-
+			message: '#^Offset ''ODVA'' might not exist on ''''\|non\-empty\-array\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/forms/eye_mag/php/eye_mag_functions.php
+
+		-
+			message: '#^Offset ''OSADD'' might not exist on ''''\|non\-empty\-array\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/forms/eye_mag/php/eye_mag_functions.php
+
+		-
+			message: '#^Offset ''OSAXIS'' might not exist on ''''\|non\-empty\-array\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/forms/eye_mag/php/eye_mag_functions.php
+
+		-
+			message: '#^Offset ''OSCYL'' might not exist on ''''\|non\-empty\-array\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/forms/eye_mag/php/eye_mag_functions.php
+
+		-
+			message: '#^Offset ''OSMIDADD'' might not exist on ''''\|non\-empty\-array\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/forms/eye_mag/php/eye_mag_functions.php
+
+		-
+			message: '#^Offset ''OSNEARVA'' might not exist on ''''\|non\-empty\-array\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/forms/eye_mag/php/eye_mag_functions.php
+
+		-
+			message: '#^Offset ''OSPRISM'' might not exist on ''''\|non\-empty\-array\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/forms/eye_mag/php/eye_mag_functions.php
+
+		-
+			message: '#^Offset ''OSSPH'' might not exist on ''''\|non\-empty\-array\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/forms/eye_mag/php/eye_mag_functions.php
+
+		-
+			message: '#^Offset ''OSVA'' might not exist on ''''\|non\-empty\-array\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/forms/eye_mag/php/eye_mag_functions.php
+
+		-
+			message: '#^Offset ''RX_TYPE'' might not exist on ''''\|non\-empty\-array\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/forms/eye_mag/php/eye_mag_functions.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between int\<2, max\> and ''0'' will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 1
+			path: repo/interface/forms/eye_mag/php/eye_mag_functions.php
+
+		-
+			message: '#^Cannot use \+\+ on mixed\.$#'
+			identifier: postInc.type
+			count: 1
+			path: repo/interface/forms/eye_mag/report.php
+
+		-
+			message: '#^Offset ''COMMENTS'' might not exist on ''''\|non\-empty\-array\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/forms/eye_mag/report.php
+
+		-
+			message: '#^Offset ''ODADD'' might not exist on ''''\|non\-empty\-array\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/forms/eye_mag/report.php
+
+		-
+			message: '#^Offset ''ODAXIS'' might not exist on ''''\|non\-empty\-array\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/forms/eye_mag/report.php
+
+		-
+			message: '#^Offset ''ODCYL'' might not exist on ''''\|non\-empty\-array\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/forms/eye_mag/report.php
+
+		-
+			message: '#^Offset ''ODMIDADD'' might not exist on ''''\|non\-empty\-array\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/forms/eye_mag/report.php
+
+		-
+			message: '#^Offset ''ODNEARVA'' might not exist on ''''\|non\-empty\-array\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/forms/eye_mag/report.php
+
+		-
+			message: '#^Offset ''ODVA'' might not exist on ''''\|non\-empty\-array\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/forms/eye_mag/report.php
+
+		-
+			message: '#^Offset ''OSADD'' might not exist on ''''\|non\-empty\-array\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/forms/eye_mag/report.php
+
+		-
+			message: '#^Offset ''OSAXIS'' might not exist on ''''\|non\-empty\-array\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/forms/eye_mag/report.php
+
+		-
+			message: '#^Offset ''OSCYL'' might not exist on ''''\|non\-empty\-array\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/forms/eye_mag/report.php
+
+		-
+			message: '#^Offset ''OSMIDADD'' might not exist on ''''\|non\-empty\-array\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/forms/eye_mag/report.php
+
+		-
+			message: '#^Offset ''OSNEARVA'' might not exist on ''''\|non\-empty\-array\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/forms/eye_mag/report.php
+
+		-
+			message: '#^Offset ''OSSPH'' might not exist on ''''\|non\-empty\-array\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/forms/eye_mag/report.php
+
+		-
+			message: '#^Offset ''OSVA'' might not exist on ''''\|non\-empty\-array\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/forms/eye_mag/report.php
+
+		-
+			message: '#^Offset ''RX_TYPE'' might not exist on ''''\|non\-empty\-array\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/forms/eye_mag/report.php
+
+		-
+			message: '#^Parameter \#1 \$r of function sqlFetchArray expects ADORecordSet\|false, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/interface/forms/eye_mag/report.php
 
 		-
 			message: '#^Parameter \#1 \$array of function usort expects array, mixed given\.$#'
@@ -379,6 +601,18 @@ parameters:
 			path: repo/library/edihistory/edih_csv_parse.php
 
 		-
+			message: '#^Offset ''Status'' might not exist on non\-empty\-array\{Status\?\: string, Payer\?\: string, InsBnft\?\: string, Trace\?\: string, PtName\?\: string, RspDate\?\: mixed, ReqDate\?\: mixed, BHT03\?\: string, \.\.\.\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/library/edihistory/edih_csv_parse.php
+
+		-
+			message: '#^Offset ''claim'' on array\{type\: string, claim\: array\<int\<0, max\>, non\-empty\-array\{Status\?\: string, Payer\?\: string, InsBnft\?\: string, Trace\?\: string, PtName\?\: string, RspDate\?\: mixed, ReqDate\?\: mixed, BHT03\?\: string, \.\.\.\}\>, file\: array\{\}\} in isset\(\) always exists and is not nullable\.$#'
+			identifier: isset.offset
+			count: 1
+			path: repo/library/edihistory/edih_csv_parse.php
+
+		-
 			message: '#^Binary operation "\.\=" between mixed and numeric\-string results in an error\.$#'
 			identifier: assignOp.invalid
 			count: 1
@@ -487,6 +721,12 @@ parameters:
 			path: repo/src/Billing/EdiHistory/X12File.php
 
 		-
+			message: '#^Offset ''start'' on array\{start\: \(float\|int\), count\?\: \(float\|int\)\} in isset\(\) always exists and is not nullable\.$#'
+			identifier: isset.offset
+			count: 6
+			path: repo/src/Billing/EdiHistory/X12File.php
+
+		-
 			message: '#^Loose comparison using \=\= between OpenEMR\\ClinicalDecisionRules\\Interface\\RuleLibrary\\ReminderIntervalType and null will always evaluate to false\.$#'
 			identifier: equal.alwaysFalse
 			count: 1
@@ -509,6 +749,12 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: repo/src/Common/Command/CreateAPIDocumentationCommand.php
+
+		-
+			message: '#^Strict comparison using \=\=\= between int\<0, max\> and null will always evaluate to false\.$#'
+			identifier: identical.alwaysFalse
+			count: 1
+			path: repo/src/Common/Command/ReleasePrep/Mutator/PostReleaseTargetsMutator.php
 
 		-
 			message: '#^Loose comparison using \=\= between non\-empty\-array and ''null'' will always evaluate to false\.$#'
@@ -629,6 +875,12 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: repo/src/Services/Qrda/Cat3.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between PhpMyAdmin\\SqlParser\\Token and null will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 1
+			path: repo/tests/PHPStan/Rules/Sql/SqlReservedWordRule.php
 
 		-
 			message: '#^Call to method PHPUnit\\Framework\\Assert\:\:assertIsInt\(\) with int will always evaluate to true\.$#'
