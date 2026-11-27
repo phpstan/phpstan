@@ -1,2 +1,31 @@
 parameters:
-	ignoreErrors: []
+	ignoreErrors:
+		-
+			rawMessage: 'Parameter #1 $field of method Atk4\Data\Model::setOrder() expects array<int, array{0: string, 1?: ''asc''|''desc''}|string>|array<string, ''asc''|''desc''>|string, array{net: ''desc'', 0: ''vat''} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/LimitOrderTest.php
+
+		-
+			rawMessage: 'Parameter #1 $field of method Atk4\Data\Model::setOrder() expects array<int, array{0: string, 1?: ''asc''|''desc''}|string>|array<string, ''asc''|''desc''>|string, array{total_gross: ''desc'', 0: ''total_net''} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/LimitOrderTest.php
+
+		-
+			rawMessage: 'Parameter #1 $field of method Atk4\Data\Model::setOrder() expects array<int, array{0: string, 1?: ''asc''|''desc''}|string>|array<string, ''asc''|''desc''>|string, array{total_net: ''desc'', 0: ''total_gross''} given.'
+			identifier: argument.type
+			count: 2
+			path: repo/tests/LimitOrderTest.php
+
+		-
+			rawMessage: 'Parameter #1 $fields of method Atk4\Data\Model::addFields() expects array<int, string>|array<string, array<mixed>|object>, array<int|string, array<int|string, int|string>|Atk4\Data\Tests\CustomField|string> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/RandomTest.php
+
+		-
+			rawMessage: 'Parameter #1 $references of method Atk4\Data\Util\DeepCopy::with() expects array<int, string>|array<string, array<mixed>>, array<int|string, list<string>|string> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/Util/DeepCopyTest.php

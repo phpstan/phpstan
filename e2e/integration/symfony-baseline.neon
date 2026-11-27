@@ -10537,3 +10537,15 @@ parameters:
 			identifier: smallerOrEqual.alwaysTrue
 			count: 1
 			path: repo/src/Symfony/Contracts/Translation/TranslatorTrait.php
+
+		-
+			message: '#^Parameter \#2 \$options of function curl_setopt_array expects array\{43\: bool, 20056\: \(callable\(CurlHandle, int, int, int, int\)\: int\)\|null, 20079\: \(callable\(CurlHandle, string\)\: int\)\|null, 20011\: \(callable\(CurlHandle, string\)\: int\)\|null, 20012\: \(callable\(CurlHandle, resource, int\)\: \(int\<0, max\>\|string\)\)\|null, 10009\: resource\}, array\{43\: true, 20056\: null, 20079\: null, 20011\: null, 20012\: null, 10009\: null\} given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Symfony/Component/HttpClient/Response/CurlResponse.php
+
+		-
+			message: '#^Offset decimal\-int\-string does not exist on non\-empty\-list\<array\{0\?\: array\<string\>, 1\?\: object\|string\}\>\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/src/Symfony/Bridge/Doctrine/ContainerAwareEventManager.php

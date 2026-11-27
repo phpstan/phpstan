@@ -371,3 +371,9 @@ parameters:
 			identifier: offsetAccess.notFound
 			count: 1
 			path: repo/src/Telemetry.php
+
+		-
+			message: '#^Method CommonITILObject\:\:getTimelineItems\(\) should return array\<array\{type\: class\-string\<CommonITILObject\>, itiltype\: class\-string\<CommonITILObject\>, item\: array\{id\: int, content\: string, date\: string\|null, users_id\: int, solutiontypes_id\: int, can_edit\: bool, timeline_position\: \-1\|0\|1\|2\|3\|4, users_id_editor\: int, \.\.\.\}, object\: mixed\}\> but returns list\<array\<''_is_image''\|''_size''\|''class''\|''documents''\|''item''\|''item_action''\|''itiltype''\|''object''\|''type'', mixed\>\>\.$#'
+			identifier: return.type
+			count: 1
+			path: repo/src/CommonITILObject.php

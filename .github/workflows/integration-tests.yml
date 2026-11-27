@@ -296,6 +296,10 @@ jobs:
             repo: rectorphp/rector-src
             ref: 9e6021d0168e79c71c16b6735a8dd4ef158a1c9f
             setup: |
+              # avoids non-ignorable unmatched ignores in Rector's phpstan.neon: since phpstan-src 2b60ab0d0 the
+              # array_reduce() accumulator in AddClosureParamTypeForArrayReduceRector is resolved, so argument.templateType
+              # is no longer reported and the remaining argument.type error is matched by the "list vs array" ignore
+              git apply ../rector-src.patch
               cp ../rector-composer.lock composer.lock
               composer install
             phpstan-command: ../../../phpstan.phar analyse -c ../rector.neon -vvv

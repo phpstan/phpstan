@@ -257,3 +257,9 @@ parameters:
 			identifier: offsetAccess.invalidOffset
 			count: 1
 			path: repo/tests/PhpSpreadsheetTests/Writer/Xlsx/UnparsedDataCloneTest.php
+
+		-
+			rawMessage: 'Parameter #3 $xValues of class PhpOffice\PhpSpreadsheet\Shared\Trend\PolynomialBestFit constructor expects array<float>, array<float>|list<int<0, max>> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/src/PhpSpreadsheet/Shared/Trend/Trend.php

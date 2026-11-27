@@ -197,3 +197,93 @@ parameters:
 			identifier: ternary.alwaysTrue
 			count: 1
 			path: repo/src/Core/Content/Media/File/FileFetcher.php
+
+		-
+			rawMessage: 'Parameter #2 $value of class Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsAnyFilter constructor expects array<string, string>|list<bool|float|int|string|null>, non-empty-array<string|null> given.'
+			identifier: argument.type
+			count: 2
+			path: repo/src/Core/Checkout/Cart/SalesChannel/ProductShippingCostRoute.php
+
+		-
+			rawMessage: 'Parameter #2 $value of class Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsAnyFilter constructor expects array<string, string>|list<bool|float|int|string|null>, non-empty-array<string|null> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Core/Checkout/Cart/SalesChannel/ShippingCostRoute.php
+
+		-
+			rawMessage: 'Parameter #2 $value of class Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsAnyFilter constructor expects array<string, string>|list<bool|float|int|string|null>, array<int<0, max>, non-falsy-string> given.'
+			identifier: argument.type
+			count: 2
+			path: repo/src/Core/Checkout/Customer/Subscriber/CustomerLanguageSalesChannelSubscriber.php
+
+		-
+			rawMessage: 'Parameter #2 $value of class Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsAnyFilter constructor expects array<string, string>|list<bool|float|int|string|null>, non-empty-array<int<0, max>, non-falsy-string> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Core/Checkout/Customer/Subscriber/CustomerLanguageSalesChannelSubscriber.php
+
+		-
+			rawMessage: 'Property Shopware\Core\Content\ImportExport\DataAbstractionLayer\Serializer\Entity\SalutationSerializer::$cacheSalutations (array<null>|array<string>) does not accept array<string|null>.'
+			identifier: assign.propertyType
+			count: 1
+			path: repo/src/Core/Content/ImportExport/DataAbstractionLayer/Serializer/Entity/SalutationSerializer.php
+
+		-
+			rawMessage: 'Parameter #2 $value of class Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsAnyFilter constructor expects array<string, string>|list<bool|float|int|string|null>, array{0?: non-falsy-string, 1?: non-falsy-string} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Core/Content/Product/SalesChannel/Detail/ProductDetailRoute.php
+
+		-
+			rawMessage: 'Parameter #2 $value of class Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsAnyFilter constructor expects array<string, string>|list<bool|float|int|string|null>, array<int|string> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Core/Content/Seo/SalesChannel/StoreApiSeoResolver.php
+
+		-
+			rawMessage: 'Parameter #2 $value of class Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsAnyFilter constructor expects array<string, string>|list<bool|float|int|string|null>, array<int<0, max>, mixed> given.'
+			identifier: argument.type
+			count: 2
+			path: repo/src/Core/Framework/DataAbstractionLayer/Dbal/EntityReader.php
+
+		-
+			rawMessage: 'Parameter #1 $items of static method Shopware\Elasticsearch\ElasticsearchException::indexingError() expects array{reason: string, index?: string, id?: string, type?: string}|list<array{reason: string, index?: string, id?: string, type?: string}>, array{non-falsy-string} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Elasticsearch/Admin/AdminSearchRegistry.php
+
+		-
+			rawMessage: 'Parameter #1 $items of static method Shopware\Elasticsearch\ElasticsearchException::indexingError() expects array{reason: string, index?: string, id?: string, type?: string}|list<array{reason: string, index?: string, id?: string, type?: string}>, array<array{index: string, id: string, type: string, reason: string}> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Elasticsearch/Framework/Indexing/ElasticsearchIndexer.php
+
+		-
+			rawMessage: 'Parameter #2 $mappings of method Shopware\Tests\Integration\Core\Content\ImportExport\AbstractImportExportTestCase::updateProfileMapping() expects array<Shopware\Core\Content\ImportExport\Processing\Mapping\Mapping>|list<array{key: string, mappedKey: string, useDefaultValue?: bool, defaultValue?: string, requiredByUser?: bool, position?: int}>, non-empty-array<array{key: ''deliveryTime…'', mappedKey: ''delivery_time'', position: -1}|array{key: string, mappedKey: string}|Shopware\Core\Content\ImportExport\Processing\Mapping\Mapping> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/integration/Core/Content/ImportExport/ImportExportTest.php
+
+		-
+			rawMessage: 'Parameter #2 $mappings of method Shopware\Tests\Integration\Core\Content\ImportExport\AbstractImportExportTestCase::updateProfileMapping() expects array<Shopware\Core\Content\ImportExport\Processing\Mapping\Mapping>|list<array{key: string, mappedKey: string, useDefaultValue?: bool, defaultValue?: string, requiredByUser?: bool, position?: int}>, non-empty-array<array{key: string, mappedKey: string}|Shopware\Core\Content\ImportExport\Processing\Mapping\Mapping> given.'
+			identifier: argument.type
+			count: 6
+			path: repo/tests/integration/Core/Content/ImportExport/ImportExportTest.php
+
+		-
+			rawMessage: 'Method Shopware\Tests\Unit\Core\Test\Integration\EventDispatcher\EventHookDispatcherTestSubscriber::getSubscribedEvents() should return array<string, array{string, int}|list<array{0: string, 1?: int}>|string> but returns array<string, array{0: string, 1?: int}|list<array{0: string, 1?: int}>|string>.'
+			identifier: return.type
+			count: 1
+			path: repo/tests/unit/Core/Test/Integration/EventDispatcher/EventHookDispatcherTest.php
+
+		-
+			rawMessage: 'Parameter #1 $items of static method Shopware\Elasticsearch\ElasticsearchException::indexingError() expects array{reason: string, index?: string, id?: string, type?: string}|list<array{reason: string, index?: string, id?: string, type?: string}>, array{''Indexer for name…''} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Elasticsearch/Admin/AdminSearcherTest.php
+
+		-
+			rawMessage: Unreachable statement - code above always terminates.
+			identifier: deadCode.unreachable
+			count: 1
+			path: repo/tests/unit/Core/Framework/Telemetry/TelemetryTest.php

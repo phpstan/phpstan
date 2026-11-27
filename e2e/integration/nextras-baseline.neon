@@ -1,2 +1,7 @@
 parameters:
-	ignoreErrors: []
+	ignoreErrors:
+		-
+			rawMessage: 'Offset 0 might not exist on array<string, mixed>|list<mixed>.'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/src/Collection/Helpers/ArrayCollectionHelper.php

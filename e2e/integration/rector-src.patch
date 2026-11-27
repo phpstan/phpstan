@@ -1,0 +1,23 @@
+diff --git a/phpstan.neon b/phpstan.neon
+index 885d5d0..22b80f7 100644
+--- a/phpstan.neon
++++ b/phpstan.neon
+@@ -105,10 +105,6 @@ parameters:
+             identifier: shipmonk.deadMethod
+             path: src/PhpParser/Printer/BetterStandardPrinter.php
+ 
+-        -
+-            identifier: argument.templateType
+-            path: rules/TypeDeclaration/Rector/FunctionLike/AddClosureParamTypeForArrayReduceRector.php
+-
+         -
+             identifier: argument.type
+             message: '#(.*?) class\-string, string given#'
+@@ -150,7 +146,6 @@ parameters:
+             identifier: argument.type
+             paths:
+                 - rules/Privatization/TypeManipulator/TypeNormalizer.php
+-                - rules/TypeDeclaration/Rector/FunctionLike/AddClosureParamTypeForArrayReduceRector.php
+                 - rules/TypeDeclarationDocblocks/Rector/Class_/AddVarArrayDocblockFromDimFetchAssignRector.php
+                 - src/NodeTypeResolver/PHPStan/Type/TypeFactory.php
+ 

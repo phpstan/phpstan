@@ -1,7 +1,2 @@
 parameters:
-	ignoreErrors:
-		-
-			rawMessage: Elseif condition is always true.
-			identifier: elseif.alwaysTrue
-			count: 1
-			path: repo/src/Framework/MockObject/Runtime/ReturnValueGenerator.php
+	ignoreErrors: []

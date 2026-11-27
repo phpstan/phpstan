@@ -1367,3 +1367,147 @@ parameters:
 			identifier: binaryOp.invalid
 			count: 1
 			path: repo/tests/Tests/Certification/HIT1/G10_Certification/SinglePatientApi/CapabilityStatementTest.php
+
+		-
+			message: '#^Anonymous function never returns array so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: repo/src/Services/Qdm/ResultsCalculator.php
+
+		-
+			message: '#^Binary operation "\+" between \(float\|int\) and mixed results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 1
+			path: repo/src/Services/Qdm/ResultsCalculator.php
+
+		-
+			message: '#^Parameter \#2 \$callback of function array_reduce expects callable\(array\<array\>, mixed\)\: array\<array\>, Closure\(array, string\)\: non\-empty\-array\<array\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/Tests/Services/FHIR/Observation/FhirObservationAdvanceDirectiveServiceUSCore8Test.php
+
+		-
+			message: '#^Offset ''care_plan'' might not exist on array\{\}\|array\{care_plan\: non\-empty\-array\<int\<1, max\>, array\{extension\: mixed, root\: mixed, text\: mixed, code\: mixed, description\: mixed, plan_type\: mixed\}\>\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/modules/zend_modules/module/Carecoordination/src/Carecoordination/Model/CarecoordinationTable.php
+
+		-
+			message: '#^Offset ''encounter'' might not exist on array\{\}\|array\{encounter\: non\-empty\-array\<int\<1, max\>, array\{extension\: mixed, root\: mixed, date\: mixed, provider_npi\: mixed, provider_name\: mixed, provider_address\: mixed, provider_city\: mixed, provider_state\: mixed, \.\.\.\}\>\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/modules/zend_modules/module/Carecoordination/src/Carecoordination/Model/CarecoordinationTable.php
+
+		-
+			message: '#^Offset ''functional_cognitive_status'' might not exist on array\{\}\|array\{functional_cognitive_status\: non\-empty\-array\<int\<1, max\>, array\{extension\: mixed, root\: mixed, text\: mixed, code\: mixed, date\: mixed, description\: mixed\}\>\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/modules/zend_modules/module/Carecoordination/src/Carecoordination/Model/CarecoordinationTable.php
+
+		-
+			message: '#^Offset ''immunization'' might not exist on array\{\}\|array\{immunization\: non\-empty\-array\<int\<1, max\>, array\{extension\: mixed, root\: mixed, administered_date\: mixed, route_code\: mixed, route_code_text\: mixed, cvx_code\: mixed, cvx_code_text\: mixed, amount_administered\: mixed, \.\.\.\}\>\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/modules/zend_modules/module/Carecoordination/src/Carecoordination/Model/CarecoordinationTable.php
+
+		-
+			message: '#^Offset ''lists1'' might not exist on array\{\}\|array\{lists1\: non\-empty\-array\<int\<1, max\>, array\{extension\: mixed, root\: mixed, begdate\: mixed, enddate\: mixed, list_code\: mixed, list_code_text\: mixed, status\: mixed, observation_text\: mixed, \.\.\.\}\>\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/modules/zend_modules/module/Carecoordination/src/Carecoordination/Model/CarecoordinationTable.php
+
+		-
+			message: '#^Offset ''lists2'' might not exist on array\{\}\|array\{lists2\: non\-empty\-array\<int\<1, max\>, array\{extension\: mixed, begdate\: mixed, enddate\: mixed, list_code\: mixed, list_code_text\: mixed, severity_al\: mixed, status\: mixed, reaction\: mixed, \.\.\.\}\>\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/modules/zend_modules/module/Carecoordination/src/Carecoordination/Model/CarecoordinationTable.php
+
+		-
+			message: '#^Offset ''lists3'' might not exist on array\{\}\|array\{lists3\: non\-empty\-array\<int\<1, max\>, array\{extension\: mixed, root\: mixed, begdate\: mixed, enddate\: mixed, route\: mixed, note\: mixed, indication\: mixed, route_display\: mixed, \.\.\.\}\>\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/modules/zend_modules/module/Carecoordination/src/Carecoordination/Model/CarecoordinationTable.php
+
+		-
+			message: '#^Offset ''procedure'' might not exist on array\{\}\|array\{procedure\: non\-empty\-array\<int\<1, max\>, array\{extension\: mixed, root\: mixed, codeSystemName\: mixed, code\: mixed, code_text\: mixed, date\: mixed, represented_organization1\: mixed, represented_organization_address1\: mixed, \.\.\.\}\>\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/modules/zend_modules/module/Carecoordination/src/Carecoordination/Model/CarecoordinationTable.php
+
+		-
+			message: '#^Offset ''procedure_result'' might not exist on array\{\}\|array\{procedure_result\: non\-empty\-array\<int\<1, max\>, array\{proc_text\: mixed, proc_code\: mixed, extension\: mixed, date\: mixed, status\: mixed, results_text\: mixed, results_code\: mixed, results_range\: mixed, \.\.\.\}\>\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/modules/zend_modules/module/Carecoordination/src/Carecoordination/Model/CarecoordinationTable.php
+
+		-
+			message: '#^Offset ''referral'' might not exist on array\{\}\|array\{referral\: non\-empty\-array\<int\<1, max\>, array\{body\: mixed, root\: mixed\}\>\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/modules/zend_modules/module/Carecoordination/src/Carecoordination/Model/CarecoordinationTable.php
+
+		-
+			message: '#^Offset ''vitals'' might not exist on array\{\}\|array\{vitals\: non\-empty\-array\<int\<1, max\>, array\{extension\: mixed, date\: mixed, temperature\: mixed, bpd\: mixed, bps\: mixed, head_circ\: mixed, pulse\: mixed, height\: mixed, \.\.\.\}\>\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/modules/zend_modules/module/Carecoordination/src/Carecoordination/Model/CarecoordinationTable.php
+
+		-
+			message: '#^Offset 0 might not exist on array\{\}\|array\{non\-empty\-array\<mixed\>\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 2
+			path: repo/interface/modules/zend_modules/module/Carecoordination/src/Carecoordination/Model/EncounterccdadispatchTable.php
+
+		-
+			message: '#^Offset ''adjustments'' might not exist on array\{insname\: string, pid\: mixed, amount\: \(float\|int\), paid\: \(float\|int\), charges\: \(float\|int\), adjustments\?\: mixed, count\?\: \(float\|int\), agedbal\?\: array\<int, \(float\|int\)\>, \.\.\.\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/reports/collections_report.php
+
+		-
+			message: '#^Offset ''amount'' might not exist on array\{insname\: string, pid\: mixed, amount\?\: mixed, paid\?\: mixed, charges\?\: mixed, adjustments\?\: mixed, count\?\: \(float\|int\), agedbal\?\: array\<int, \(float\|int\)\>, \.\.\.\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/reports/collections_report.php
+
+		-
+			message: '#^Offset ''charges'' might not exist on array\{insname\: string, pid\: mixed, amount\: \(float\|int\), paid\: \(float\|int\), charges\?\: mixed, adjustments\?\: mixed, count\?\: \(float\|int\), agedbal\?\: array\<int, \(float\|int\)\>, \.\.\.\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/reports/collections_report.php
+
+		-
+			message: '#^Offset ''count'' might not exist on array\{insname\: string, pid\: mixed, amount\: \(float\|int\), paid\: \(float\|int\), charges\: \(float\|int\), adjustments\: \(float\|int\), count\?\: \(float\|int\), agedbal\?\: array\<int, \(float\|int\)\>, \.\.\.\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/reports/collections_report.php
+
+		-
+			message: '#^Offset ''paid'' might not exist on array\{insname\: string, pid\: mixed, amount\: \(float\|int\), paid\?\: mixed, charges\?\: mixed, adjustments\?\: mixed, count\?\: \(float\|int\), agedbal\?\: array\<int, \(float\|int\)\>, \.\.\.\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/interface/reports/collections_report.php
+
+		-
+			message: '#^Offset ''Status'' might not exist on array\{InsBnft\?\: string, Status\?\: literal\-string\|non\-falsy\-string, Trace\?\: string, Payer\?\: string, PtName\?\: string, RspDate\?\: mixed, ReqDate\?\: mixed, BHT03\?\: string, \.\.\.\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/library/edihistory/edih_csv_parse.php
+
+		-
+			message: '#^Offset ''claim'' on array\{type\: string, claim\: array\<int\<0, max\>, array\{InsBnft\?\: string, Status\?\: literal\-string\|non\-falsy\-string, Trace\?\: string, Payer\?\: string, PtName\?\: string, RspDate\?\: mixed, ReqDate\?\: mixed, BHT03\?\: string, \.\.\.\}\>, file\: array\{\}\} in isset\(\) always exists and is not nullable\.$#'
+			identifier: isset.offset
+			count: 1
+			path: repo/library/edihistory/edih_csv_parse.php
+
+		-
+			message: '#^Offset ''measure'' on array\{category\: array\{coding\: array\{array\{system\: mixed, code\: mixed, display\: mixed\}\}, text\: mixed\}, measure\: array\{coding\: array\{array\{system\: mixed, code\: mixed, display\: mixed\}\}, text\: mixed\}, target\: array\{coding\: array\{array\{system\: mixed, code\: mixed, display\: mixed\}\}, text\: mixed\}, description\: array\{coding\: array\{array\{system\: mixed, code\: mixed, display\: mixed\}\}, text\: mixed\}\|array\{text\: ''Has reliable…''\}\|array\{text\: ''No threat of…''\}\}\|array\{category\: array\{coding\: array\{array\{system\: mixed, code\: mixed, display\: mixed\}\}, text\: mixed\}, measure\: array\{coding\: array\{array\{system\: mixed, code\: mixed, display\: mixed\}\}, text\: mixed\}, target\: array\{text\: ''Never''\}, description\: array\{text\: ''Adequate social…''\}\}\|array\{category\: array\{coding\: array\{array\{system\: mixed, code\: mixed, display\: mixed\}\}, text\: mixed\}, measure\: array\{text\: ''Adequate digital…''\}, target\: array\{text\: ''Yes''\}, description\: array\{text\: ''Has adequate…''\}\}\|array\{category\: array\{coding\: array\{array\{system\: mixed, code\: mixed, display\: mixed\}\}, text\: mixed\}, measure\: array\{text\: ''Childcare needs…''\}, target\: array\{coding\: array\{array\{system\: mixed, code\: mixed, display\: mixed\}\}, text\: mixed\}, description\: array\{text\: ''Childcare needs…''\}\}\|array\{category\: array\{coding\: array\{array\{system\: mixed, code\: mixed, display\: mixed\}\}, text\: mixed\}, measure\: array\{text\: ''Financial strain…''\}, target\: array\{coding\: array\{array\{system\: mixed, code\: mixed, display\: mixed\}\}, text\: mixed\}, description\: array\{text\: ''Reduced financial…''\}\}\|array\{category\: array\{coding\: array\{array\{system\: mixed, code\: mixed, display\: mixed\}\}, text\: mixed\}, measure\: array\{text\: ''IPV screen''\}, target\: array\{coding\: array\{array\{system\: mixed, code\: mixed, display\: mixed\}\}, text\: mixed\}, description\: array\{text\: ''Safe interpersonal…''\}\} in empty\(\) always exists and is not falsy\.$#'
+			identifier: empty.offset
+			count: 1
+			path: repo/src/Services/SDOH/HistorySdohService.php
+
+		-
+			message: '#^Offset ''target'' on array\{category\: array\{coding\: array\{array\{system\: mixed, code\: mixed, display\: mixed\}\}, text\: mixed\}, measure\: array\{coding\: array\{array\{system\: mixed, code\: mixed, display\: mixed\}\}, text\: mixed\}, target\: array\{coding\: array\{array\{system\: mixed, code\: mixed, display\: mixed\}\}, text\: mixed\}, description\: array\{coding\: array\{array\{system\: mixed, code\: mixed, display\: mixed\}\}, text\: mixed\}\|array\{text\: ''Has reliable…''\}\|array\{text\: ''No threat of…''\}\}\|array\{category\: array\{coding\: array\{array\{system\: mixed, code\: mixed, display\: mixed\}\}, text\: mixed\}, measure\: array\{coding\: array\{array\{system\: mixed, code\: mixed, display\: mixed\}\}, text\: mixed\}, target\: array\{text\: ''Never''\}, description\: array\{text\: ''Adequate social…''\}\}\|array\{category\: array\{coding\: array\{array\{system\: mixed, code\: mixed, display\: mixed\}\}, text\: mixed\}, measure\: array\{text\: ''Adequate digital…''\}, target\: array\{text\: ''Yes''\}, description\: array\{text\: ''Has adequate…''\}\}\|array\{category\: array\{coding\: array\{array\{system\: mixed, code\: mixed, display\: mixed\}\}, text\: mixed\}, measure\: array\{text\: ''Childcare needs…''\}, target\: array\{coding\: array\{array\{system\: mixed, code\: mixed, display\: mixed\}\}, text\: mixed\}, description\: array\{text\: ''Childcare needs…''\}\}\|array\{category\: array\{coding\: array\{array\{system\: mixed, code\: mixed, display\: mixed\}\}, text\: mixed\}, measure\: array\{text\: ''Financial strain…''\}, target\: array\{coding\: array\{array\{system\: mixed, code\: mixed, display\: mixed\}\}, text\: mixed\}, description\: array\{text\: ''Reduced financial…''\}\}\|array\{category\: array\{coding\: array\{array\{system\: mixed, code\: mixed, display\: mixed\}\}, text\: mixed\}, measure\: array\{text\: ''IPV screen''\}, target\: array\{coding\: array\{array\{system\: mixed, code\: mixed, display\: mixed\}\}, text\: mixed\}, description\: array\{text\: ''Safe interpersonal…''\}\} in empty\(\) always exists and is not falsy\.$#'
+			identifier: empty.offset
+			count: 1
+			path: repo/src/Services/SDOH/HistorySdohService.php
