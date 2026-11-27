@@ -473,3 +473,15 @@ parameters:
 			identifier: offsetAccess.notFound
 			count: 1
 			path: repo/plugins/woocommerce/src/Internal/StockNotifications/Admin/NotificationCreatePage.php
+
+		-
+			message: '#^Parameter \#1 \$args of method WP_Ajax_Response\:\:add\(\) expects array\{what\?\: string, action\?\: string\|false, id\?\: int\|WP_Error, old_id\?\: int\|false, position\?\: string, data\?\: string\|WP_Error, supplemental\?\: array\}, array\{what\: ''comment'', id\: string, data\: string\|false, position\: ''\-1''\|int, supplemental\: array\{in_moderation\: int, i18n_comments_text\: string, i18n_moderation_text\: string\}\} given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/plugins/woocommerce/src/Internal/Admin/ProductReviews/Reviews.php
+
+		-
+			message: '#^Offset ''price'' on array\{priceValidUntil\: string, availability\: ''https\://schema\.org…'', url\: mixed, seller\: array\{''@type''\: ''Organization'', name\: mixed, url\: mixed\}, ''@type''\: ''AggregateOffer'', lowPrice\: mixed, highPrice\: mixed, offerCount\: int\<0, max\>, \.\.\.\}\|array\{priceValidUntil\: string, availability\: ''https\://schema\.org…'', url\: mixed, seller\: array\{''@type''\: ''Organization'', name\: mixed, url\: mixed\}, ''@type''\: ''Offer'', priceSpecification\: array\{0\: array\{''@type''\: ''UnitPriceSpecificat…'', price\: mixed, priceCurrency\: mixed, validThrough\: string, valueAddedTaxIncluded\?\: bool\}, 1\?\: array\{''@type''\: ''UnitPriceSpecificat…'', price\: mixed, priceCurrency\: mixed, validThrough\: string, valueAddedTaxIncluded\?\: bool, priceType\?\: ''https\://schema\.org…''\}\}\|array\{array\{''@type''\: ''UnitPriceSpecificat…'', price\: mixed, priceCurrency\: mixed, validThrough\: string, valueAddedTaxIncluded\?\: bool, priceType\?\: ''https\://schema\.org…''\}\}\} in empty\(\) does not exist\.$#'
+			identifier: empty.offset
+			count: 1
+			path: repo/plugins/woocommerce/includes/class-wc-structured-data.php

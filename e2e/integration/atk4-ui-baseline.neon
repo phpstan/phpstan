@@ -1,2 +1,7 @@
 parameters:
-	ignoreErrors: []
+	ignoreErrors:
+		-
+			rawMessage: 'Parameter #2 $statements of class Atk4\Ui\Js\JsFunction constructor expects array<string, mixed>|Atk4\Ui\Js\JsBlock|list<Atk4\Ui\Js\JsExpressionable|null>, array{0: Atk4\Ui\Js\JsExpression, preventDefault: true} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/demos/_unit-test/grid-rowclick.php

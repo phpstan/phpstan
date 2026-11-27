@@ -5,3 +5,39 @@ parameters:
 			identifier: identical.alwaysTrue
 			count: 1
 			path: repo/src/Platforms/MySQL/Comparator.php
+
+		-
+			rawMessage: 'Property Doctrine\DBAL\Logging\Statement::$params (array<int, mixed>|array<string, mixed>) does not accept array<int|string, mixed>.'
+			identifier: assign.propertyType
+			count: 1
+			path: repo/src/Logging/Statement.php
+
+		-
+			rawMessage: 'Property Doctrine\DBAL\Logging\Statement::$types (array<int, Doctrine\DBAL\ParameterType>|array<string, Doctrine\DBAL\ParameterType>) does not accept array<int|string, Doctrine\DBAL\ParameterType>.'
+			identifier: assign.propertyType
+			count: 1
+			path: repo/src/Logging/Statement.php
+
+		-
+			rawMessage: 'Method Doctrine\DBAL\Platforms\MySQL\MySQLMetadataProvider::parseCreateOptions() should return array<string, string>|array<string, true> but returns non-empty-array<string, string|true>.'
+			identifier: return.type
+			count: 1
+			path: repo/src/Platforms/MySQL/MySQLMetadataProvider.php
+
+		-
+			rawMessage: 'Property Doctrine\DBAL\Query\QueryBuilder::$params (array<string, mixed>|list<mixed>) does not accept non-empty-array<int<0, max>|string, mixed>.'
+			identifier: assign.propertyType
+			count: 1
+			path: repo/src/Query/QueryBuilder.php
+
+		-
+			rawMessage: 'Property Doctrine\DBAL\Query\QueryBuilder::$types (array<int<0, max>, Doctrine\DBAL\ArrayParameterType|Doctrine\DBAL\ParameterType|Doctrine\DBAL\Types\Type|string>|array<string, Doctrine\DBAL\ArrayParameterType|Doctrine\DBAL\ParameterType|Doctrine\DBAL\Types\Type|string>) does not accept non-empty-array<int<0, max>|string, Doctrine\DBAL\ArrayParameterType|Doctrine\DBAL\ParameterType|Doctrine\DBAL\Types\Type|string>.'
+			identifier: assign.propertyType
+			count: 1
+			path: repo/src/Query/QueryBuilder.php
+
+		-
+			rawMessage: 'Method Doctrine\DBAL\Schema\MySQLSchemaManager::parseCreateOptions() should return array<string, string>|array<string, true> but returns non-empty-array<string, string|true>.'
+			identifier: return.type
+			count: 1
+			path: repo/src/Schema/MySQLSchemaManager.php
