@@ -2,6 +2,7 @@
 title: "phpunit.attributeRequiresPhpVersion"
 shortDescription: "RequiresPhp or RequiresPhpunit attribute has an invalid, incomplete, or unsatisfiable version requirement."
 ignorable: true
+autofixable: true
 ---
 
 ## Code example
@@ -110,3 +111,5 @@ Use a complete `major.minor.patch` version:
  	}
  }
 ```
+
+When the incomplete version is a plain string literal and uses the `>=` or `^` operator (e.g. `'>= 8.1'` or `'^8'`), running PHPStan with [`--fix`](/user-guide/command-line-usage#--fix%2C---fix-ignored) completes it to `major.minor.patch` by appending `.0` parts (e.g. `'>= 8.1.0'`, `'^8.0.0'`), because that does not change the meaning of the requirement. Versions with other operators or without any operator have to be fixed by hand.
