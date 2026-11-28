@@ -67,6 +67,18 @@ parameters:
 			path: repo/src/Module/Share/ShareUiLinkRenderer.php
 
 		-
+			message: '#^Comparison operation "\<" between int and int is always false\.$#'
+			identifier: smaller.alwaysFalse
+			count: 1
+			path: repo/src/Module/Statistics/Stats.php
+
+		-
+			message: '#^Result of && is always false\.$#'
+			identifier: booleanAnd.alwaysFalse
+			count: 1
+			path: repo/src/Module/Statistics/Stats.php
+
+		-
 			message: '#^Strict comparison using \!\=\= between non\-falsy\-string and ''0'' will always evaluate to true\.$#'
 			identifier: notIdentical.alwaysTrue
 			count: 1

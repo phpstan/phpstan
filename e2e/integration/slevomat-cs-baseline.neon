@@ -1,2 +1,13 @@
 parameters:
-	ignoreErrors: []
+	ignoreErrors:
+		-
+			message: '#^Comparison operation "\>\=" between int\<901, max\> and 900 is always true\.$#'
+			identifier: greaterOrEqual.alwaysTrue
+			count: 1
+			path: repo/SlevomatCodingStandard/Sniffs/ControlStructures/DisallowYodaComparisonSniff.php
+
+		-
+			message: '#^Comparison operation "\>" between int and int is always true\.$#'
+			identifier: greater.alwaysTrue
+			count: 1
+			path: repo/SlevomatCodingStandard/Sniffs/Files/LineLengthSniff.php

@@ -13,6 +13,12 @@ parameters:
 			path: repo/src/PhpSpreadsheet/Calculation/Calculation.php
 
 		-
+			rawMessage: 'Comparison operation ">=" between int and int is always true.'
+			identifier: greaterOrEqual.alwaysTrue
+			count: 1
+			path: repo/src/PhpSpreadsheet/Calculation/DateTimeExcel/Date.php
+
+		-
 			rawMessage: Possibly invalid array key type int|string|null.
 			identifier: offsetAccess.invalidOffset
 			count: 4
