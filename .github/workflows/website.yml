@@ -157,6 +157,9 @@ jobs:
   visual-regression:
     name: "Visual Regression Tests"
     runs-on: "ubuntu-latest"
+    environment:
+      name: ${{ github.event_name == 'push' && 'bot-pr' || '' }}
+      deployment: false
     needs: build
 
     steps:
@@ -242,10 +245,12 @@ jobs:
         if: "failure() && github.event_name == 'push'"
         uses: peter-evans/create-pull-request@3ffccacd46053766916f087ce41d627c0b8cf2d1 # v8.1.3
         with:
-          token: ${{ secrets.PHPSTAN_BOT_TOKEN }}
+          token: ${{ secrets.PHPSTAN_BOT_PULL_REQUESTS_TOKEN }}
           add-paths: |
             website/visual-tests/__screenshots__/
           branch: "create-pull-request/visual-tests"
+          # a new branch each time: updating an existing one needs a ruleset bypass
+          branch-suffix: random
           delete-branch: true
           title: "Update visual tests screenshots"
           commit-message: "Update visual tests screenshots"
@@ -414,5 +419,5 @@ jobs:
 
       - uses: peter-evans/repository-dispatch@28959ce8df70de7be546dd1250a005dd32156697 # v4.0.1
         with:
-          token: ${{ secrets.PHPSTAN_BOT_TOKEN }}
+          token: ${{ secrets.PHPSTAN_BOT_CONTENTS_TOKEN }}
           event-type: check_website_links
