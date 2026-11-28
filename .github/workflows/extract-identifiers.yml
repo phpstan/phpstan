@@ -93,6 +93,9 @@ jobs:
     needs: extract
 
     runs-on: "ubuntu-latest"
+    environment:
+      name: push
+      deployment: false
 
     steps:
       - name: Harden the runner (Audit all outbound calls)
@@ -100,11 +103,20 @@ jobs:
         with:
           egress-policy: audit
 
+      - name: "Mint a push token for phpstan/phpstan"
+        id: push-token
+        uses: actions/create-github-app-token@f418cff399f7aef4c2f0ad47e25ca7a6abbdd6fc # v3.4.0
+        with:
+          client-id: ${{ vars.PUSH_APP_CLIENT_ID }}
+          private-key: ${{ secrets.PUSH_APP_PRIVATE_KEY }}
+          repositories: phpstan
+          permission-contents: write
+
       - name: "Checkout"
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          token: ${{ secrets.PHPSTAN_BOT_TOKEN }}
-          persist-credentials: true # zizmor: ignore[artipacked] git-auto-commit-action pushes with these credentials
+          token: ${{ steps.push-token.outputs.token }}
+          persist-credentials: true # zizmor: ignore[artipacked] git-auto-commit-action pushes with these phpstan-push App credentials; the commit stays authored by phpstan-bot
 
       - name: "Install PHP"
         uses: "shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962" # 2.40.0

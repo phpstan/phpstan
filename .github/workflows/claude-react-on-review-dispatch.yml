@@ -35,7 +35,7 @@ jobs:
       - name: Trigger Claude PR Review
         if: steps.download.outcome == 'success'
         env:
-          GH_TOKEN: ${{ secrets.PHPSTAN_BOT_TOKEN }}
+          GH_TOKEN: ${{ secrets.PHPSTAN_BOT_FORK_DISPATCH_TOKEN }}
         run: |
           pr_number=$(cat pr_number.txt)
           review_id=$(cat review_id.txt)

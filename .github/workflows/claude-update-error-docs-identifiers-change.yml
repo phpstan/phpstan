@@ -22,6 +22,6 @@ jobs:
 
       - name: Trigger Claude Update Error Docs
         env:
-          GH_TOKEN: ${{ secrets.PHPSTAN_BOT_TOKEN }}
+          GH_TOKEN: ${{ secrets.PHPSTAN_BOT_FORK_DISPATCH_TOKEN }}
           SHA: ${{ github.sha }}
         run: gh workflow run claude-update-error-docs.yml -f sha="$SHA" --repo phpstan-bot/phpstan

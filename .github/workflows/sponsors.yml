@@ -24,6 +24,9 @@ jobs:
   sponsors:
     name: "Generate Sponsors"
     runs-on: ubuntu-latest
+    environment:
+      name: push
+      deployment: false
     env:
       SPONSOR_TEMPLATE: "<li><a href=\"https://github.com/{{{ login }}}\">{{{ name }}} ({{{ login }}})</a></li>\n"
     steps:
@@ -43,11 +46,20 @@ jobs:
           git_user_signingkey: true
           git_commit_gpgsign: true
 
+      - name: "Mint a push token for phpstan/phpstan"
+        id: push-token
+        uses: actions/create-github-app-token@f418cff399f7aef4c2f0ad47e25ca7a6abbdd6fc # v3.4.0
+        with:
+          client-id: ${{ vars.PUSH_APP_CLIENT_ID }}
+          private-key: ${{ secrets.PUSH_APP_PRIVATE_KEY }}
+          repositories: phpstan
+          permission-contents: write
+
       - name: "Checkout"
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          token: ${{ secrets.PHPSTAN_BOT_TOKEN }}
-          persist-credentials: true # zizmor: ignore[artipacked] git-auto-commit-action pushes with these credentials
+          token: ${{ steps.push-token.outputs.token }}
+          persist-credentials: true # zizmor: ignore[artipacked] git-auto-commit-action pushes with these phpstan-push App credentials; the commit stays authored by phpstan-bot
 
       - name: Generate Sponsors
         uses: ondrejmirtes/github-sponsors-readme-action@9fd59795af9477235df8f234f962ef3dd854592f # v1.2.2.3
