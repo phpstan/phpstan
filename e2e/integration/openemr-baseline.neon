@@ -1511,3 +1511,9 @@ parameters:
 			identifier: empty.offset
 			count: 1
 			path: repo/src/Services/SDOH/HistorySdohService.php
+
+		-
+			message: '#^Parameter \#1 \$text of function attr_js expects string, int\<0, max\>\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/interface/reports/patient_list_creation.php
