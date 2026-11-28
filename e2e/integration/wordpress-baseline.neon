@@ -49,6 +49,18 @@ parameters:
 			path: repo/src/wp-includes/class-wp-query.php
 
 		-
+			message: '#^Parameter \#1 \$str of function strtoupper expects string, true given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/src/wp-includes/class-wp-token-map.php
+
+		-
+			message: '#^Comparison operation "\<" between int\<0, max\> and int\<1, max\> is always true\.$#'
+			identifier: smaller.alwaysTrue
+			count: 1
+			path: repo/src/wp-includes/functions.php
+
+		-
 			message: '#^Right side of && is always true\.$#'
 			identifier: booleanAnd.rightAlwaysTrue
 			count: 1

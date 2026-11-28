@@ -13,6 +13,12 @@ parameters:
 			path: repo/app/bundles/CampaignBundle/Controller/EventController.php
 
 		-
+			message: '#^Method Mautic\\CampaignBundle\\Executioner\\KickoffExecutioner\:\:execute\(\) never returns null so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: repo/app/bundles/CampaignBundle/Executioner/KickoffExecutioner.php
+
+		-
 			message: '#^Negated boolean expression is always true\.$#'
 			identifier: booleanNot.alwaysTrue
 			count: 2

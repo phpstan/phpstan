@@ -355,6 +355,12 @@ parameters:
 			path: repo/interface/modules/zend_modules/module/Application/src/Application/Helper/Javascript.php
 
 		-
+			message: '#^Binary operation "\.\=" between string and mixed results in an error\.$#'
+			identifier: assignOp.invalid
+			count: 1
+			path: repo/interface/modules/zend_modules/module/Carecoordination/src/Carecoordination/Controller/EncountermanagerController.php
+
+		-
 			message: '#^Loose comparison using \!\= between HTML_TreeNode and null will always evaluate to true\.$#'
 			identifier: notEqual.alwaysTrue
 			count: 1
@@ -685,6 +691,12 @@ parameters:
 			path: repo/portal/report/document_downloads_action.php
 
 		-
+			message: '#^Loose comparison using \!\= between mixed and mixed will always evaluate to true\.$#'
+			identifier: notEqual.alwaysTrue
+			count: 1
+			path: repo/portal/report/document_downloads_action.php
+
+		-
 			message: '#^Negated boolean expression is always false\.$#'
 			identifier: booleanNot.alwaysFalse
 			count: 1
@@ -779,6 +791,12 @@ parameters:
 			identifier: assignOp.invalid
 			count: 1
 			path: repo/src/Services/AppointmentService.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between ''cancelled''\|''completed''\|''failed''\|''rejected'' and ''entered\-in\-error'' will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 1
+			path: repo/src/Services/FHIR/FhirTaskWriteRules.php
 
 		-
 			message: '#^Parameter \#1 \$array of function array_values expects array\<mixed\>, mixed given\.$#'
@@ -1379,6 +1397,12 @@ parameters:
 			identifier: binaryOp.invalid
 			count: 1
 			path: repo/src/Services/Qdm/ResultsCalculator.php
+
+		-
+			message: '#^Call to method PHPUnit\\Framework\\Assert\:\:assertSame\(\) with array\<mixed\> and array\<mixed\> will always evaluate to true\.$#'
+			identifier: method.alreadyNarrowedType
+			count: 1
+			path: repo/tests/Tests/Isolated/Common/Http/RawPostParserIsolatedTest.php
 
 		-
 			message: '#^Parameter \#2 \$callback of function array_reduce expects callable\(array\<array\>, mixed\)\: array\<array\>, Closure\(array, string\)\: non\-empty\-array\<array\> given\.$#'
